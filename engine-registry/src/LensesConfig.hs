@@ -1,6 +1,6 @@
 module LensesConfig where
 
-import Control.Lens (makeFields)
+import Control.Lens (makeFields, makeFieldsNoPrefix)
 
 import Registry.Api.Resource.ActionKey.ActionKeyDTO
 import Registry.Api.Resource.Organization.OrganizationChangeDTO
@@ -48,25 +48,25 @@ import Shared.Model.PackageBundle.PackageBundle
 -- Model
 -- -------------------------------------
 -- Model / ActionKey
-makeFields ''ActionKey
+makeFieldsNoPrefix ''ActionKey
 
 -- Model / Config
-makeFields ''ServerConfig
+makeFieldsNoPrefix ''ServerConfig
 
-makeFields ''ServerConfigGeneral
+makeFieldsNoPrefix ''ServerConfigGeneral
 
-makeFields ''ServerConfigDatabase
+makeFieldsNoPrefix ''ServerConfigDatabase
 
-makeFields ''ServerConfigMail
+makeFieldsNoPrefix ''ServerConfigMail
 
-makeFields ''ServerConfigAnalytics
+makeFieldsNoPrefix ''ServerConfigAnalytics
 
-makeFields ''BuildInfoConfig
+makeFieldsNoPrefix ''BuildInfoConfig
 
 -- Model / Context
-makeFields ''BaseContext
+makeFieldsNoPrefix ''BaseContext
 
-makeFields ''AppContext
+makeFieldsNoPrefix ''AppContext
 
 -- Model / Event
 makeFields ''EventField
@@ -191,24 +191,24 @@ makeFields ''Tag
 makeFields ''Integration
 
 -- Model / Organization
-makeFields ''Organization
+makeFieldsNoPrefix ''Organization
 
 -- Model / Package
-makeFields ''Package
+makeFieldsNoPrefix ''Package
 
-makeFields ''PackageWithEvents
+makeFieldsNoPrefix ''PackageWithEvents
 
 -- Model / PackageBundle
-makeFields ''PackageBundle
+makeFieldsNoPrefix ''PackageBundle
 
 -- Model / Statistics
-makeFields ''InstanceStatistics
+makeFieldsNoPrefix ''InstanceStatistics
 
 -- -------------------------------------
 -- Api / Resource
 -- -------------------------------------
 -- Api / Resource / ActionKey
-makeFields ''ActionKeyDTO
+makeFieldsNoPrefix ''ActionKeyDTO
 
 -- Api / Resource / Event
 makeFields ''AddKnowledgeModelEventDTO
@@ -294,7 +294,7 @@ makeFields ''MoveExpertEventDTO
 makeFields ''MoveReferenceEventDTO
 
 -- Api / Resource / Info
-makeFields ''InfoDTO
+makeFieldsNoPrefix ''InfoDTO
 
 -- Api / Resource / KnowledgeModel
 makeFields ''KnowledgeModelDTO
@@ -334,20 +334,20 @@ makeFields ''TagDTO
 makeFields ''IntegrationDTO
 
 -- Api / Resource / Organization
-makeFields ''OrganizationDTO
+makeFieldsNoPrefix ''OrganizationDTO
 
-makeFields ''OrganizationCreateDTO
+makeFieldsNoPrefix ''OrganizationCreateDTO
 
-makeFields ''OrganizationChangeDTO
+makeFieldsNoPrefix ''OrganizationChangeDTO
 
-makeFields ''OrganizationStateDTO
+makeFieldsNoPrefix ''OrganizationStateDTO
 
 -- Api / Resource / Package
-makeFields ''PackageDTO
+makeFieldsNoPrefix ''PackageDTO
 
-makeFields ''PackageSimpleDTO
+makeFieldsNoPrefix ''PackageSimpleDTO
 
-makeFields ''PackageDetailDTO
+makeFieldsNoPrefix ''PackageDetailDTO
 
 -- Api / Resource / PackageBundle
-makeFields ''PackageBundleDTO
+makeFieldsNoPrefix ''PackageBundleDTO

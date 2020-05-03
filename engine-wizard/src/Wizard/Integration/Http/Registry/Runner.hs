@@ -25,7 +25,7 @@ import Wizard.Service.Config.AppConfigService
 
 retrieveOrganizations :: AppContextM [OrganizationSimpleDTO]
 retrieveOrganizations = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   if appConfig ^. knowledgeModelRegistry . enabled
     then runRequest
@@ -35,21 +35,21 @@ retrieveOrganizations = do
 
 createOrganization :: OrganizationCreateDTO -> AppContextM OrganizationDTO
 createOrganization reqDto = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let request = toCreateOrganizationRequest serverConfig reqDto
   res <- runRegistryClient request
   return . getResponse $ res
 
 confirmOrganizationRegistration :: RegistryConfirmationDTO -> AppContextM OrganizationDTO
 confirmOrganizationRegistration reqDto = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let request = toConfirmOrganizationRegistrationRequest serverConfig reqDto
   res <- runRegistryClient request
   return . getResponse $ res
 
 retrievePackages :: InstanceStatistics -> AppContextM [PackageSimpleIDTO]
 retrievePackages iStat = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   if appConfig ^. knowledgeModelRegistry . enabled
     then runRequest
@@ -59,7 +59,7 @@ retrievePackages iStat = do
 
 retrievePackageBundleById :: String -> AppContextM BSL.ByteString
 retrievePackageBundleById pkgId = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   if appConfig ^. knowledgeModelRegistry . enabled
     then runRequest

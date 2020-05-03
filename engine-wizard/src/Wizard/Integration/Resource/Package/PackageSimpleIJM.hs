@@ -9,25 +9,25 @@ import Wizard.Integration.Resource.Package.PackageSimpleIDTO
 instance ToJSON PackageSimpleIDTO where
   toJSON PackageSimpleIDTO {..} =
     object
-      [ "id" .= _packageSimpleIDTOPId
-      , "name" .= _packageSimpleIDTOName
-      , "organizationId" .= _packageSimpleIDTOOrganizationId
-      , "kmId" .= _packageSimpleIDTOKmId
-      , "version" .= _packageSimpleIDTOVersion
-      , "description" .= _packageSimpleIDTODescription
-      , "organization" .= _packageSimpleIDTOOrganization
-      , "createdAt" .= _packageSimpleIDTOCreatedAt
+      [ "id" .= _pId
+      , "name" .= _name
+      , "organizationId" .= _organizationId
+      , "kmId" .= _kmId
+      , "version" .= _version
+      , "description" .= _description
+      , "organization" .= _organization
+      , "createdAt" .= _createdAt
       ]
 
 instance FromJSON PackageSimpleIDTO where
   parseJSON (Object o) = do
-    _packageSimpleIDTOPId <- o .: "id"
-    _packageSimpleIDTOName <- o .: "name"
-    _packageSimpleIDTOOrganizationId <- o .: "organizationId"
-    _packageSimpleIDTOKmId <- o .: "kmId"
-    _packageSimpleIDTOVersion <- o .: "version"
-    _packageSimpleIDTODescription <- o .: "description"
-    _packageSimpleIDTOOrganization <- o .: "organization"
-    _packageSimpleIDTOCreatedAt <- o .: "createdAt"
+    _pId <- o .: "id"
+    _name <- o .: "name"
+    _organizationId <- o .: "organizationId"
+    _kmId <- o .: "kmId"
+    _version <- o .: "version"
+    _description <- o .: "description"
+    _organization <- o .: "organization"
+    _createdAt <- o .: "createdAt"
     return PackageSimpleIDTO {..}
   parseJSON _ = mzero

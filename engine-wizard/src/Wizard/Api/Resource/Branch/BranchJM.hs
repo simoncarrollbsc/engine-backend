@@ -7,7 +7,7 @@ import Wizard.Api.Resource.Branch.BranchDTO
 import Wizard.Api.Resource.Branch.BranchStateJM ()
 
 instance FromJSON BranchDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON BranchDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

@@ -20,16 +20,16 @@ import Wizard.Model.Config.ServerConfig
 
 data AppContext =
   AppContext
-    { _appContextServerConfig :: ServerConfig
-    , _appContextLocalization :: M.Map String String
-    , _appContextBuildInfoConfig :: BuildInfoConfig
-    , _appContextPool :: ConnectionPool
-    , _appContextMsgChannel :: Maybe Channel
-    , _appContextHttpClientManager :: Manager
-    , _appContextRegistryClient :: ClientEnv
-    , _appContextTraceUuid :: U.UUID
-    , _appContextCurrentUser :: Maybe UserDTO
-    , _appContextShutdownFlag :: MVar ()
+    { _serverConfig :: ServerConfig
+    , _localization :: M.Map String String
+    , _buildInfoConfig :: BuildInfoConfig
+    , _pool :: ConnectionPool
+    , _msgChannel :: Maybe Channel
+    , _httpClientManager :: Manager
+    , _registryClient :: ClientEnv
+    , _traceUuid :: U.UUID
+    , _currentUser :: Maybe UserDTO
+    , _shutdownFlag :: MVar ()
     }
 
 newtype AppContextM a =

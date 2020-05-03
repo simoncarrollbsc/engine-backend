@@ -35,7 +35,7 @@ generateTokenFromCredentials tokenCreateDto = do
   user <- getUser
   checkIsUserActive user
   authenticateUser user
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   now <- liftIO getCurrentTime
   return . toDTO $ createToken user now (serverConfig ^. jwt) (serverConfig ^. general . secret)
   where
@@ -59,7 +59,7 @@ generateTokenFromCredentials tokenCreateDto = do
 
 generateTokenFromUser :: UserDTO -> AppContextM TokenDTO
 generateTokenFromUser user = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   now <- liftIO getCurrentTime
   return . toDTO $ createToken user now (serverConfig ^. jwt) (serverConfig ^. general . secret)
 

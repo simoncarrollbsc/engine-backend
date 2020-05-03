@@ -9,15 +9,15 @@ import Wizard.Model.Branch.BranchState
 
 data BranchDetailDTO =
   BranchDetailDTO
-    { _branchDetailDTOUuid :: U.UUID
-    , _branchDetailDTOName :: String
-    , _branchDetailDTOKmId :: String
-    , _branchDetailDTOState :: BranchState
-    , _branchDetailDTOPreviousPackageId :: Maybe String
-    , _branchDetailDTOForkOfPackageId :: Maybe String
-    , _branchDetailDTOOwnerUuid :: Maybe U.UUID
-    , _branchDetailDTOEvents :: [EventDTO]
-    , _branchDetailDTOCreatedAt :: UTCTime
-    , _branchDetailDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _kmId :: String
+    , _state :: BranchState
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _ownerUuid :: Maybe U.UUID
+    , _events :: [EventDTO]
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Generic)

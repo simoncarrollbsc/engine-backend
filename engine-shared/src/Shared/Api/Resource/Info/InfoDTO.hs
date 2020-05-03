@@ -4,8 +4,8 @@ import GHC.Generics
 
 data InfoDTO =
   InfoDTO
-    { _infoDTOName :: String
-    , _infoDTOVersion :: String
-    , _infoDTOBuiltAt :: String
+    { _name :: String
+    , _version :: String
+    , _builtAt :: String
     }
   deriving (Show, Eq, Generic)

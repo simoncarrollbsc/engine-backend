@@ -4,6 +4,6 @@ import GHC.Generics
 
 data MigratorStateCreateDTO =
   MigratorStateCreateDTO
-    { _migratorStateCreateDTOTargetPackageId :: String
+    { _targetPackageId :: String
     }
   deriving (Show, Eq, Generic)

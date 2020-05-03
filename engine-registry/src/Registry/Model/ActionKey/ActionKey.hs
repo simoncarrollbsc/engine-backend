@@ -11,16 +11,13 @@ data ActionKeyType
 
 data ActionKey =
   ActionKey
-    { _actionKeyUuid :: U.UUID
-    , _actionKeyOrganizationId :: String
-    , _actionKeyAType :: ActionKeyType
-    , _actionKeyHash :: String
-    , _actionKeyCreatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _organizationId :: String
+    , _aType :: ActionKeyType
+    , _hash :: String
+    , _createdAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq ActionKey where
-  a == b =
-    _actionKeyUuid a == _actionKeyUuid b &&
-    _actionKeyOrganizationId a == _actionKeyOrganizationId b &&
-    _actionKeyAType a == _actionKeyAType b && _actionKeyHash a == _actionKeyHash b
+  a == b = _uuid a == _uuid b && _organizationId a == _organizationId b && _aType a == _aType b && _hash a == _hash b

@@ -13,7 +13,7 @@ instance FromJSON DocumentState
 instance ToJSON DocumentState
 
 instance FromJSON DocumentDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON DocumentDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

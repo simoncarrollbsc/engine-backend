@@ -61,9 +61,9 @@ log logLevel component message =
 -- ---------------------------------------------------------------------------
 logU :: (MonadReader AppContext m, MonadLogger m) => LogLevel -> String -> String -> m ()
 logU logLevel component message = do
-  mUser <- asks _appContextCurrentUser
-  traceUuid <- asks _appContextTraceUuid
-  let mUserUuid = fmap (U.toString . _userDTOUuid) mUser
+  mUser <- asks _currentUser
+  traceUuid <- asks _traceUuid
+  let mUserUuid = fmap (U.toString . _uuid) mUser
   let mTraceUuid = Just . U.toString $ traceUuid
   let record = createLogRecord logLevel mUserUuid mTraceUuid component message
   logWithoutLoc "" (LevelOther . T.pack . showLogLevel $ logLevel) record

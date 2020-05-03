@@ -6,11 +6,11 @@ import Wizard.Model.User.User
 
 data UserCreateDTO =
   UserCreateDTO
-    { _userCreateDTOFirstName :: String
-    , _userCreateDTOLastName :: String
-    , _userCreateDTOEmail :: Email
-    , _userCreateDTOAffiliation :: Maybe String
-    , _userCreateDTORole :: Maybe Role
-    , _userCreateDTOPassword :: String
+    { _firstName :: String
+    , _lastName :: String
+    , _email :: Email
+    , _affiliation :: Maybe String
+    , _role :: Maybe Role
+    , _password :: String
     }
   deriving (Generic)

@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Typehint.TypehintDTO
 
 instance FromJSON TypehintDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON TypehintDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

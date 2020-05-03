@@ -16,16 +16,16 @@ import Shared.Database.Migration.Development.Organization.Data.Organizations
 orgGlobal :: Organization
 orgGlobal =
   Organization
-    { _organizationOrganizationId = "global"
-    , _organizationName = "Organization"
-    , _organizationDescription = "Some description of Organization"
-    , _organizationEmail = "organization@example.com"
-    , _organizationRole = AdminRole
-    , _organizationToken = "GlobalToken"
-    , _organizationActive = True
-    , _organizationLogo = Just orgLogo
-    , _organizationCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
-    , _organizationUpdatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
+    { _organizationId = "global"
+    , _name = "Organization"
+    , _description = "Some description of Organization"
+    , _email = "organization@example.com"
+    , _role = AdminRole
+    , _token = "GlobalToken"
+    , _active = True
+    , _logo = Just orgLogo
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    , _updatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
 orgGlobalDTO :: OrganizationDTO
@@ -34,49 +34,46 @@ orgGlobalDTO = toDTO orgGlobal
 orgGlobalCreate :: OrganizationCreateDTO
 orgGlobalCreate =
   OrganizationCreateDTO
-    { _organizationCreateDTOOrganizationId = orgGlobal ^. organizationId
-    , _organizationCreateDTOName = orgGlobal ^. name
-    , _organizationCreateDTODescription = orgGlobal ^. description
-    , _organizationCreateDTOEmail = orgGlobal ^. email
+    { _organizationId = orgGlobal ^. organizationId
+    , _name = orgGlobal ^. name
+    , _description = orgGlobal ^. description
+    , _email = orgGlobal ^. email
     }
 
 orgGlobalEdited :: Organization
 orgGlobalEdited =
   Organization
-    { _organizationOrganizationId = orgGlobal ^. organizationId
-    , _organizationName = "EDITED: Organization"
-    , _organizationDescription = "EDITED: Some description of Organization"
-    , _organizationEmail = "edited-organization@example.com"
-    , _organizationRole = orgGlobal ^. role
-    , _organizationToken = orgGlobal ^. token
-    , _organizationActive = orgGlobal ^. active
-    , _organizationLogo = orgGlobal ^. logo
-    , _organizationCreatedAt = orgGlobal ^. createdAt
-    , _organizationUpdatedAt = orgGlobal ^. updatedAt
+    { _organizationId = orgGlobal ^. organizationId
+    , _name = "EDITED: Organization"
+    , _description = "EDITED: Some description of Organization"
+    , _email = "edited-organization@example.com"
+    , _role = orgGlobal ^. role
+    , _token = orgGlobal ^. token
+    , _active = orgGlobal ^. active
+    , _logo = orgGlobal ^. logo
+    , _createdAt = orgGlobal ^. createdAt
+    , _updatedAt = orgGlobal ^. updatedAt
     }
 
 orgGlobalEditedChange :: OrganizationChangeDTO
 orgGlobalEditedChange =
   OrganizationChangeDTO
-    { _organizationChangeDTOName = orgGlobalEdited ^. name
-    , _organizationChangeDTODescription = orgGlobalEdited ^. description
-    , _organizationChangeDTOEmail = orgGlobalEdited ^. email
-    }
+    {_name = orgGlobalEdited ^. name, _description = orgGlobalEdited ^. description, _email = orgGlobalEdited ^. email}
 
 orgNetherlands :: Organization
 orgNetherlands =
   Organization
-    { _organizationOrganizationId = "org.nl"
-    , _organizationName = "Organization Netherlands"
-    , _organizationDescription = "Some description of Organization Netherlands"
-    , _organizationEmail = "netherlands@example.com"
-    , _organizationRole = UserRole
-    , _organizationToken = "NetherlandsToken"
-    , _organizationActive = True
-    , _organizationLogo = Just orgLogo
-    , _organizationCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
-    , _organizationUpdatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
+    { _organizationId = "org.nl"
+    , _name = "Organization Netherlands"
+    , _description = "Some description of Organization Netherlands"
+    , _email = "netherlands@example.com"
+    , _role = UserRole
+    , _token = "NetherlandsToken"
+    , _active = True
+    , _logo = Just orgLogo
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    , _updatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
 orgStateDto :: OrganizationStateDTO
-orgStateDto = OrganizationStateDTO {_organizationStateDTOActive = True}
+orgStateDto = OrganizationStateDTO {_active = True}

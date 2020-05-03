@@ -4,8 +4,8 @@ import GHC.Generics
 
 data VersionDTO =
   VersionDTO
-    { _versionDTODescription :: String
-    , _versionDTOReadme :: String
-    , _versionDTOLicense :: String
+    { _description :: String
+    , _readme :: String
+    , _license :: String
     }
   deriving (Generic)

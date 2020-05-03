@@ -3,29 +3,26 @@ module Registry.Api.Resource.Organization.OrganizationDTO where
 import Data.Time
 import GHC.Generics
 
-import Registry.Model.Organization.Organization
+import qualified Registry.Model.Organization.Organization as Organization
 
 data OrganizationDTO =
   OrganizationDTO
-    { _organizationDTOOrganizationId :: String
-    , _organizationDTOName :: String
-    , _organizationDTODescription :: String
-    , _organizationDTOEmail :: String
-    , _organizationDTORole :: OrganizationRole
-    , _organizationDTOToken :: String
-    , _organizationDTOActive :: Bool
-    , _organizationDTOLogo :: Maybe String
-    , _organizationDTOCreatedAt :: UTCTime
-    , _organizationDTOUpdatedAt :: UTCTime
+    { _organizationId :: String
+    , _name :: String
+    , _description :: String
+    , _email :: String
+    , _role :: Organization.OrganizationRole
+    , _token :: String
+    , _active :: Bool
+    , _logo :: Maybe String
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq OrganizationDTO where
   a == b =
-    _organizationDTOOrganizationId a == _organizationDTOOrganizationId b &&
-    _organizationDTOName a == _organizationDTOName b &&
-    _organizationDTODescription a == _organizationDTODescription b &&
-    _organizationDTOEmail a == _organizationDTOEmail b &&
-    _organizationDTORole a == _organizationDTORole b &&
-    _organizationDTOToken a == _organizationDTOToken b &&
-    _organizationDTOActive a == _organizationDTOActive b && _organizationDTOLogo a == _organizationDTOLogo b
+    _organizationId a == _organizationId b &&
+    _name a == _name b &&
+    _description a == _description b &&
+    _email a == _email b && _role a == _role b && _token a == _token b && _active a == _active b && _logo a == _logo b

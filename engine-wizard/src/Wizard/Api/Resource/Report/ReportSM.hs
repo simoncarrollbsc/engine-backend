@@ -12,34 +12,25 @@ import Wizard.Database.Migration.Development.Report.Data.Reports
 import Wizard.Service.Report.ReportMapper
 
 instance ToSchema ReportDTO where
-  declareNamedSchema = simpleToSchema (toReportDTO report1)
+  declareNamedSchema = simpleToSchema''' (toReportDTO report1)
 
 instance ToSchema TotalReportDTO where
-  declareNamedSchema = simpleToSchema (toTotalReportDTO report1_total)
+  declareNamedSchema = simpleToSchema''' (toTotalReportDTO report1_total)
 
 instance ToSchema ChapterReportDTO where
-  declareNamedSchema = simpleToSchema (toChapterReportDTO report1_ch1)
+  declareNamedSchema = simpleToSchema''' (toChapterReportDTO report1_ch1)
 
 instance ToSchema IndicationDTO where
   declareNamedSchema = genericDeclareNamedSchemaUnrestricted defaultSchemaOptions
 
-instance ToSchema AnsweredIndicationDTO where
-  declareNamedSchema = simpleToSchema'' "_answeredIndicationDTO" "indicationType" answeredAnsweredIndication
-
-instance ToSchema LevelsAnsweredIndicationDTO where
-  declareNamedSchema = simpleToSchema'' "_levelsAnsweredIndicationDTO" "indicationType" levelsAnsweredIndication
-
 instance ToSchema MetricSummaryDTO where
-  declareNamedSchema = simpleToSchema metricSummaryF
+  declareNamedSchema = simpleToSchema''' metricSummaryF
 
-levelsAnsweredIndication :: LevelsAnsweredIndicationDTO
-levelsAnsweredIndication =
-  LevelsAnsweredIndicationDTO
-    {_levelsAnsweredIndicationDTOAnsweredQuestions = 5, _levelsAnsweredIndicationDTOUnansweredQuestions = 1}
+levelsAnsweredIndication :: IndicationDTO
+levelsAnsweredIndication = LevelsAnsweredIndicationDTO {_answeredQuestions = 5, _unansweredQuestions = 1}
 
-answeredAnsweredIndication :: AnsweredIndicationDTO
-answeredAnsweredIndication =
-  AnsweredIndicationDTO {_answeredIndicationDTOAnsweredQuestions = 12, _answeredIndicationDTOUnansweredQuestions = 1}
+answeredAnsweredIndication :: IndicationDTO
+answeredAnsweredIndication = AnsweredIndicationDTO {_answeredQuestions = 12, _unansweredQuestions = 1}
 
 metricSummaryF :: MetricSummaryDTO
-metricSummaryF = MetricSummaryDTO {_metricSummaryDTOMetricUuid = metricF ^. uuid, _metricSummaryDTOMeasure = 1.0}
+metricSummaryF = MetricSummaryDTO {_metricUuid = metricF ^. uuid, _measure = 1.0}

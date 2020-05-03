@@ -7,7 +7,7 @@ import Wizard.Api.Resource.Questionnaire.QuestionnaireAccessibilityJM ()
 import Wizard.Api.Resource.Questionnaire.QuestionnaireCreateDTO
 
 instance FromJSON QuestionnaireCreateDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON QuestionnaireCreateDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

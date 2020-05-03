@@ -39,7 +39,7 @@ import Shared.Model.Error.Error
 
 sendRegistrationConfirmationMail :: OrganizationDTO -> String -> Maybe String -> AppContextM ()
 sendRegistrationConfirmationMail org hash mCallbackUrl = do
-  serverConfig <- asks _appContextApplicationConfig
+  serverConfig <- asks _serverConfig
   let clientAddress = fromMaybe (serverConfig ^. general . clientUrl) mCallbackUrl
       activationLink =
         case mCallbackUrl of
@@ -54,7 +54,7 @@ sendRegistrationConfirmationMail org hash mCallbackUrl = do
 
 sendRegistrationCreatedAnalyticsMail :: OrganizationDTO -> AppContextM ()
 sendRegistrationCreatedAnalyticsMail org = do
-  serverConfig <- asks _appContextApplicationConfig
+  serverConfig <- asks _serverConfig
   let clientAddress = serverConfig ^. general . clientUrl
       analyticsAddress = fromMaybe "" $ serverConfig ^. analytics . email
       mailName = fromMaybe "" $ serverConfig ^. mail . name
@@ -65,7 +65,7 @@ sendRegistrationCreatedAnalyticsMail org = do
 
 sendResetTokenMail :: OrganizationDTO -> String -> AppContextM ()
 sendResetTokenMail org hash = do
-  serverConfig <- asks _appContextApplicationConfig
+  serverConfig <- asks _serverConfig
   let clientAddress = serverConfig ^. general . clientUrl
       resetLink = clientAddress ++ "/forgotten-token/" ++ (org ^. organizationId) ++ "/" ++ hash
       mailName = fromMaybe "" $ serverConfig ^. mail . name
@@ -89,7 +89,7 @@ composeAndSendEmail to subject mailName context = do
 
 composeMail :: [String] -> TL.Text -> String -> MailContext -> AppContextM (Either String MIME.Mail)
 composeMail to subject mailName context = do
-  serverConfig <- asks _appContextApplicationConfig
+  serverConfig <- asks _serverConfig
   let mailConfig = serverConfig ^. mail
       addrFrom = MIME.Address (T.pack <$> mailConfig ^. name) (T.pack . fromMaybe "" $ mailConfig ^. email)
       addrsTo = map (MIME.Address Nothing . T.pack) to
@@ -197,7 +197,7 @@ makeConnection True host (Just port) = SMTPSSL.doSMTPSSLWithSettings host settin
 sendEmail :: [String] -> MIME.Mail -> AppContextM ()
 sendEmail [] mailMessage = throwError . GeneralServerError $ _ERROR_SERVICE_MAIL__TRIED_SEND_TO_NOONE
 sendEmail to mailMessage = do
-  serverConfig <- asks _appContextApplicationConfig
+  serverConfig <- asks _serverConfig
   let mailConfig = serverConfig ^. mail
       from = fromMaybe "" $ mailConfig ^. email
       mailHost = fromMaybe "" $ mailConfig ^. host

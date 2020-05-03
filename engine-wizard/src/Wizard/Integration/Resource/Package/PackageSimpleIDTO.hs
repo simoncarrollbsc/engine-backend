@@ -6,13 +6,13 @@ import Wizard.Integration.Resource.Organization.OrganizationSimpleIDTO
 
 data PackageSimpleIDTO =
   PackageSimpleIDTO
-    { _packageSimpleIDTOPId :: String
-    , _packageSimpleIDTOName :: String
-    , _packageSimpleIDTOOrganizationId :: String
-    , _packageSimpleIDTOKmId :: String
-    , _packageSimpleIDTOVersion :: String
-    , _packageSimpleIDTODescription :: String
-    , _packageSimpleIDTOOrganization :: OrganizationSimpleIDTO
-    , _packageSimpleIDTOCreatedAt :: UTCTime
+    { _pId :: String
+    , _name :: String
+    , _organizationId :: String
+    , _kmId :: String
+    , _version :: String
+    , _description :: String
+    , _organization :: OrganizationSimpleIDTO
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq)

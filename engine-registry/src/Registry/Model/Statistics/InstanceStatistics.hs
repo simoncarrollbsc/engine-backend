@@ -4,8 +4,8 @@ import GHC.Generics
 
 data InstanceStatistics =
   InstanceStatistics
-    { _instanceStatisticsUserCount :: Int
-    , _instanceStatisticsPkgCount :: Int
-    , _instanceStatisticsQtnCount :: Int
+    { _userCount :: Int
+    , _pkgCount :: Int
+    , _qtnCount :: Int
     }
   deriving (Show, Eq, Generic)

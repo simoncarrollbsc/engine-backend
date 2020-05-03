@@ -6,7 +6,7 @@ import Wizard.Model.ActionKey.ActionKey
 
 data ActionKeyDTO =
   ActionKeyDTO
-    { _actionKeyDTOAType :: ActionKeyType
-    , _actionKeyDTOEmail :: String
+    { _aType :: ActionKeyType
+    , _email :: String
     }
   deriving (Show, Eq, Generic)

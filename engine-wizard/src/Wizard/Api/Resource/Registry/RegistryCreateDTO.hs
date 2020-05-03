@@ -4,6 +4,6 @@ import GHC.Generics
 
 data RegistryCreateDTO =
   RegistryCreateDTO
-    { _registryCreateDTOEmail :: String
+    { _email :: String
     }
   deriving (Show, Eq, Generic)

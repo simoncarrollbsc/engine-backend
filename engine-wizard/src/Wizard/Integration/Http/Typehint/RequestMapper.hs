@@ -15,9 +15,9 @@ import Wizard.Util.Interpolation (interpolateMapValues, interpolateString)
 toRetrieveTypehintsRequest :: Integration -> M.Map String String -> HttpRequest
 toRetrieveTypehintsRequest intConfig variables =
   HttpRequest
-    { _httpRequestRequestMethod = intConfig ^. requestMethod
-    , _httpRequestRequestUrl = interpolateString variables (intConfig ^. requestUrl)
-    , _httpRequestRequestHeaders = interpolateMapValues variables (intConfig ^. requestHeaders)
-    , _httpRequestRequestBody = BS.pack $ interpolateString variables (intConfig ^. requestBody)
-    , _httpRequestMultipartFileName = Nothing
+    { _requestMethod = intConfig ^. requestMethod
+    , _requestUrl = interpolateString variables (intConfig ^. requestUrl)
+    , _requestHeaders = interpolateMapValues variables (intConfig ^. requestHeaders)
+    , _requestBody = BS.pack $ interpolateString variables (intConfig ^. requestBody)
+    , _multipartFileName = Nothing
     }

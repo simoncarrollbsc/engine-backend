@@ -6,14 +6,14 @@ import Wizard.Model.Config.AppConfig
 
 data AppConfigChangeDTO =
   AppConfigChangeDTO
-    { _appConfigChangeDTOOrganization :: AppConfigOrganization
-    , _appConfigChangeDTOAuthentication :: AppConfigAuth
-    , _appConfigChangeDTOPrivacyAndSupport :: AppConfigPrivacyAndSupport
-    , _appConfigChangeDTODashboard :: AppConfigDashboard
-    , _appConfigChangeDTOLookAndFeel :: AppConfigLookAndFeel
-    , _appConfigChangeDTOKnowledgeModelRegistry :: AppConfigRegistry
-    , _appConfigChangeDTOQuestionnaire :: AppConfigQuestionnaire
-    , _appConfigChangeDTOTemplate :: AppConfigTemplate
-    , _appConfigChangeDTOSubmission :: AppConfigSubmission
+    { _organization :: AppConfigOrganization
+    , _authentication :: AppConfigAuth
+    , _privacyAndSupport :: AppConfigPrivacyAndSupport
+    , _dashboard :: AppConfigDashboard
+    , _lookAndFeel :: AppConfigLookAndFeel
+    , _knowledgeModelRegistry :: AppConfigRegistry
+    , _questionnaire :: AppConfigQuestionnaire
+    , _template :: AppConfigTemplate
+    , _submission :: AppConfigSubmission
     }
   deriving (Generic, Show)

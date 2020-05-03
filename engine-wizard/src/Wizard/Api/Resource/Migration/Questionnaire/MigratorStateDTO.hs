@@ -7,8 +7,8 @@ import Wizard.Api.Resource.Questionnaire.QuestionnaireDetailDTO
 
 data MigratorStateDTO =
   MigratorStateDTO
-    { _migratorStateDTOOldQuestionnaire :: QuestionnaireDetailDTO
-    , _migratorStateDTONewQuestionnaire :: QuestionnaireDetailDTO
-    , _migratorStateDTOResolvedQuestionUuids :: [U.UUID]
+    { _oldQuestionnaire :: QuestionnaireDetailDTO
+    , _newQuestionnaire :: QuestionnaireDetailDTO
+    , _resolvedQuestionUuids :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

@@ -15,37 +15,70 @@ import Shared.Model.Package.PackageWithEvents
 
 instance ToBSON PackageWithEvents where
   toBSON PackageWithEvents {..} =
-    [ "id" BSON.=: _packageWithEventsPId
-    , "name" BSON.=: _packageWithEventsName
-    , "organizationId" BSON.=: _packageWithEventsOrganizationId
-    , "kmId" BSON.=: _packageWithEventsKmId
-    , "version" BSON.=: _packageWithEventsVersion
-    , "metamodelVersion" BSON.=: _packageWithEventsMetamodelVersion
-    , "description" BSON.=: _packageWithEventsDescription
-    , "readme" BSON.=: _packageWithEventsReadme
-    , "license" BSON.=: _packageWithEventsLicense
-    , "previousPackageId" BSON.=: _packageWithEventsPreviousPackageId
-    , "forkOfPackageId" BSON.=: _packageWithEventsForkOfPackageId
-    , "mergeCheckpointPackageId" BSON.=: _packageWithEventsMergeCheckpointPackageId
-    , "events" BSON.=: convertEventToBSON <$> _packageWithEventsEvents
-    , "createdAt" BSON.=: _packageWithEventsCreatedAt
+    [ "id" BSON.=: _pId
+    , "name" BSON.=: _name
+    , "organizationId" BSON.=: _organizationId
+    , "kmId" BSON.=: _kmId
+    , "version" BSON.=: _version
+    , "metamodelVersion" BSON.=: _metamodelVersion
+    , "description" BSON.=: _description
+    , "readme" BSON.=: _readme
+    , "license" BSON.=: _license
+    , "previousPackageId" BSON.=: _previousPackageId
+    , "forkOfPackageId" BSON.=: _forkOfPackageId
+    , "mergeCheckpointPackageId" BSON.=: _mergeCheckpointPackageId
+    , "events" BSON.=: convertEventToBSON <$> _events
+    , "createdAt" BSON.=: _createdAt
+    ]
+  toBSON' PackageWithEvents {..} =
+    [ "id" BSON.=: _pId
+    , "name" BSON.=: _name
+    , "organizationId" BSON.=: _organizationId
+    , "kmId" BSON.=: _kmId
+    , "version" BSON.=: _version
+    , "metamodelVersion" BSON.=: _metamodelVersion
+    , "description" BSON.=: _description
+    , "readme" BSON.=: _readme
+    , "license" BSON.=: _license
+    , "previousPackageId" BSON.=: _previousPackageId
+    , "forkOfPackageId" BSON.=: _forkOfPackageId
+    , "mergeCheckpointPackageId" BSON.=: _mergeCheckpointPackageId
+    , "events" BSON.=: convertEventToBSON <$> _events
+    , "createdAt" BSON.=: _createdAt
     ]
 
 instance FromBSON PackageWithEvents where
   fromBSON doc = do
-    _packageWithEventsPId <- BSON.lookup "id" doc
-    _packageWithEventsName <- BSON.lookup "name" doc
-    _packageWithEventsOrganizationId <- BSON.lookup "organizationId" doc
-    _packageWithEventsKmId <- BSON.lookup "kmId" doc
-    _packageWithEventsVersion <- BSON.lookup "version" doc
-    _packageWithEventsMetamodelVersion <- BSON.lookup "metamodelVersion" doc
-    _packageWithEventsDescription <- BSON.lookup "description" doc
-    _packageWithEventsReadme <- BSON.lookup "readme" doc
-    _packageWithEventsLicense <- BSON.lookup "license" doc
-    _packageWithEventsPreviousPackageId <- BSON.lookup "previousPackageId" doc
-    _packageWithEventsForkOfPackageId <- BSON.lookup "forkOfPackageId" doc
-    _packageWithEventsMergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
+    _pId <- BSON.lookup "id" doc
+    _name <- BSON.lookup "name" doc
+    _organizationId <- BSON.lookup "organizationId" doc
+    _kmId <- BSON.lookup "kmId" doc
+    _version <- BSON.lookup "version" doc
+    _metamodelVersion <- BSON.lookup "metamodelVersion" doc
+    _description <- BSON.lookup "description" doc
+    _readme <- BSON.lookup "readme" doc
+    _license <- BSON.lookup "license" doc
+    _previousPackageId <- BSON.lookup "previousPackageId" doc
+    _forkOfPackageId <- BSON.lookup "forkOfPackageId" doc
+    _mergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
     pkgEventsSerialized <- BSON.lookup "events" doc
-    let _packageWithEventsEvents = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
-    _packageWithEventsCreatedAt <- BSON.lookup "createdAt" doc
+    let _events = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
+    _createdAt <- BSON.lookup "createdAt" doc
+    return PackageWithEvents {..}
+  fromBSON' doc = do
+    _pId <- BSON.lookup "id" doc
+    _name <- BSON.lookup "name" doc
+    _organizationId <- BSON.lookup "organizationId" doc
+    _kmId <- BSON.lookup "kmId" doc
+    _version <- BSON.lookup "version" doc
+    _metamodelVersion <- BSON.lookup "metamodelVersion" doc
+    _description <- BSON.lookup "description" doc
+    _readme <- BSON.lookup "readme" doc
+    _license <- BSON.lookup "license" doc
+    _previousPackageId <- BSON.lookup "previousPackageId" doc
+    _forkOfPackageId <- BSON.lookup "forkOfPackageId" doc
+    _mergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
+    pkgEventsSerialized <- BSON.lookup "events" doc
+    let _events = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
+    _createdAt <- BSON.lookup "createdAt" doc
     return PackageWithEvents {..}

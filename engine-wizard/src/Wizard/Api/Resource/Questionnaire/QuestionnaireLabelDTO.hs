@@ -5,7 +5,7 @@ import GHC.Generics
 
 data LabelDTO =
   LabelDTO
-    { _labelDTOPath :: String
-    , _labelDTOValue :: [U.UUID]
+    { _path :: String
+    , _value :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

@@ -9,7 +9,7 @@ import Wizard.Api.Resource.Version.VersionDTO
 versionAmsterdam :: VersionDTO
 versionAmsterdam =
   VersionDTO
-    { _versionDTODescription = amsterdamPackage ^. description
-    , _versionDTOReadme = amsterdamPackage ^. readme
-    , _versionDTOLicense = amsterdamPackage ^. license
+    { _description = amsterdamPackage ^. description
+    , _readme = amsterdamPackage ^. readme
+    , _license = amsterdamPackage ^. license
     }

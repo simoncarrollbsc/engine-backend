@@ -4,8 +4,8 @@ import GHC.Generics
 
 data SubmissionServiceSimpleDTO =
   SubmissionServiceSimpleDTO
-    { _submissionServiceSimpleDTOId :: String
-    , _submissionServiceSimpleDTOName :: String
-    , _submissionServiceSimpleDTODescription :: String
+    { _id :: String
+    , _name :: String
+    , _description :: String
     }
   deriving (Show, Eq, Generic)

@@ -44,13 +44,13 @@ exportPackageBundle pbId = do
   let newestPackage = last packages
   let pb =
         PackageBundle
-          { _packageBundleBundleId = newestPackage ^. pId
-          , _packageBundleName = newestPackage ^. name
-          , _packageBundleOrganizationId = newestPackage ^. organizationId
-          , _packageBundleKmId = newestPackage ^. kmId
-          , _packageBundleVersion = newestPackage ^. version
-          , _packageBundleMetamodelVersion = kmMetamodelVersion
-          , _packageBundlePackages = packages
+          { _bundleId = newestPackage ^. pId
+          , _name = newestPackage ^. name
+          , _organizationId = newestPackage ^. organizationId
+          , _kmId = newestPackage ^. kmId
+          , _version = newestPackage ^. version
+          , _metamodelVersion = kmMetamodelVersion
+          , _packages = packages
           }
   return . toDTO $ pb
 

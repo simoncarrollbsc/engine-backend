@@ -8,8 +8,4 @@ import Wizard.Model.Config.AppConfig
 
 toSubmissionServiceSimpleDTO :: AppConfigSubmissionService -> SubmissionServiceSimpleDTO
 toSubmissionServiceSimpleDTO config =
-  SubmissionServiceSimpleDTO
-    { _submissionServiceSimpleDTOId = config ^. sId
-    , _submissionServiceSimpleDTOName = config ^. name
-    , _submissionServiceSimpleDTODescription = config ^. description
-    }
+  SubmissionServiceSimpleDTO {_id = config ^. sId, _name = config ^. name, _description = config ^. description}

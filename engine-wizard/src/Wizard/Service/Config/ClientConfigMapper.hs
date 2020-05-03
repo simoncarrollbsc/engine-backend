@@ -11,49 +11,43 @@ import Wizard.Model.Config.SimpleFeature
 toClientConfigDTO :: ServerConfig -> AppConfig -> ClientConfigDTO
 toClientConfigDTO serverConfig appConfig =
   ClientConfigDTO
-    { _clientConfigDTOOrganization = appConfig ^. organization
-    , _clientConfigDTOAuthentication = toClientAuthDTO $ appConfig ^. authentication
-    , _clientConfigDTOPrivacyAndSupport = appConfig ^. privacyAndSupport
-    , _clientConfigDTODashboard = appConfig ^. dashboard
-    , _clientConfigDTOLookAndFeel = appConfig ^. lookAndFeel
-    , _clientConfigDTOKnowledgeModelRegistry =
+    { _organization = appConfig ^. organization
+    , _authentication = toClientAuthDTO $ appConfig ^. authentication
+    , _privacyAndSupport = appConfig ^. privacyAndSupport
+    , _dashboard = appConfig ^. dashboard
+    , _lookAndFeel = appConfig ^. lookAndFeel
+    , _knowledgeModelRegistry =
         toClientConfigRegistryDTO (serverConfig ^. registry) (appConfig ^. knowledgeModelRegistry)
-    , _clientConfigDTOQuestionnaire = toClientConfigQuestionnaireDTO $ appConfig ^. questionnaire
-    , _clientConfigDTOTemplate = appConfig ^. template
-    , _clientConfigDTOSubmission = SimpleFeature $ appConfig ^. submission . enabled
+    , _questionnaire = toClientConfigQuestionnaireDTO $ appConfig ^. questionnaire
+    , _template = appConfig ^. template
+    , _submission = SimpleFeature $ appConfig ^. submission . enabled
     }
 
 toClientAuthDTO :: AppConfigAuth -> ClientConfigAuthDTO
 toClientAuthDTO config =
   ClientConfigAuthDTO
-    { _clientConfigAuthDTODefaultRole = config ^. defaultRole
-    , _clientConfigAuthDTOInternal = config ^. internal
-    , _clientConfigAuthDTOExternal = toClientAuthExternalDTO $ config ^. external
+    { _defaultRole = config ^. defaultRole
+    , _internal = config ^. internal
+    , _external = toClientAuthExternalDTO $ config ^. external
     }
 
 toClientAuthExternalDTO :: AppConfigAuthExternal -> ClientConfigAuthExternalDTO
 toClientAuthExternalDTO config =
-  ClientConfigAuthExternalDTO
-    {_clientConfigAuthExternalDTOServices = toClientAuthExternalServiceDTO <$> config ^. services}
+  ClientConfigAuthExternalDTO {_services = toClientAuthExternalServiceDTO <$> config ^. services}
 
 toClientAuthExternalServiceDTO :: AppConfigAuthExternalService -> ClientConfigAuthExternalServiceDTO
 toClientAuthExternalServiceDTO config =
   ClientConfigAuthExternalServiceDTO
-    { _clientConfigAuthExternalServiceDTOAId = config ^. aId
-    , _clientConfigAuthExternalServiceDTOName = config ^. name
-    , _clientConfigAuthExternalServiceDTOUrl = config ^. url
-    , _clientConfigAuthExternalServiceDTOStyle = config ^. style
-    }
+    {_aId = config ^. aId, _name = config ^. name, _url = config ^. url, _style = config ^. style}
 
 toClientConfigRegistryDTO :: ServerConfigRegistry -> AppConfigRegistry -> ClientConfigRegistryDTO
 toClientConfigRegistryDTO serverConfig appConfig =
-  ClientConfigRegistryDTO
-    {_clientConfigRegistryDTOEnabled = appConfig ^. enabled, _clientConfigRegistryDTOUrl = serverConfig ^. clientUrl}
+  ClientConfigRegistryDTO {_enabled = appConfig ^. enabled, _url = serverConfig ^. clientUrl}
 
 toClientConfigQuestionnaireDTO :: AppConfigQuestionnaire -> ClientConfigQuestionnaireDTO
 toClientConfigQuestionnaireDTO appConfig =
   ClientConfigQuestionnaireDTO
-    { _clientConfigQuestionnaireDTOQuestionnaireAccessibility = appConfig ^. questionnaireAccessibility
-    , _clientConfigQuestionnaireDTOLevels = appConfig ^. levels
-    , _clientConfigQuestionnaireDTOFeedback = SimpleFeature $ appConfig ^. feedback . enabled
+    { _questionnaireAccessibility = appConfig ^. questionnaireAccessibility
+    , _levels = appConfig ^. levels
+    , _feedback = SimpleFeature $ appConfig ^. feedback . enabled
     }

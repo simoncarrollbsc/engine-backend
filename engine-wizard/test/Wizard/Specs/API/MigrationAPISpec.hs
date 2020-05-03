@@ -156,7 +156,7 @@ migratorAPI appContext = do
         it "HTTP 400 BAD REQUEST when target Package is not higher than current one" $
           -- GIVEN: Prepare request
          do
-          let reqDto = MigratorStateCreateDTO {_migratorStateCreateDTOTargetPackageId = "org.nl:core-nl:0.9.0"}
+          let reqDto = MigratorStateCreateDTO {_targetPackageId = "org.nl:core-nl:0.9.0"}
           let reqBody = encode reqDto
           -- AND: Prepare expectation
           let expStatus = 400
@@ -187,10 +187,7 @@ migratorAPI appContext = do
           let branchUuid = fromJust (U.fromString "6474b24b-262b-42b1-9451-008e8363f2b6")
           let branch =
                 BranchCreateDTO
-                  { _branchCreateDTOName = amsterdamPackage ^. name
-                  , _branchCreateDTOKmId = amsterdamPackage ^. kmId
-                  , _branchCreateDTOPreviousPackageId = Nothing
-                  }
+                  {_name = amsterdamPackage ^. name, _kmId = amsterdamPackage ^. kmId, _previousPackageId = Nothing}
           runInContextIO
             (createBranchWithParams branchUuid timestamp (fromJust $ appContext ^. currentUser) branch)
             appContext
@@ -234,7 +231,7 @@ migratorAPI appContext = do
         let reqMethod = methodDelete
         let reqUrl = "/branches/6474b24b-262b-42b1-9451-008e8363f2b6/migrations/current"
         let reqHeaders = [reqAuthHeader, reqCtHeader]
-        let reqDto = MigratorStateCreateDTO {_migratorStateCreateDTOTargetPackageId = netherlandsPackageV2 ^. pId}
+        let reqDto = MigratorStateCreateDTO {_targetPackageId = netherlandsPackageV2 ^. pId}
         let reqBody = encode reqDto
         it "HTTP 204 NO CONTENT" $
            -- GIVEN: Prepare expectation

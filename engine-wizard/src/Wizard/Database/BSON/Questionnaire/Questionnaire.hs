@@ -12,36 +12,68 @@ import Wizard.Model.Questionnaire.Questionnaire
 
 instance ToBSON Questionnaire where
   toBSON Questionnaire {..} =
-    [ "uuid" BSON.=: _questionnaireUuid
-    , "name" BSON.=: _questionnaireName
-    , "level" BSON.=: _questionnaireLevel
-    , "accessibility" BSON.=: _questionnaireAccessibility
-    , "packageId" BSON.=: _questionnairePackageId
-    , "selectedTagUuids" BSON.=: _questionnaireSelectedTagUuids
-    , "templateUuid" BSON.=: _questionnaireTemplateUuid
-    , "formatUuid" BSON.=: _questionnaireFormatUuid
-    , "ownerUuid" BSON.=: _questionnaireOwnerUuid
-    , "creatorUuid" BSON.=: _questionnaireCreatorUuid
-    , "replies" BSON.=: _questionnaireReplies
-    , "labels" BSON.=: _questionnaireLabels
-    , "createdAt" BSON.=: _questionnaireCreatedAt
-    , "updatedAt" BSON.=: _questionnaireUpdatedAt
+    [ "uuid" BSON.=: _uuid
+    , "name" BSON.=: _name
+    , "level" BSON.=: _level
+    , "accessibility" BSON.=: _accessibility
+    , "packageId" BSON.=: _packageId
+    , "selectedTagUuids" BSON.=: _selectedTagUuids
+    , "templateUuid" BSON.=: _templateUuid
+    , "formatUuid" BSON.=: _formatUuid
+    , "ownerUuid" BSON.=: _ownerUuid
+    , "creatorUuid" BSON.=: _creatorUuid
+    , "replies" BSON.=: _replies
+    , "labels" BSON.=: _labels
+    , "createdAt" BSON.=: _createdAt
+    , "updatedAt" BSON.=: _updatedAt
+    ]
+  toBSON' Questionnaire {..} =
+    [ "uuid" BSON.=: _uuid
+    , "name" BSON.=: _name
+    , "level" BSON.=: _level
+    , "accessibility" BSON.=: _accessibility
+    , "packageId" BSON.=: _packageId
+    , "selectedTagUuids" BSON.=: _selectedTagUuids
+    , "templateUuid" BSON.=: _templateUuid
+    , "formatUuid" BSON.=: _formatUuid
+    , "ownerUuid" BSON.=: _ownerUuid
+    , "creatorUuid" BSON.=: _creatorUuid
+    , "replies" BSON.=: _replies
+    , "labels" BSON.=: _labels
+    , "createdAt" BSON.=: _createdAt
+    , "updatedAt" BSON.=: _updatedAt
     ]
 
 instance FromBSON Questionnaire where
   fromBSON doc = do
-    _questionnaireUuid <- BSON.lookup "uuid" doc
-    _questionnaireName <- BSON.lookup "name" doc
-    _questionnaireLevel <- BSON.lookup "level" doc
-    _questionnaireAccessibility <- BSON.lookup "accessibility" doc
-    _questionnairePackageId <- BSON.lookup "packageId" doc
-    _questionnaireSelectedTagUuids <- BSON.lookup "selectedTagUuids" doc
-    let _questionnaireTemplateUuid = BSON.lookup "templateUuid" doc
-    let _questionnaireFormatUuid = BSON.lookup "formatUuid" doc
-    let _questionnaireOwnerUuid = BSON.lookup "ownerUuid" doc
-    let _questionnaireCreatorUuid = BSON.lookup "creatorUuid" doc
-    _questionnaireReplies <- BSON.lookup "replies" doc
-    _questionnaireLabels <- BSON.lookup "labels" doc
-    _questionnaireCreatedAt <- BSON.lookup "createdAt" doc
-    _questionnaireUpdatedAt <- BSON.lookup "updatedAt" doc
+    _uuid <- BSON.lookup "uuid" doc
+    _name <- BSON.lookup "name" doc
+    _level <- BSON.lookup "level" doc
+    _accessibility <- BSON.lookup "accessibility" doc
+    _packageId <- BSON.lookup "packageId" doc
+    _selectedTagUuids <- BSON.lookup "selectedTagUuids" doc
+    let _templateUuid = BSON.lookup "templateUuid" doc
+    let _formatUuid = BSON.lookup "formatUuid" doc
+    let _ownerUuid = BSON.lookup "ownerUuid" doc
+    let _creatorUuid = BSON.lookup "creatorUuid" doc
+    _replies <- BSON.lookup "replies" doc
+    _labels <- BSON.lookup "labels" doc
+    _createdAt <- BSON.lookup "createdAt" doc
+    _updatedAt <- BSON.lookup "updatedAt" doc
+    return Questionnaire {..}
+  fromBSON' doc = do
+    _uuid <- BSON.lookup "uuid" doc
+    _name <- BSON.lookup "name" doc
+    _level <- BSON.lookup "level" doc
+    _accessibility <- BSON.lookup "accessibility" doc
+    _packageId <- BSON.lookup "packageId" doc
+    _selectedTagUuids <- BSON.lookup "selectedTagUuids" doc
+    let _templateUuid = BSON.lookup "templateUuid" doc
+    let _formatUuid = BSON.lookup "formatUuid" doc
+    let _ownerUuid = BSON.lookup "ownerUuid" doc
+    let _creatorUuid = BSON.lookup "creatorUuid" doc
+    _replies <- BSON.lookup "replies" doc
+    _labels <- BSON.lookup "labels" doc
+    _createdAt <- BSON.lookup "createdAt" doc
+    _updatedAt <- BSON.lookup "updatedAt" doc
     return Questionnaire {..}

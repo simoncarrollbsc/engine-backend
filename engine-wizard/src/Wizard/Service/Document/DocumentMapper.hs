@@ -14,28 +14,28 @@ import Wizard.Model.Template.Template
 toDTO :: Document -> Maybe QuestionnaireDTO -> Template -> DocumentDTO
 toDTO doc mQtn tml =
   DocumentDTO
-    { _documentDTOUuid = doc ^. uuid
-    , _documentDTOName = doc ^. name
-    , _documentDTOState = doc ^. state
-    , _documentDTOQuestionnaire = mQtn
-    , _documentDTOTemplate = tml
-    , _documentDTOFormatUuid = doc ^. formatUuid
-    , _documentDTOOwnerUuid = doc ^. ownerUuid
-    , _documentDTOCreatedAt = doc ^. createdAt
+    { _uuid = doc ^. uuid
+    , _name = doc ^. name
+    , _state = doc ^. state
+    , _questionnaire = mQtn
+    , _template = tml
+    , _formatUuid = doc ^. formatUuid
+    , _ownerUuid = doc ^. ownerUuid
+    , _createdAt = doc ^. createdAt
     }
 
 fromCreateDTO :: DocumentCreateDTO -> U.UUID -> DocumentDurability -> Int -> U.UUID -> UTCTime -> Document
 fromCreateDTO dto uuid durability repliesHash currentUserUuid now =
   Document
-    { _documentUuid = uuid
-    , _documentName = dto ^. name
-    , _documentState = QueuedDocumentState
-    , _documentDurability = durability
-    , _documentQuestionnaireUuid = dto ^. questionnaireUuid
-    , _documentQuestionnaireRepliesHash = repliesHash
-    , _documentTemplateUuid = dto ^. templateUuid
-    , _documentFormatUuid = dto ^. formatUuid
-    , _documentMetadata = DocumentMetadata {_documentMetadataFileName = Nothing, _documentMetadataContentType = Nothing}
-    , _documentOwnerUuid = currentUserUuid
-    , _documentCreatedAt = now
+    { _uuid = uuid
+    , _name = dto ^. name
+    , _state = QueuedDocumentState
+    , _durability = durability
+    , _questionnaireUuid = dto ^. questionnaireUuid
+    , _questionnaireRepliesHash = repliesHash
+    , _templateUuid = dto ^. templateUuid
+    , _formatUuid = dto ^. formatUuid
+    , _metadata = DocumentMetadata {_fileName = Nothing, _contentType = Nothing}
+    , _ownerUuid = currentUserUuid
+    , _createdAt = now
     }

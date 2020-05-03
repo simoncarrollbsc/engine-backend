@@ -16,12 +16,12 @@ import Shared.Model.Error.Error
 
 data AppContext =
   AppContext
-    { _appContextApplicationConfig :: ServerConfig
-    , _appContextLocalization :: M.Map String String
-    , _appContextBuildInfoConfig :: BuildInfoConfig
-    , _appContextPool :: ConnectionPool
-    , _appContextTraceUuid :: U.UUID
-    , _appContextCurrentOrganization :: Maybe Organization
+    { _serverConfig :: ServerConfig
+    , _localization :: M.Map String String
+    , _buildInfoConfig :: BuildInfoConfig
+    , _pool :: ConnectionPool
+    , _traceUuid :: U.UUID
+    , _currentOrganization :: Maybe Organization
     }
 
 newtype AppContextM a =

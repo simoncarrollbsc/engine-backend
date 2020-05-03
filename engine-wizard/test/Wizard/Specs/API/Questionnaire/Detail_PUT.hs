@@ -55,12 +55,12 @@ reqHeadersT authHeader = [authHeader, reqCtHeader]
 
 reqDtoT qtn =
   QuestionnaireChangeDTO
-    { _questionnaireChangeDTOName = qtn ^. name
-    , _questionnaireChangeDTOAccessibility = qtn ^. accessibility
-    , _questionnaireChangeDTOLevel = qtn ^. level
-    , _questionnaireChangeDTOReplies = toReplyDTO <$> (qtn ^. replies)
-    , _questionnaireChangeDTOLabels = toLabelDTO <$> (qtn ^. labels)
-    , _questionnaireChangeDTOTemplateUuid = qtn ^. templateUuid
+    { _name = qtn ^. name
+    , _accessibility = qtn ^. accessibility
+    , _level = qtn ^. level
+    , _replies = toReplyDTO <$> (qtn ^. replies)
+    , _labels = toLabelDTO <$> (qtn ^. labels)
+    , _templateUuid = qtn ^. templateUuid
     }
 
 reqBodyT qtn = encode $ reqDtoT qtn

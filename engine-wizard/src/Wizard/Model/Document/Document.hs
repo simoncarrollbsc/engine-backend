@@ -13,8 +13,8 @@ data DocumentState
 
 data DocumentMetadata =
   DocumentMetadata
-    { _documentMetadataFileName :: Maybe String
-    , _documentMetadataContentType :: Maybe String
+    { _fileName :: Maybe String
+    , _contentType :: Maybe String
     }
   deriving (Show, Eq, Generic)
 
@@ -25,16 +25,16 @@ data DocumentDurability
 
 data Document =
   Document
-    { _documentUuid :: U.UUID
-    , _documentName :: String
-    , _documentState :: DocumentState
-    , _documentDurability :: DocumentDurability
-    , _documentQuestionnaireUuid :: U.UUID
-    , _documentQuestionnaireRepliesHash :: Int
-    , _documentTemplateUuid :: U.UUID
-    , _documentFormatUuid :: U.UUID
-    , _documentMetadata :: DocumentMetadata
-    , _documentOwnerUuid :: U.UUID
-    , _documentCreatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _state :: DocumentState
+    , _durability :: DocumentDurability
+    , _questionnaireUuid :: U.UUID
+    , _questionnaireRepliesHash :: Int
+    , _templateUuid :: U.UUID
+    , _formatUuid :: U.UUID
+    , _metadata :: DocumentMetadata
+    , _ownerUuid :: U.UUID
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

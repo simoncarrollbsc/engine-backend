@@ -25,5 +25,5 @@ detail_download_GET docUuid =
   runInUnauthService $ do
     (doc, result) <- downloadDocument docUuid
     let cdHeader = "attachment;filename=" ++ fromMaybe "export" (doc ^. metadata . fileName)
-    traceUuid <- asks _appContextTraceUuid
+    traceUuid <- asks _traceUuid
     return . addHeader (U.toString traceUuid) . addHeader cdHeader . FileStream $ result

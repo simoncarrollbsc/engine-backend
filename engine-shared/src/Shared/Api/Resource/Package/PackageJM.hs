@@ -10,25 +10,25 @@ import Shared.Api.Resource.Package.PackageDTO
 import Shared.Util.JSON
 
 instance ToJSON PackageDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON PackageDTO where
   parseJSON (Object o) = do
-    _packageDTOPId <- o .: "id"
-    _packageDTOName <- o .: "name"
-    _packageDTOOrganizationId <- o .: "organizationId"
-    _packageDTOKmId <- o .: "kmId"
-    _packageDTOVersion <- o .: "version"
-    _packageDTOMetamodelVersion <- o .: "metamodelVersion"
-    _packageDTODescription <- o .: "description"
-    _packageDTOReadme <- o .:? "readme" .!= ""
-    _packageDTOLicense <- o .:? "license" .!= ""
-    _packageDTOParentPackageId <- o .:? "parentPackageId"
-    _packageDTOPreviousPackageId <- o .:? "previousPackageId" .!= _packageDTOParentPackageId
-    _packageDTOForkOfPackageId <- o .:? "forkOfPackageId" .!= _packageDTOParentPackageId
-    _packageDTOMergeCheckpointPackageId <- o .:? "mergeCheckpointPackageId" .!= _packageDTOParentPackageId
+    _pId <- o .: "id"
+    _name <- o .: "name"
+    _organizationId <- o .: "organizationId"
+    _kmId <- o .: "kmId"
+    _version <- o .: "version"
+    _metamodelVersion <- o .: "metamodelVersion"
+    _description <- o .: "description"
+    _readme <- o .:? "readme" .!= ""
+    _license <- o .:? "license" .!= ""
+    _parentPackageId <- o .:? "parentPackageId"
+    _previousPackageId <- o .:? "previousPackageId" .!= _parentPackageId
+    _forkOfPackageId <- o .:? "forkOfPackageId" .!= _parentPackageId
+    _mergeCheckpointPackageId <- o .:? "mergeCheckpointPackageId" .!= _parentPackageId
     eventSerialized <- o .: "events"
-    _packageDTOEvents <- parseJSON eventSerialized
-    _packageDTOCreatedAt <- o .:? "createdAt" .!= UTCTime (fromJust $ fromGregorianValid 1970 1 1) 0
+    _events <- parseJSON eventSerialized
+    _createdAt <- o .:? "createdAt" .!= UTCTime (fromJust $ fromGregorianValid 1970 1 1) 0
     return PackageDTO {..}
   parseJSON _ = mzero

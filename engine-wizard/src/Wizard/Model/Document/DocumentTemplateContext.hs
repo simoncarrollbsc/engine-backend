@@ -6,14 +6,14 @@ import GHC.Generics
 
 data DocumentTemplateContext =
   DocumentTemplateContext
-    { _documentTemplateContextBaseURL :: Text
-    , _documentTemplateContextResourcePageURL :: Text
+    { _baseURL :: Text
+    , _resourcePageURL :: Text
     }
   deriving (Show, Generic)
 
 instance Default DocumentTemplateContext where
   def =
     DocumentTemplateContext
-      { _documentTemplateContextBaseURL = "https://ds-wizard.org"
-      , _documentTemplateContextResourcePageURL = "https://researchers.ds-wizard.org/book-references/:shortuid"
+      { _baseURL = "https://ds-wizard.org"
+      , _resourcePageURL = "https://researchers.ds-wizard.org/book-references/:shortuid"
       }

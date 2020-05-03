@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Questionnaire.QuestionnaireLabelDTO
 
 instance FromJSON LabelDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON LabelDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

@@ -86,16 +86,16 @@ prepareWebApp runCallback =
       shutdownFlag <- newEmptyMVar
       let appContext =
             AppContext
-              { _appContextServerConfig = serverConfig
-              , _appContextLocalization = M.empty
-              , _appContextBuildInfoConfig = buildInfoConfig
-              , _appContextPool = dbPool
-              , _appContextMsgChannel = msgChannel
-              , _appContextHttpClientManager = httpClientManager
-              , _appContextRegistryClient = registryClient
-              , _appContextTraceUuid = fromJust (U.fromString "2ed6eb01-e75e-4c63-9d81-7f36d84192c0")
-              , _appContextCurrentUser = Just . toDTO $ userAlbert
-              , _appContextShutdownFlag = shutdownFlag
+              { _serverConfig = serverConfig
+              , _localization = M.empty
+              , _buildInfoConfig = buildInfoConfig
+              , _pool = dbPool
+              , _msgChannel = msgChannel
+              , _httpClientManager = httpClientManager
+              , _registryClient = registryClient
+              , _traceUuid = fromJust (U.fromString "2ed6eb01-e75e-4c63-9d81-7f36d84192c0")
+              , _currentUser = Just . toDTO $ userAlbert
+              , _shutdownFlag = shutdownFlag
               }
       runCallback appContext
 

@@ -40,6 +40,10 @@ jsonSpecialFields "dId" = "id"
 jsonSpecialFields "iId" = "id"
 jsonSpecialFields "pId" = "id"
 jsonSpecialFields "sId" = "id"
+jsonSpecialFields "stringValue" = "value"
+jsonSpecialFields "answerValue" = "value"
+jsonSpecialFields "itemListValue" = "value"
+jsonSpecialFields "integrationValue" = "value"
 jsonSpecialFields field = field
 
 stripDTOSuffix :: String -> String
@@ -83,5 +87,20 @@ createOptions' fieldPrefix typeFieldName =
 simpleOptions :: Options
 simpleOptions = defaultOptions {fieldLabelModifier = fieldLabelModifierFn}
 
+simpleOptions''' :: Options
+simpleOptions''' = defaultOptions {fieldLabelModifier = fieldLabelModifierFn'}
+
+simpleOptions'''' :: String -> Options
+simpleOptions'''' typeFieldName =
+  defaultOptions
+    { fieldLabelModifier = fieldLabelModifierFn'
+    , tagSingleConstructors = True
+    , sumEncoding = TaggedObject {tagFieldName = typeFieldName, contentsFieldName = "contents"}
+    , constructorTagModifier = stripDTOSuffix
+    }
+
 fieldLabelModifierFn :: String -> String
 fieldLabelModifierFn value = jsonSpecialFields . lowerFirst $ splitOn "DTO" value !! 1
+
+fieldLabelModifierFn' :: String -> String
+fieldLabelModifierFn' = jsonSpecialFields . drop 1

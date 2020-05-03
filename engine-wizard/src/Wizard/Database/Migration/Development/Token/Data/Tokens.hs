@@ -4,8 +4,7 @@ import Wizard.Api.Resource.Token.TokenCreateDTO
 import Wizard.Api.Resource.Token.TokenDTO
 
 albertCreateToken :: TokenCreateDTO
-albertCreateToken =
-  TokenCreateDTO {_tokenCreateDTOEmail = "albert.einstein@example.com", _tokenCreateDTOPassword = "password"}
+albertCreateToken = TokenCreateDTO {_email = "albert.einstein@example.com", _password = "password"}
 
 albertToken :: TokenDTO
-albertToken = TokenDTO {_tokenDTOToken = "abc"}
+albertToken = TokenDTO {_token = "abc"}

@@ -36,7 +36,7 @@ sanitizeQuestion km (questionUuidS:_) replyValue =
 
 sanitizeOptionsQuestion :: KnowledgeModel -> ReplyValue -> OptionsQuestion -> Maybe ReplyValue
 sanitizeOptionsQuestion km AnswerReply {..} q =
-  if _answerReplyValue `elem` (q ^. answerUuids)
+  if _answerValue `elem` (q ^. answerUuids)
     then Just $ AnswerReply {..}
     else Nothing
 sanitizeOptionsQuestion _ _ _ = Nothing
@@ -47,14 +47,14 @@ sanitizeListQuestion _ _ _ = Nothing
 
 sanitizeValueQuestion :: KnowledgeModel -> ReplyValue -> ValueQuestion -> Maybe ReplyValue
 sanitizeValueQuestion km StringReply {..} q = Just $ StringReply {..}
-sanitizeValueQuestion km IntegrationReply {_integrationReplyValue = replyValue} q =
+sanitizeValueQuestion km IntegrationReply {_integrationValue = replyValue} q =
   case replyValue of
-    PlainValue value -> Just $ StringReply {_stringReplyValue = value}
-    IntegrationValue {..} -> Just $ StringReply {_stringReplyValue = _integrationValueIntValue}
+    PlainValue value -> Just $ StringReply {_stringValue = value}
+    IntegrationValue {..} -> Just $ StringReply {_stringValue = _intValue}
 sanitizeValueQuestion _ _ _ = Nothing
 
 sanitizeIntegrationQuestion :: KnowledgeModel -> ReplyValue -> IntegrationQuestion -> Maybe ReplyValue
 sanitizeIntegrationQuestion km IntegrationReply {..} q = Just $ IntegrationReply {..}
 sanitizeIntegrationQuestion km StringReply {..} q =
-  Just $ IntegrationReply {_integrationReplyValue = PlainValue _stringReplyValue}
+  Just $ IntegrationReply {_integrationValue = PlainValue _stringValue}
 sanitizeIntegrationQuestion _ _ _ = Nothing

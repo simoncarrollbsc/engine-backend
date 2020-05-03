@@ -6,100 +6,100 @@ import Wizard.Model.User.User
 
 data ServerConfig =
   ServerConfig
-    { _serverConfigGeneral :: ServerConfigGeneral
-    , _serverConfigDatabase :: ServerConfigDatabase
-    , _serverConfigMessaging :: ServerConfigMessaging
-    , _serverConfigJwt :: ServerConfigJwt
-    , _serverConfigRoles :: ServerConfigRoles
-    , _serverConfigMail :: ServerConfigMail
-    , _serverConfigRegistry :: ServerConfigRegistry
-    , _serverConfigAnalytics :: ServerConfigAnalytics
-    , _serverConfigFeedback :: ServerConfigFeedback
+    { _general :: ServerConfigGeneral
+    , _database :: ServerConfigDatabase
+    , _messaging :: ServerConfigMessaging
+    , _jwt :: ServerConfigJwt
+    , _roles :: ServerConfigRoles
+    , _mail :: ServerConfigMail
+    , _registry :: ServerConfigRegistry
+    , _analytics :: ServerConfigAnalytics
+    , _feedback :: ServerConfigFeedback
     }
   deriving (Generic, Show)
 
 data ServerConfigGeneral =
   ServerConfigGeneral
-    { _serverConfigGeneralEnvironment :: Environment
-    , _serverConfigGeneralClientUrl :: String
-    , _serverConfigGeneralServerPort :: Int
-    , _serverConfigGeneralServiceToken :: String
-    , _serverConfigGeneralSecret :: String
-    , _serverConfigGeneralIntegrationConfig :: String
-    , _serverConfigGeneralTemplateFolder :: String
-    , _serverConfigGeneralRemoteLocalizationUrl :: Maybe String
-    , _serverConfigGeneralDebugLogHttpClient :: Bool
+    { _environment :: Environment
+    , _clientUrl :: String
+    , _serverPort :: Int
+    , _serviceToken :: String
+    , _secret :: String
+    , _integrationConfig :: String
+    , _templateFolder :: String
+    , _remoteLocalizationUrl :: Maybe String
+    , _debugLogHttpClient :: Bool
     }
   deriving (Generic, Show)
 
 data ServerConfigDatabase =
   ServerConfigDatabase
-    { _serverConfigDatabaseHost :: String
-    , _serverConfigDatabaseDatabaseName :: String
-    , _serverConfigDatabasePort :: Integer
-    , _serverConfigDatabaseAuthEnabled :: Bool
-    , _serverConfigDatabaseUsername :: String
-    , _serverConfigDatabasePassword :: String
+    { _host :: String
+    , _databaseName :: String
+    , _port :: Integer
+    , _authEnabled :: Bool
+    , _username :: String
+    , _password :: String
     }
   deriving (Generic, Show)
 
 data ServerConfigMessaging =
   ServerConfigMessaging
-    { _serverConfigMessagingEnabled :: Bool
-    , _serverConfigMessagingHost :: String
-    , _serverConfigMessagingPort :: Integer
-    , _serverConfigMessagingUsername :: String
-    , _serverConfigMessagingPassword :: String
-    , _serverConfigMessagingVhost :: String
+    { _enabled :: Bool
+    , _host :: String
+    , _port :: Integer
+    , _username :: String
+    , _password :: String
+    , _vhost :: String
     }
   deriving (Generic, Show)
 
 data ServerConfigJwt =
   ServerConfigJwt
-    { _serverConfigJwtVersion :: Integer
-    , _serverConfigJwtExpiration :: Integer
+    { _version :: Integer
+    , _expiration :: Integer
     }
   deriving (Generic, Show)
 
 data ServerConfigRoles =
   ServerConfigRoles
-    { _serverConfigRolesAdmin :: [Permission]
-    , _serverConfigRolesDataSteward :: [Permission]
-    , _serverConfigRolesResearcher :: [Permission]
+    { _admin :: [Permission]
+    , _dataSteward :: [Permission]
+    , _researcher :: [Permission]
     }
   deriving (Generic, Show)
 
 data ServerConfigMail =
   ServerConfigMail
-    { _serverConfigMailEnabled :: Bool
-    , _serverConfigMailName :: String
-    , _serverConfigMailEmail :: String
-    , _serverConfigMailHost :: String
-    , _serverConfigMailPort :: Int
-    , _serverConfigMailSsl :: Bool
-    , _serverConfigMailAuthEnabled :: Bool
-    , _serverConfigMailUsername :: String
-    , _serverConfigMailPassword :: String
+    { _enabled :: Bool
+    , _name :: String
+    , _email :: String
+    , _host :: String
+    , _port :: Int
+    , _ssl :: Bool
+    , _authEnabled :: Bool
+    , _username :: String
+    , _password :: String
     }
   deriving (Generic, Show)
 
 data ServerConfigRegistry =
   ServerConfigRegistry
-    { _serverConfigRegistryUrl :: String
-    , _serverConfigRegistryClientUrl :: String
+    { _url :: String
+    , _clientUrl :: String
     }
   deriving (Generic, Show)
 
 data ServerConfigAnalytics =
   ServerConfigAnalytics
-    { _serverConfigAnalyticsEnabled :: Bool
-    , _serverConfigAnalyticsEmail :: String
+    { _enabled :: Bool
+    , _email :: String
     }
   deriving (Generic, Show)
 
 data ServerConfigFeedback =
   ServerConfigFeedback
-    { _serverConfigFeedbackApiUrl :: String
-    , _serverConfigFeedbackWebUrl :: String
+    { _apiUrl :: String
+    , _webUrl :: String
     }
   deriving (Generic, Show)

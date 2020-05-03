@@ -13,15 +13,15 @@ import Shared.Database.Migration.Development.Package.Data.Packages
 listPackagesAuditEntry :: AuditEntry
 listPackagesAuditEntry =
   ListPackagesAuditEntry
-    { _listPackagesAuditEntryOrganizationId = orgGlobal ^. organizationId
-    , _listPackagesAuditEntryInstanceStatistics = iStat
-    , _listPackagesAuditEntryCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    { _organizationId = orgGlobal ^. organizationId
+    , _instanceStatistics = iStat
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     }
 
 getPackageBundleAuditEntry :: AuditEntry
 getPackageBundleAuditEntry =
   GetPackageBundleAuditEntry
-    { _getPackageBundleAuditEntryOrganizationId = orgGlobal ^. organizationId
-    , _getPackageBundleAuditEntryPackageId = netherlandsPackageV2 ^. pId
-    , _getPackageBundleAuditEntryCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    { _organizationId = orgGlobal ^. organizationId
+    , _packageId = netherlandsPackageV2 ^. pId
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     }

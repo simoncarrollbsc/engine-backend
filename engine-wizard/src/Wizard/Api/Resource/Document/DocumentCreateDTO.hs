@@ -5,9 +5,9 @@ import GHC.Generics
 
 data DocumentCreateDTO =
   DocumentCreateDTO
-    { _documentCreateDTOName :: String
-    , _documentCreateDTOQuestionnaireUuid :: U.UUID
-    , _documentCreateDTOTemplateUuid :: U.UUID
-    , _documentCreateDTOFormatUuid :: U.UUID
+    { _name :: String
+    , _questionnaireUuid :: U.UUID
+    , _templateUuid :: U.UUID
+    , _formatUuid :: U.UUID
     }
   deriving (Show, Eq, Generic)

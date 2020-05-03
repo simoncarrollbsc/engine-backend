@@ -4,8 +4,8 @@ import GHC.Generics
 
 data OrganizationChangeDTO =
   OrganizationChangeDTO
-    { _organizationChangeDTOName :: String
-    , _organizationChangeDTODescription :: String
-    , _organizationChangeDTOEmail :: String
+    { _name :: String
+    , _description :: String
+    , _email :: String
     }
   deriving (Show, Eq, Generic)

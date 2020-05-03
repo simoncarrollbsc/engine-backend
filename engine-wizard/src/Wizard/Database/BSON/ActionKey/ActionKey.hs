@@ -6,6 +6,8 @@ import Shared.Database.BSON.Common ()
 import Wizard.Database.BSON.ActionKey.ActionKeyType ()
 import Wizard.Model.ActionKey.ActionKey
 
-instance ToBSON ActionKey
+instance ToBSON ActionKey where
+  toBSON = toBSON'
 
-instance FromBSON ActionKey
+instance FromBSON ActionKey where
+  fromBSON = fromBSON'

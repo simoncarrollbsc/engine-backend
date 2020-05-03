@@ -18,14 +18,14 @@ import Wizard.Model.Config.ServerConfig
 
 data BaseContext =
   BaseContext
-    { _baseContextServerConfig :: ServerConfig
-    , _baseContextLocalization :: M.Map String String
-    , _baseContextBuildInfoConfig :: BuildInfoConfig
-    , _baseContextPool :: ConnectionPool
-    , _baseContextMsgChannel :: Maybe Channel
-    , _baseContextHttpClientManager :: Manager
-    , _baseContextRegistryClient :: ClientEnv
-    , _baseContextShutdownFlag :: MVar ()
+    { _serverConfig :: ServerConfig
+    , _localization :: M.Map String String
+    , _buildInfoConfig :: BuildInfoConfig
+    , _pool :: ConnectionPool
+    , _msgChannel :: Maybe Channel
+    , _httpClientManager :: Manager
+    , _registryClient :: ClientEnv
+    , _shutdownFlag :: MVar ()
     }
 
 newtype BaseContextM a =

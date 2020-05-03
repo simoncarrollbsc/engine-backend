@@ -118,11 +118,7 @@ createPreview qtnUuid = do
         (Just tUuid, Just fUuid) -> do
           let reqDto =
                 DocumentCreateDTO
-                  { _documentCreateDTOName = qtn ^. name
-                  , _documentCreateDTOQuestionnaireUuid = qtn ^. uuid
-                  , _documentCreateDTOTemplateUuid = tUuid
-                  , _documentCreateDTOFormatUuid = fUuid
-                  }
+                  {_name = qtn ^. name, _questionnaireUuid = qtn ^. uuid, _templateUuid = tUuid, _formatUuid = fUuid}
           docDto <- createDocumentWithDurability reqDto TemporallyDocumentDurability
           doc <- findDocumentById (U.toString $ docDto ^. uuid)
           return (doc, BS.empty)

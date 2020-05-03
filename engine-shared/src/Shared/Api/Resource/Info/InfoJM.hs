@@ -6,4 +6,4 @@ import Shared.Api.Resource.Info.InfoDTO
 import Shared.Util.JSON
 
 instance ToJSON InfoDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

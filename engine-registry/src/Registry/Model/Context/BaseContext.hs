@@ -14,10 +14,10 @@ import Shared.Model.Config.BuildInfoConfig
 
 data BaseContext =
   BaseContext
-    { _baseContextServerConfig :: ServerConfig
-    , _baseContextLocalization :: M.Map String String
-    , _baseContextBuildInfoConfig :: BuildInfoConfig
-    , _baseContextPool :: ConnectionPool
+    { _serverConfig :: ServerConfig
+    , _localization :: M.Map String String
+    , _buildInfoConfig :: BuildInfoConfig
+    , _pool :: ConnectionPool
     }
 
 newtype BaseContextM a =

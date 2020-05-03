@@ -17,7 +17,7 @@ createTopic name = newExchange {exchangeName = name, exchangeType = "topic", exc
 createTopicMessage body = newMsg {msgBody = body, msgDeliveryMode = Just NonPersistent}
 
 publishMessage topicName body = do
-  msgChannel <- asks _appContextMsgChannel
+  msgChannel <- asks _msgChannel
   publishMessageOnChannel msgChannel topicName body
 
 -- --------------------------------

@@ -11,7 +11,7 @@ instance FromJSON ActionKeyType
 instance ToJSON ActionKeyType
 
 instance FromJSON ActionKeyDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON ActionKeyDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

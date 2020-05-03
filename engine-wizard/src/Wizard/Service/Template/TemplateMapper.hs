@@ -11,10 +11,10 @@ import Wizard.Service.Package.PackageMapper
 toDTO :: [Package] -> Template -> TemplateDTO
 toDTO pkgs template =
   TemplateDTO
-    { _templateDTOUuid = template ^. uuid
-    , _templateDTOName = template ^. name
-    , _templateDTODescription = template ^. description
-    , _templateDTOAllowedPackages = fmap toSimpleDTO pkgs
-    , _templateDTORecommendedPackageId = template ^. recommendedPackageId
-    , _templateDTOFormats = template ^. formats
+    { _uuid = template ^. uuid
+    , _name = template ^. name
+    , _description = template ^. description
+    , _allowedPackages = fmap toSimpleDTO pkgs
+    , _recommendedPackageId = template ^. recommendedPackageId
+    , _formats = template ^. formats
     }

@@ -36,6 +36,6 @@ detail_documents_preview_GET mTokenHeader qtnUuid =
       case doc ^. state of
         DoneDocumentState -> do
           let cdHeader = fromMaybe "text/plain" (doc ^. metadata . contentType)
-          traceUuid <- asks _appContextTraceUuid
+          traceUuid <- asks _traceUuid
           return . addHeader (U.toString traceUuid) . addHeader cdHeader . FileStream $ result
         _ -> throwError AcceptedError

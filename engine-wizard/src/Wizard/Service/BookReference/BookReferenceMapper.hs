@@ -9,19 +9,19 @@ import Wizard.Model.BookReference.BookReference
 toDTO :: BookReference -> BookReferenceDTO
 toDTO br =
   BookReferenceDTO
-    { _bookReferenceDTOShortUuid = br ^. shortUuid
-    , _bookReferenceDTOBookChapter = br ^. bookChapter
-    , _bookReferenceDTOContent = br ^. content
-    , _bookReferenceDTOCreatedAt = br ^. createdAt
-    , _bookReferenceDTOUpdatedAt = br ^. updatedAt
+    { _shortUuid = br ^. shortUuid
+    , _bookChapter = br ^. bookChapter
+    , _content = br ^. content
+    , _createdAt = br ^. createdAt
+    , _updatedAt = br ^. updatedAt
     }
 
 fromDTO :: BookReferenceDTO -> BookReference
 fromDTO dto =
   BookReference
-    { _bookReferenceShortUuid = dto ^. shortUuid
-    , _bookReferenceBookChapter = dto ^. bookChapter
-    , _bookReferenceContent = dto ^. content
-    , _bookReferenceCreatedAt = dto ^. createdAt
-    , _bookReferenceUpdatedAt = dto ^. updatedAt
+    { _shortUuid = dto ^. shortUuid
+    , _bookChapter = dto ^. bookChapter
+    , _content = dto ^. content
+    , _createdAt = dto ^. createdAt
+    , _updatedAt = dto ^. updatedAt
     }

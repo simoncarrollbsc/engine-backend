@@ -11,4 +11,4 @@ import Shared.Util.Swagger
 instance ToSchema OrganizationRole
 
 instance ToSchema OrganizationDTO where
-  declareNamedSchema = simpleToSchema orgGlobalDTO
+  declareNamedSchema = simpleToSchema''' orgGlobalDTO

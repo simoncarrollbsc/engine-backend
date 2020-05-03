@@ -18,11 +18,11 @@ import Wizard.Service.KnowledgeModel.KnowledgeModelMapper
 toDTO :: MigratorState -> MigratorStateDTO
 toDTO ms =
   MigratorStateDTO
-    { _migratorStateDTOBranchUuid = ms ^. branchUuid
-    , _migratorStateDTOMigrationState = toMigrationStateDTO $ ms ^. migrationState
-    , _migratorStateDTOBranchPreviousPackageId = ms ^. branchPreviousPackageId
-    , _migratorStateDTOTargetPackageId = ms ^. targetPackageId
-    , _migratorStateDTOCurrentKnowledgeModel = toKnowledgeModelDTO <$> ms ^. currentKnowledgeModel
+    { _uuid = ms ^. branchUuid
+    , _migrationState = toMigrationStateDTO $ ms ^. migrationState
+    , _previousPackageId = ms ^. branchPreviousPackageId
+    , _targetPackageId = ms ^. targetPackageId
+    , _currentKnowledgeModel = toKnowledgeModelDTO <$> ms ^. currentKnowledgeModel
     }
 
 toMigrationStateDTO :: MigrationState -> MigrationStateDTO
@@ -37,15 +37,15 @@ toConflictDTO (CorrectorConflict event) = CorrectorConflictDTO (toDTOFn event)
 fromDetailDTO :: MigratorStateDetailDTO -> MigratorState
 fromDetailDTO dto =
   MigratorState
-    { _migratorStateBranchUuid = dto ^. branchUuid
-    , _migratorStateMetamodelVersion = dto ^. metamodelVersion
-    , _migratorStateMigrationState = fromMigrationStateDTO $ dto ^. migrationState
-    , _migratorStateBranchPreviousPackageId = dto ^. branchPreviousPackageId
-    , _migratorStateTargetPackageId = dto ^. targetPackageId
-    , _migratorStateBranchEvents = fromDTOs (dto ^. branchEvents)
-    , _migratorStateTargetPackageEvents = fromDTOs (dto ^. targetPackageEvents)
-    , _migratorStateResultEvents = fromDTOs (dto ^. resultEvents)
-    , _migratorStateCurrentKnowledgeModel = fromKnowledgeModelDTO <$> dto ^. currentKnowledgeModel
+    { _branchUuid = dto ^. branchUuid
+    , _metamodelVersion = dto ^. metamodelVersion
+    , _migrationState = fromMigrationStateDTO $ dto ^. migrationState
+    , _branchPreviousPackageId = dto ^. branchPreviousPackageId
+    , _targetPackageId = dto ^. targetPackageId
+    , _branchEvents = fromDTOs (dto ^. branchEvents)
+    , _targetPackageEvents = fromDTOs (dto ^. targetPackageEvents)
+    , _resultEvents = fromDTOs (dto ^. resultEvents)
+    , _currentKnowledgeModel = fromKnowledgeModelDTO <$> dto ^. currentKnowledgeModel
     }
 
 fromMigrationStateDTO :: MigrationStateDTO -> MigrationState
@@ -60,13 +60,13 @@ fromConflictDTO (CorrectorConflictDTO event) = CorrectorConflict (fromDTOFn even
 fromCreateDTO :: BranchWithEvents -> Package -> [Event] -> String -> [Event] -> KnowledgeModel -> MigratorState
 fromCreateDTO branch previousPkg branchEvents targetPkgId targetPkgEvents km =
   MigratorState
-    { _migratorStateBranchUuid = branch ^. uuid
-    , _migratorStateMetamodelVersion = kmMetamodelVersion
-    , _migratorStateMigrationState = RunningState
-    , _migratorStateBranchPreviousPackageId = previousPkg ^. pId
-    , _migratorStateTargetPackageId = targetPkgId
-    , _migratorStateBranchEvents = branchEvents
-    , _migratorStateTargetPackageEvents = targetPkgEvents
-    , _migratorStateResultEvents = []
-    , _migratorStateCurrentKnowledgeModel = Just km
+    { _branchUuid = branch ^. uuid
+    , _metamodelVersion = kmMetamodelVersion
+    , _migrationState = RunningState
+    , _branchPreviousPackageId = previousPkg ^. pId
+    , _targetPackageId = targetPkgId
+    , _branchEvents = branchEvents
+    , _targetPackageEvents = targetPkgEvents
+    , _resultEvents = []
+    , _currentKnowledgeModel = Just km
     }

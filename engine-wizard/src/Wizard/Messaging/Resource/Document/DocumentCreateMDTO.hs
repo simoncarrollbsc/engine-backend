@@ -7,7 +7,7 @@ import Wizard.Api.Resource.Document.DocumentContextDTO
 
 data DocumentCreateMDTO =
   DocumentCreateMDTO
-    { _documentCreateMDTODocumentUuid :: U.UUID
-    , _documentCreateMDTODocumentContext :: DocumentContextDTO
+    { _documentUuid :: U.UUID
+    , _documentContext :: DocumentContextDTO
     }
   deriving (Show, Eq, Generic)

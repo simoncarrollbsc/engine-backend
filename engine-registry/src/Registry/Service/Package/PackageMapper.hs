@@ -12,32 +12,32 @@ import Shared.Model.Package.Package
 toSimpleDTO :: Package -> Organization -> PackageSimpleDTO
 toSimpleDTO pkg org =
   PackageSimpleDTO
-    { _packageSimpleDTOPId = pkg ^. pId
-    , _packageSimpleDTOName = pkg ^. name
-    , _packageSimpleDTOOrganizationId = pkg ^. organizationId
-    , _packageSimpleDTOKmId = pkg ^. kmId
-    , _packageSimpleDTOVersion = pkg ^. version
-    , _packageSimpleDTODescription = pkg ^. description
-    , _packageSimpleDTOCreatedAt = pkg ^. createdAt
-    , _packageSimpleDTOOrganization = OM.toSimpleDTO org
+    { _pId = pkg ^. pId
+    , _name = pkg ^. name
+    , _organizationId = pkg ^. organizationId
+    , _kmId = pkg ^. kmId
+    , _version = pkg ^. version
+    , _description = pkg ^. description
+    , _createdAt = pkg ^. createdAt
+    , _organization = OM.toSimpleDTO org
     }
 
 toDetailDTO :: Package -> [String] -> Organization -> PackageDetailDTO
 toDetailDTO pkg versions org =
   PackageDetailDTO
-    { _packageDetailDTOPId = pkg ^. pId
-    , _packageDetailDTOName = pkg ^. name
-    , _packageDetailDTOOrganizationId = pkg ^. organizationId
-    , _packageDetailDTOKmId = pkg ^. kmId
-    , _packageDetailDTOVersion = pkg ^. version
-    , _packageDetailDTODescription = pkg ^. description
-    , _packageDetailDTOReadme = pkg ^. readme
-    , _packageDetailDTOLicense = pkg ^. license
-    , _packageDetailDTOMetamodelVersion = pkg ^. metamodelVersion
-    , _packageDetailDTOPreviousPackageId = pkg ^. previousPackageId
-    , _packageDetailDTOForkOfPackageId = pkg ^. forkOfPackageId
-    , _packageDetailDTOMergeCheckpointPackageId = pkg ^. mergeCheckpointPackageId
-    , _packageDetailDTOVersions = versions
-    , _packageDetailDTOOrganization = OM.toSimpleDTO org
-    , _packageDetailDTOCreatedAt = pkg ^. createdAt
+    { _pId = pkg ^. pId
+    , _name = pkg ^. name
+    , _organizationId = pkg ^. organizationId
+    , _kmId = pkg ^. kmId
+    , _version = pkg ^. version
+    , _description = pkg ^. description
+    , _readme = pkg ^. readme
+    , _license = pkg ^. license
+    , _metamodelVersion = pkg ^. metamodelVersion
+    , _previousPackageId = pkg ^. previousPackageId
+    , _forkOfPackageId = pkg ^. forkOfPackageId
+    , _mergeCheckpointPackageId = pkg ^. mergeCheckpointPackageId
+    , _versions = versions
+    , _organization = OM.toSimpleDTO org
+    , _createdAt = pkg ^. createdAt
     }

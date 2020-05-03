@@ -8,7 +8,7 @@ import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateJM ()
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigratorConflictDTO
 
 instance FromJSON MigratorConflictDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON MigratorConflictDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

@@ -6,8 +6,8 @@ import Shared.Api.Resource.Event.EventDTO
 
 data BranchChangeDTO =
   BranchChangeDTO
-    { _branchChangeDTOName :: String
-    , _branchChangeDTOKmId :: String
-    , _branchChangeDTOEvents :: [EventDTO]
+    { _name :: String
+    , _kmId :: String
+    , _events :: [EventDTO]
     }
   deriving (Generic)

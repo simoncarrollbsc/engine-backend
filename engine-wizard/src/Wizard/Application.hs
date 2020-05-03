@@ -45,14 +45,14 @@ runApplication = do
         localization <- loadLocalization serverConfig
         let baseContext =
               BaseContext
-                { _baseContextServerConfig = serverConfig
-                , _baseContextLocalization = localization
-                , _baseContextBuildInfoConfig = buildInfoConfig
-                , _baseContextPool = dbPool
-                , _baseContextMsgChannel = msgChannel
-                , _baseContextHttpClientManager = httpClientManager
-                , _baseContextRegistryClient = registryClient
-                , _baseContextShutdownFlag = shutdownFlag
+                { _serverConfig = serverConfig
+                , _localization = localization
+                , _buildInfoConfig = buildInfoConfig
+                , _pool = dbPool
+                , _msgChannel = msgChannel
+                , _httpClientManager = httpClientManager
+                , _registryClient = registryClient
+                , _shutdownFlag = shutdownFlag
                 }
         liftIO $ runDBMigrations baseContext
         liftIO $ runMetamodelMigrations baseContext

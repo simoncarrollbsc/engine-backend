@@ -9,9 +9,7 @@ import Wizard.Database.Migration.Development.Config.Data.AppConfigs
 import Wizard.Database.Migration.Development.Document.Data.Documents
 
 submissionCreate :: SubmissionCreateDTO
-submissionCreate =
-  SubmissionCreateDTO
-    {_submissionCreateDTOServiceId = defaultSubmissionService ^. sId, _submissionCreateDTODocUuid = doc1 ^. uuid}
+submissionCreate = SubmissionCreateDTO {_serviceId = defaultSubmissionService ^. sId, _docUuid = doc1 ^. uuid}
 
 submission1 :: SubmissionDTO
-submission1 = SubmissionDTO {_submissionDTOLocation = Nothing}
+submission1 = SubmissionDTO {_location = Nothing}

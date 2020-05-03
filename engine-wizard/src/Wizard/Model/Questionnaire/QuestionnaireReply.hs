@@ -6,8 +6,8 @@ import GHC.Generics
 
 data Reply =
   Reply
-    { _replyPath :: String
-    , _replyValue :: ReplyValue
+    { _path :: String
+    , _value :: ReplyValue
     }
   deriving (Show, Eq, Generic)
 
@@ -15,16 +15,16 @@ instance Hashable Reply
 
 data ReplyValue
   = StringReply
-      { _stringReplyValue :: String
+      { _stringValue :: String
       }
   | AnswerReply
-      { _answerReplyValue :: U.UUID
+      { _answerValue :: U.UUID
       }
   | ItemListReply
-      { _itemListReplyValue :: Int
+      { _itemListValue :: Int
       }
   | IntegrationReply
-      { _integrationReplyValue :: IntegrationReplyValue
+      { _integrationValue :: IntegrationReplyValue
       }
   deriving (Show, Eq, Generic)
 
@@ -33,8 +33,8 @@ instance Hashable ReplyValue
 data IntegrationReplyValue
   = PlainValue String
   | IntegrationValue
-      { _integrationValueIntId :: String
-      , _integrationValueIntValue :: String
+      { _intId :: String
+      , _intValue :: String
       }
   deriving (Show, Eq, Generic)
 

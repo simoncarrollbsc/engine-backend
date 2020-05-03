@@ -44,7 +44,7 @@ import Wizard.Util.Template (loadAndRender)
 
 sendRegistrationConfirmationMail :: UserDTO -> String -> AppContextM ()
 sendRegistrationConfirmationMail user hash = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let clientAddress = serverConfig ^. general . clientUrl
       activationLink = clientAddress ++ "/signup/" ++ U.toString (user ^. uuid) ++ "/" ++ hash
@@ -57,7 +57,7 @@ sendRegistrationConfirmationMail user hash = do
 
 sendRegistrationCreatedAnalyticsMail :: UserDTO -> AppContextM ()
 sendRegistrationCreatedAnalyticsMail user = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let analyticsAddress = serverConfig ^. analytics . email
       mailName = serverConfig ^. mail . name
@@ -68,7 +68,7 @@ sendRegistrationCreatedAnalyticsMail user = do
 
 sendResetPasswordMail :: UserDTO -> String -> AppContextM ()
 sendResetPasswordMail user hash = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let clientAddress = serverConfig ^. general . clientUrl
       resetLink = clientAddress ++ "/forgotten-password/" ++ U.toString (user ^. uuid) ++ "/" ++ hash
@@ -93,7 +93,7 @@ composeAndSendEmail to subject mailName context = do
 
 composeMail :: [String] -> TL.Text -> String -> MailContext -> AppContextM (Either String MIME.Mail)
 composeMail to subject mailName context = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let mailConfig = serverConfig ^. mail
       addrFrom = MIME.Address (Just . T.pack $ mailConfig ^. name) (T.pack $ mailConfig ^. email)
       addrsTo = map (MIME.Address Nothing . T.pack) to
@@ -201,7 +201,7 @@ makeConnection True host port = SMTPSSL.doSMTPSSLWithSettings host settings
 sendEmail :: [String] -> MIME.Mail -> AppContextM ()
 sendEmail [] mailMessage = throwError . GeneralServerError $ _ERROR_SERVICE_MAIL__TRIED_SEND_TO_NOONE
 sendEmail to mailMessage = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let mailConfig = serverConfig ^. mail
       from = mailConfig ^. email
       mailHost = mailConfig ^. host

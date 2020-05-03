@@ -5,14 +5,13 @@ import GHC.Generics
 
 data Level =
   Level
-    { _levelLevel :: Int
-    , _levelTitle :: String
-    , _levelDescription :: Maybe String
-    , _levelCreatedAt :: UTCTime
-    , _levelUpdatedAt :: UTCTime
+    { _level :: Int
+    , _title :: String
+    , _description :: Maybe String
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq Level where
-  a == b =
-    _levelLevel a == _levelLevel b && _levelTitle a == _levelTitle b && _levelDescription a == _levelDescription b
+  a == b = _level a == _level b && _title a == _title b && _description a == _description b

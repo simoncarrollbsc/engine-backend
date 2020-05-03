@@ -17,8 +17,6 @@ import Wizard.Service.Document.DocumentContextService
 publishToDocumentQueue :: Document -> AppContextM ()
 publishToDocumentQueue doc = do
   docContext <- createDocumentContext (U.toString $ doc ^. questionnaireUuid)
-  let dto =
-        DocumentCreateMDTO
-          {_documentCreateMDTODocumentUuid = doc ^. uuid, _documentCreateMDTODocumentContext = docContext}
+  let dto = DocumentCreateMDTO {_documentUuid = doc ^. uuid, _documentContext = docContext}
   publishToQueue _DOCUMENT_QUEUE (encode dto)
   return ()

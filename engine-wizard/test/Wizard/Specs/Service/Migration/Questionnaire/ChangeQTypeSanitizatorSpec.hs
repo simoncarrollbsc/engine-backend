@@ -69,10 +69,7 @@ stringReply = StringReply "Plain reply to 9st question"
 
 itemListReply = ItemListReply 2
 
-plainIntegrationReply = IntegrationReply {_integrationReplyValue = PlainValue "Reply to 1st question"}
+plainIntegrationReply = IntegrationReply {_integrationValue = PlainValue "Reply to 1st question"}
 
 fullIntegrationReply =
-  IntegrationReply
-    { _integrationReplyValue =
-        IntegrationValue {_integrationValueIntId = "", _integrationValueIntValue = "Reply to 1st question"}
-    }
+  IntegrationReply {_integrationValue = IntegrationValue {_intId = "", _intValue = "Reply to 1st question"}}

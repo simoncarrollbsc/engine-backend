@@ -11,19 +11,19 @@ import qualified Wizard.Model.Config.ServerConfigDM as S
 import Wizard.Service.Config.ClientConfigMapper
 
 instance ToSchema ClientConfigDTO where
-  declareNamedSchema = simpleToSchema (toClientConfigDTO S.defaultConfig A.defaultAppConfig)
+  declareNamedSchema = simpleToSchema''' (toClientConfigDTO S.defaultConfig A.defaultAppConfig)
 
 instance ToSchema ClientConfigAuthDTO where
-  declareNamedSchema = simpleToSchema (toClientAuthDTO A.defaultAuth)
+  declareNamedSchema = simpleToSchema''' (toClientAuthDTO A.defaultAuth)
 
 instance ToSchema ClientConfigAuthExternalDTO where
-  declareNamedSchema = simpleToSchema (toClientAuthExternalDTO A.defaultAuthExternal)
+  declareNamedSchema = simpleToSchema''' (toClientAuthExternalDTO A.defaultAuthExternal)
 
 instance ToSchema ClientConfigAuthExternalServiceDTO where
-  declareNamedSchema = simpleToSchema (toClientAuthExternalServiceDTO A.defaultAuthExternalService)
+  declareNamedSchema = simpleToSchema''' (toClientAuthExternalServiceDTO A.defaultAuthExternalService)
 
 instance ToSchema ClientConfigRegistryDTO where
-  declareNamedSchema = simpleToSchema (toClientConfigRegistryDTO S.defaultRegistry A.defaultRegistry)
+  declareNamedSchema = simpleToSchema''' (toClientConfigRegistryDTO S.defaultRegistry A.defaultRegistry)
 
 instance ToSchema ClientConfigQuestionnaireDTO where
-  declareNamedSchema = simpleToSchema (toClientConfigQuestionnaireDTO A.defaultQuestionnaire)
+  declareNamedSchema = simpleToSchema''' (toClientConfigQuestionnaireDTO A.defaultQuestionnaire)

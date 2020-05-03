@@ -15,38 +15,38 @@ import Wizard.Model.User.User
 toDTO :: User -> UserDTO
 toDTO user =
   UserDTO
-    { _userDTOUuid = user ^. uuid
-    , _userDTOFirstName = user ^. firstName
-    , _userDTOLastName = user ^. lastName
-    , _userDTOEmail = user ^. email
-    , _userDTOAffiliation = user ^. affiliation
-    , _userDTOSources = user ^. sources
-    , _userDTORole = user ^. role
-    , _userDTOPermissions = user ^. permissions
-    , _userDTOActive = user ^. active
-    , _userDTOSubmissionProps = user ^. submissionProps
-    , _userDTOImageUrl = user ^. imageUrl
-    , _userDTOCreatedAt = user ^. createdAt
-    , _userDTOUpdatedAt = user ^. updatedAt
+    { _uuid = user ^. uuid
+    , _firstName = user ^. firstName
+    , _lastName = user ^. lastName
+    , _email = user ^. email
+    , _affiliation = user ^. affiliation
+    , _sources = user ^. sources
+    , _role = user ^. role
+    , _permissions = user ^. permissions
+    , _active = user ^. active
+    , _submissionProps = user ^. submissionProps
+    , _imageUrl = user ^. imageUrl
+    , _createdAt = user ^. createdAt
+    , _updatedAt = user ^. updatedAt
     }
 
 fromUserCreateDTO :: UserCreateDTO -> U.UUID -> String -> Role -> [Permission] -> UTCTime -> UTCTime -> User
 fromUserCreateDTO dto userUuid passwordHash role permissions createdAt updatedAt =
   User
-    { _userUuid = userUuid
-    , _userFirstName = dto ^. firstName
-    , _userLastName = dto ^. lastName
-    , _userEmail = toLower <$> dto ^. email
-    , _userPasswordHash = passwordHash
-    , _userAffiliation = dto ^. affiliation
-    , _userSources = [_USER_SOURCE_INTERNAL]
-    , _userRole = role
-    , _userPermissions = permissions
-    , _userActive = False
-    , _userSubmissionProps = []
-    , _userImageUrl = Nothing
-    , _userCreatedAt = Just createdAt
-    , _userUpdatedAt = Just updatedAt
+    { _uuid = userUuid
+    , _firstName = dto ^. firstName
+    , _lastName = dto ^. lastName
+    , _email = toLower <$> dto ^. email
+    , _passwordHash = passwordHash
+    , _affiliation = dto ^. affiliation
+    , _sources = [_USER_SOURCE_INTERNAL]
+    , _role = role
+    , _permissions = permissions
+    , _active = False
+    , _submissionProps = []
+    , _imageUrl = Nothing
+    , _createdAt = Just createdAt
+    , _updatedAt = Just updatedAt
     }
 
 fromUserExternalDTO ::
@@ -63,59 +63,59 @@ fromUserExternalDTO ::
   -> User
 fromUserExternalDTO userUuid firstName lastName email passwordHash sources role permissions mImageUrl now =
   User
-    { _userUuid = userUuid
-    , _userFirstName = firstName
-    , _userLastName = lastName
-    , _userEmail = email
-    , _userPasswordHash = passwordHash
-    , _userAffiliation = Nothing
-    , _userSources = sources
-    , _userRole = role
-    , _userPermissions = permissions
-    , _userActive = True
-    , _userSubmissionProps = []
-    , _userImageUrl = mImageUrl
-    , _userCreatedAt = Just now
-    , _userUpdatedAt = Just now
+    { _uuid = userUuid
+    , _firstName = firstName
+    , _lastName = lastName
+    , _email = email
+    , _passwordHash = passwordHash
+    , _affiliation = Nothing
+    , _sources = sources
+    , _role = role
+    , _permissions = permissions
+    , _active = True
+    , _submissionProps = []
+    , _imageUrl = mImageUrl
+    , _createdAt = Just now
+    , _updatedAt = Just now
     }
 
 fromUpdateUserExternalDTO :: User -> String -> String -> Maybe String -> String -> UTCTime -> User
 fromUpdateUserExternalDTO oldUser firstName lastName mImageUrl serviceId now =
   User
-    { _userUuid = oldUser ^. uuid
-    , _userFirstName = firstName
-    , _userLastName = lastName
-    , _userEmail = oldUser ^. email
-    , _userPasswordHash = oldUser ^. passwordHash
-    , _userAffiliation = oldUser ^. affiliation
-    , _userSources =
+    { _uuid = oldUser ^. uuid
+    , _firstName = firstName
+    , _lastName = lastName
+    , _email = oldUser ^. email
+    , _passwordHash = oldUser ^. passwordHash
+    , _affiliation = oldUser ^. affiliation
+    , _sources =
         case L.find (== serviceId) (oldUser ^. sources) of
           Just _ -> oldUser ^. sources
           Nothing -> (oldUser ^. sources) ++ [serviceId]
-    , _userRole = oldUser ^. role
-    , _userPermissions = oldUser ^. permissions
-    , _userActive = oldUser ^. active
-    , _userSubmissionProps = oldUser ^. submissionProps
-    , _userImageUrl = mImageUrl
-    , _userCreatedAt = oldUser ^. createdAt
-    , _userUpdatedAt = oldUser ^. updatedAt
+    , _role = oldUser ^. role
+    , _permissions = oldUser ^. permissions
+    , _active = oldUser ^. active
+    , _submissionProps = oldUser ^. submissionProps
+    , _imageUrl = mImageUrl
+    , _createdAt = oldUser ^. createdAt
+    , _updatedAt = oldUser ^. updatedAt
     }
 
 fromUserChangeDTO :: UserChangeDTO -> User -> [Permission] -> User
 fromUserChangeDTO dto oldUser permission =
   User
-    { _userUuid = oldUser ^. uuid
-    , _userFirstName = dto ^. firstName
-    , _userLastName = dto ^. lastName
-    , _userEmail = toLower <$> dto ^. email
-    , _userPasswordHash = oldUser ^. passwordHash
-    , _userAffiliation = dto ^. affiliation
-    , _userSources = oldUser ^. sources
-    , _userRole = dto ^. role
-    , _userPermissions = permission
-    , _userActive = dto ^. active
-    , _userSubmissionProps = oldUser ^. submissionProps
-    , _userImageUrl = oldUser ^. imageUrl
-    , _userCreatedAt = oldUser ^. createdAt
-    , _userUpdatedAt = oldUser ^. updatedAt
+    { _uuid = oldUser ^. uuid
+    , _firstName = dto ^. firstName
+    , _lastName = dto ^. lastName
+    , _email = toLower <$> dto ^. email
+    , _passwordHash = oldUser ^. passwordHash
+    , _affiliation = dto ^. affiliation
+    , _sources = oldUser ^. sources
+    , _role = dto ^. role
+    , _permissions = permission
+    , _active = dto ^. active
+    , _submissionProps = oldUser ^. submissionProps
+    , _imageUrl = oldUser ^. imageUrl
+    , _createdAt = oldUser ^. createdAt
+    , _updatedAt = oldUser ^. updatedAt
     }

@@ -10,11 +10,11 @@ import qualified Shared.Service.Package.PackageMapper as PM
 toDTO :: PackageBundle -> PackageBundleDTO
 toDTO pb =
   PackageBundleDTO
-    { _packageBundleDTOBundleId = pb ^. bundleId
-    , _packageBundleDTOName = pb ^. name
-    , _packageBundleDTOOrganizationId = pb ^. organizationId
-    , _packageBundleDTOKmId = pb ^. kmId
-    , _packageBundleDTOVersion = pb ^. version
-    , _packageBundleDTOMetamodelVersion = pb ^. metamodelVersion
-    , _packageBundleDTOPackages = PM.toDTO <$> pb ^. packages
+    { _bundleId = pb ^. bundleId
+    , _name = pb ^. name
+    , _organizationId = pb ^. organizationId
+    , _kmId = pb ^. kmId
+    , _version = pb ^. version
+    , _metamodelVersion = pb ^. metamodelVersion
+    , _packages = PM.toDTO <$> pb ^. packages
     }

@@ -6,20 +6,20 @@ import Wizard.Integration.Resource.Organization.OrganizationSimpleIDTO
 
 data PackageDetailIDTO =
   PackageDetailIDTO
-    { _packageDetailIDTOPId :: String
-    , _packageDetailIDTOName :: String
-    , _packageDetailIDTOOrganizationId :: String
-    , _packageDetailIDTOKmId :: String
-    , _packageDetailIDTOVersion :: String
-    , _packageDetailIDTODescription :: String
-    , _packageDetailIDTOReadme :: String
-    , _packageDetailIDTOLicense :: String
-    , _packageDetailIDTOMetamodelVersion :: Int
-    , _packageDetailIDTOPreviousPackageId :: Maybe String
-    , _packageDetailIDTOForkOfPackageId :: Maybe String
-    , _packageDetailIDTOMergeCheckpointPackageId :: Maybe String
-    , _packageDetailIDTOVersions :: [String]
-    , _packageDetailIDTOOrganization :: OrganizationSimpleIDTO
-    , _packageDetailIDTOCreatedAt :: UTCTime
+    { _pId :: String
+    , _name :: String
+    , _organizationId :: String
+    , _kmId :: String
+    , _version :: String
+    , _description :: String
+    , _readme :: String
+    , _license :: String
+    , _metamodelVersion :: Int
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _mergeCheckpointPackageId :: Maybe String
+    , _versions :: [String]
+    , _organization :: OrganizationSimpleIDTO
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq)

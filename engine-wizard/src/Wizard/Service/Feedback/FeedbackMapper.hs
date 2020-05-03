@@ -14,39 +14,39 @@ import Wizard.Model.Feedback.Feedback
 toDTO :: Feedback -> String -> FeedbackDTO
 toDTO feedback issueUrl =
   FeedbackDTO
-    { _feedbackDTOUuid = feedback ^. uuid
-    , _feedbackDTOIssueId = feedback ^. issueId
-    , _feedbackDTOIssueUrl = issueUrl
-    , _feedbackDTOQuestionUuid = feedback ^. questionUuid
-    , _feedbackDTOPackageId = feedback ^. packageId
-    , _feedbackDTOTitle = feedback ^. title
-    , _feedbackDTOContent = feedback ^. content
-    , _feedbackDTOCreatedAt = feedback ^. createdAt
-    , _feedbackDTOUpdatedAt = feedback ^. updatedAt
+    { _uuid = feedback ^. uuid
+    , _issueId = feedback ^. issueId
+    , _issueUrl = issueUrl
+    , _questionUuid = feedback ^. questionUuid
+    , _packageId = feedback ^. packageId
+    , _title = feedback ^. title
+    , _content = feedback ^. content
+    , _createdAt = feedback ^. createdAt
+    , _updatedAt = feedback ^. updatedAt
     }
 
 fromCreateDTO :: FeedbackCreateDTO -> U.UUID -> Int -> UTCTime -> Feedback
 fromCreateDTO dto fUuid issueId now =
   Feedback
-    { _feedbackUuid = fUuid
-    , _feedbackIssueId = issueId
-    , _feedbackQuestionUuid = dto ^. questionUuid
-    , _feedbackPackageId = dto ^. packageId
-    , _feedbackTitle = dto ^. title
-    , _feedbackContent = dto ^. content
-    , _feedbackCreatedAt = now
-    , _feedbackUpdatedAt = now
+    { _uuid = fUuid
+    , _issueId = issueId
+    , _questionUuid = dto ^. questionUuid
+    , _packageId = dto ^. packageId
+    , _title = dto ^. title
+    , _content = dto ^. content
+    , _createdAt = now
+    , _updatedAt = now
     }
 
 fromSimpleIssue :: Feedback -> IssueIDTO -> UTCTime -> Feedback
 fromSimpleIssue feedback simpleIssue now =
   Feedback
-    { _feedbackUuid = feedback ^. uuid
-    , _feedbackIssueId = simpleIssue ^. id
-    , _feedbackQuestionUuid = feedback ^. questionUuid
-    , _feedbackPackageId = feedback ^. packageId
-    , _feedbackTitle = simpleIssue ^. title
-    , _feedbackContent = simpleIssue ^. body
-    , _feedbackCreatedAt = feedback ^. createdAt
-    , _feedbackUpdatedAt = now
+    { _uuid = feedback ^. uuid
+    , _issueId = simpleIssue ^. id
+    , _questionUuid = feedback ^. questionUuid
+    , _packageId = feedback ^. packageId
+    , _title = simpleIssue ^. title
+    , _content = simpleIssue ^. body
+    , _createdAt = feedback ^. createdAt
+    , _updatedAt = now
     }

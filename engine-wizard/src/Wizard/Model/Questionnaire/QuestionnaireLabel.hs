@@ -5,7 +5,7 @@ import GHC.Generics
 
 data Label =
   Label
-    { _labelPath :: String
-    , _labelValue :: [U.UUID]
+    { _path :: String
+    , _value :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

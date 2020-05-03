@@ -4,6 +4,6 @@ import GHC.Generics
 
 data TokenDTO =
   TokenDTO
-    { _tokenDTOToken :: String
+    { _token :: String
     }
   deriving (Show, Eq, Generic)

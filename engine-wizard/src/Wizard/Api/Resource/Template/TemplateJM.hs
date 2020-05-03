@@ -8,7 +8,7 @@ import Wizard.Api.Resource.Template.TemplateDTO
 import Wizard.Model.Template.TemplateJM ()
 
 instance FromJSON TemplateDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON TemplateDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

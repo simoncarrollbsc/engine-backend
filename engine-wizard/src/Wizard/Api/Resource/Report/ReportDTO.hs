@@ -6,56 +6,46 @@ import GHC.Generics
 
 data ReportDTO =
   ReportDTO
-    { _reportDTOUuid :: U.UUID
-    , _reportDTOTotalReport :: TotalReportDTO
-    , _reportDTOChapterReports :: [ChapterReportDTO]
-    , _reportDTOCreatedAt :: UTCTime
-    , _reportDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _totalReport :: TotalReportDTO
+    , _chapterReports :: [ChapterReportDTO]
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq ReportDTO where
-  a == b =
-    _reportDTOUuid a == _reportDTOUuid b &&
-    _reportDTOTotalReport a == _reportDTOTotalReport b && _reportDTOChapterReports a == _reportDTOChapterReports b
+  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _chapterReports a == _chapterReports b
 
 data TotalReportDTO =
   TotalReportDTO
-    { _totalReportDTOIndications :: [IndicationDTO]
-    , _totalReportDTOMetrics :: [MetricSummaryDTO]
+    { _indications :: [IndicationDTO]
+    , _metrics :: [MetricSummaryDTO]
     }
   deriving (Show, Eq, Generic)
 
 data ChapterReportDTO =
   ChapterReportDTO
-    { _chapterReportDTOChapterUuid :: U.UUID
-    , _chapterReportDTOIndications :: [IndicationDTO]
-    , _chapterReportDTOMetrics :: [MetricSummaryDTO]
+    { _chapterUuid :: U.UUID
+    , _indications :: [IndicationDTO]
+    , _metrics :: [MetricSummaryDTO]
     }
   deriving (Show, Eq, Generic)
 
 data IndicationDTO
-  = AnsweredIndicationDTO' AnsweredIndicationDTO
-  | LevelsAnsweredIndicationDTO' LevelsAnsweredIndicationDTO
-  deriving (Show, Eq, Generic)
-
-data AnsweredIndicationDTO =
-  AnsweredIndicationDTO
-    { _answeredIndicationDTOAnsweredQuestions :: Int
-    , _answeredIndicationDTOUnansweredQuestions :: Int
-    }
-  deriving (Show, Eq, Generic)
-
-data LevelsAnsweredIndicationDTO =
-  LevelsAnsweredIndicationDTO
-    { _levelsAnsweredIndicationDTOAnsweredQuestions :: Int
-    , _levelsAnsweredIndicationDTOUnansweredQuestions :: Int
-    }
+  = AnsweredIndicationDTO
+      { _answeredQuestions :: Int
+      , _unansweredQuestions :: Int
+      }
+  | LevelsAnsweredIndicationDTO
+      { _answeredQuestions :: Int
+      , _unansweredQuestions :: Int
+      }
   deriving (Show, Eq, Generic)
 
 data MetricSummaryDTO =
   MetricSummaryDTO
-    { _metricSummaryDTOMetricUuid :: U.UUID
-    , _metricSummaryDTOMeasure :: Double
+    { _metricUuid :: U.UUID
+    , _measure :: Double
     }
   deriving (Show, Eq, Generic)

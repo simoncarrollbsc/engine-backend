@@ -92,17 +92,26 @@ hIsEvent eventName event callback =
 -- -------------------------
 instance ToBSON (Map String String) where
   toBSON m = ["map" =: toList m]
+  toBSON' m = ["map" =: toList m]
 
 instance ToBSON (String, String) where
   toBSON (key, value) = ["key" =: key, "value" =: value]
+  toBSON' (key, value) = ["key" =: key, "value" =: value]
 
 instance FromBSON (Map String String) where
   fromBSON doc = do
     mList <- lookup "map" doc
     return $ fromList mList
+  fromBSON' doc = do
+    mList <- lookup "map" doc
+    return $ fromList mList
 
 instance FromBSON (String, String) where
   fromBSON doc = do
+    key <- lookup "key" doc
+    value <- lookup "value" doc
+    return (key, value)
+  fromBSON' doc = do
     key <- lookup "key" doc
     value <- lookup "value" doc
     return (key, value)

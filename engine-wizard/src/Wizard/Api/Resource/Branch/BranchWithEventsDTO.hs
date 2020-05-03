@@ -8,16 +8,16 @@ import Shared.Api.Resource.Event.EventDTO
 
 data BranchWithEventsDTO =
   BranchWithEventsDTO
-    { _branchWithEventsDTOUuid :: U.UUID
-    , _branchWithEventsDTOName :: String
-    , _branchWithEventsDTOKmId :: String
-    , _branchWithEventsDTOMetamodelVersion :: Int
-    , _branchWithEventsDTOPreviousPackageId :: Maybe String
-    , _branchWithEventsDTOForkOfPackageId :: Maybe String
-    , _branchWithEventsDTOMergeCheckpointPackageId :: Maybe String
-    , _branchWithEventsDTOEvents :: [EventDTO]
-    , _branchWithEventsDTOOwnerUuid :: Maybe U.UUID
-    , _branchWithEventsDTOCreatedAt :: UTCTime
-    , _branchWithEventsDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _kmId :: String
+    , _metamodelVersion :: Int
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _mergeCheckpointPackageId :: Maybe String
+    , _events :: [EventDTO]
+    , _ownerUuid :: Maybe U.UUID
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

@@ -7,8 +7,8 @@ import Shared.Api.Resource.Event.EventDTO
 
 data KnowledgeModelChangeDTO =
   KnowledgeModelChangeDTO
-    { _knowledgeModelChangeDTOPackageId :: Maybe String
-    , _knowledgeModelChangeDTOEvents :: [EventDTO]
-    , _knowledgeModelChangeDTOTagUuids :: [U.UUID]
+    { _packageId :: Maybe String
+    , _events :: [EventDTO]
+    , _tagUuids :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

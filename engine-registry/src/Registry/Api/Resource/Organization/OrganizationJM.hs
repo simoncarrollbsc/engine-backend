@@ -7,7 +7,7 @@ import Registry.Api.Resource.Organization.OrganizationDTO
 import Shared.Util.JSON
 
 instance ToJSON OrganizationDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON OrganizationDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''

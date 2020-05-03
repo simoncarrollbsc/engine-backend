@@ -9,14 +9,14 @@ import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateDTO
 
 data MigratorStateDetailDTO =
   MigratorStateDetailDTO
-    { _migratorStateDetailDTOBranchUuid :: U.UUID
-    , _migratorStateDetailDTOMetamodelVersion :: Int
-    , _migratorStateDetailDTOMigrationState :: MigrationStateDTO
-    , _migratorStateDetailDTOBranchPreviousPackageId :: String
-    , _migratorStateDetailDTOTargetPackageId :: String
-    , _migratorStateDetailDTOBranchEvents :: [EventDTO]
-    , _migratorStateDetailDTOTargetPackageEvents :: [EventDTO]
-    , _migratorStateDetailDTOResultEvents :: [EventDTO]
-    , _migratorStateDetailDTOCurrentKnowledgeModel :: Maybe KnowledgeModelDTO
+    { _branchUuid :: U.UUID
+    , _metamodelVersion :: Int
+    , _migrationState :: MigrationStateDTO
+    , _branchPreviousPackageId :: String
+    , _targetPackageId :: String
+    , _branchEvents :: [EventDTO]
+    , _targetPackageEvents :: [EventDTO]
+    , _resultEvents :: [EventDTO]
+    , _currentKnowledgeModel :: Maybe KnowledgeModelDTO
     }
   deriving (Show, Eq, Generic)

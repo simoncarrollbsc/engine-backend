@@ -3,20 +3,11 @@ module Shared.Database.Migration.Development.Organization.Data.Organizations whe
 import Shared.Api.Resource.Organization.OrganizationSimpleDTO
 
 orgGlobalSimple :: OrganizationSimpleDTO
-orgGlobalSimple =
-  OrganizationSimpleDTO
-    { _organizationSimpleDTOName = "Organization"
-    , _organizationSimpleDTOOrganizationId = "global"
-    , _organizationSimpleDTOLogo = Just orgLogo
-    }
+orgGlobalSimple = OrganizationSimpleDTO {_name = "Organization", _organizationId = "global", _logo = Just orgLogo}
 
 orgNetherlandsSimple :: OrganizationSimpleDTO
 orgNetherlandsSimple =
-  OrganizationSimpleDTO
-    { _organizationSimpleDTOName = "Organization Netherlands"
-    , _organizationSimpleDTOOrganizationId = "org.nl"
-    , _organizationSimpleDTOLogo = Just orgLogo
-    }
+  OrganizationSimpleDTO {_name = "Organization Netherlands", _organizationId = "org.nl", _logo = Just orgLogo}
 
 orgLogo :: String
 orgLogo =

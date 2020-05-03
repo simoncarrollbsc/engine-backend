@@ -18,21 +18,21 @@ import Wizard.Model.Migration.KnowledgeModel.MigratorState
 migratorState :: MigratorStateDTO
 migratorState =
   MigratorStateDTO
-    { _migratorStateDTOBranchUuid = amsterdamBranch ^. uuid
-    , _migratorStateDTOMigrationState =
+    { _uuid = amsterdamBranch ^. uuid
+    , _migrationState =
         ConflictStateDTO . CorrectorConflictDTO . toDTOFn . Prelude.head $ netherlandsPackageV2 ^. events
-    , _migratorStateDTOBranchPreviousPackageId = netherlandsPackage ^. pId
-    , _migratorStateDTOTargetPackageId = netherlandsPackageV2 ^. pId
-    , _migratorStateDTOCurrentKnowledgeModel = Just . toKnowledgeModelDTO $ km1Netherlands
+    , _previousPackageId = netherlandsPackage ^. pId
+    , _targetPackageId = netherlandsPackageV2 ^. pId
+    , _currentKnowledgeModel = Just . toKnowledgeModelDTO $ km1Netherlands
     }
 
 migratorStateCreate :: MigratorStateCreateDTO
-migratorStateCreate = MigratorStateCreateDTO {_migratorStateCreateDTOTargetPackageId = netherlandsPackageV2 ^. pId}
+migratorStateCreate = MigratorStateCreateDTO {_targetPackageId = netherlandsPackageV2 ^. pId}
 
 migratorConflict :: MigratorConflictDTO
 migratorConflict =
   MigratorConflictDTO
-    { _migratorConflictDTOOriginalEventUuid = a_km1_ch4 ^. uuid
-    , _migratorConflictDTOAction = MCAEdited
-    , _migratorConflictDTOEvent = Just . toDTOFn . Prelude.head $ netherlandsPackageV2 ^. events
+    { _originalEventUuid = a_km1_ch4 ^. uuid
+    , _action = MCAEdited
+    , _event = Just . toDTOFn . Prelude.head $ netherlandsPackageV2 ^. events
     }

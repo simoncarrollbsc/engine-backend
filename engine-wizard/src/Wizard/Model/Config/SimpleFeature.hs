@@ -4,6 +4,6 @@ import GHC.Generics
 
 data SimpleFeature =
   SimpleFeature
-    { _simpleFeatureEnabled :: Bool
+    { _enabled :: Bool
     }
   deriving (Show, Eq, Generic)

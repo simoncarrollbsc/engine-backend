@@ -4,7 +4,7 @@ import GHC.Generics
 
 data TokenCreateDTO =
   TokenCreateDTO
-    { _tokenCreateDTOEmail :: String
-    , _tokenCreateDTOPassword :: String
+    { _email :: String
+    , _password :: String
     }
   deriving (Generic)

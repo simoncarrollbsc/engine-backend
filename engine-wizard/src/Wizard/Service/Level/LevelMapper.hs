@@ -9,9 +9,9 @@ import Wizard.Model.Level.Level
 toLevelDTO :: Level -> LevelDTO
 toLevelDTO l =
   LevelDTO
-    { _levelDTOLevel = l ^. level
-    , _levelDTOTitle = l ^. title
-    , _levelDTODescription = l ^. description
-    , _levelDTOCreatedAt = l ^. createdAt
-    , _levelDTOUpdatedAt = l ^. updatedAt
+    { _level = l ^. level
+    , _title = l ^. title
+    , _description = l ^. description
+    , _createdAt = l ^. createdAt
+    , _updatedAt = l ^. updatedAt
     }

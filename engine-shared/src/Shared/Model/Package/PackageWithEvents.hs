@@ -7,19 +7,19 @@ import Shared.Model.Event.Event
 
 data PackageWithEvents =
   PackageWithEvents
-    { _packageWithEventsPId :: String
-    , _packageWithEventsName :: String
-    , _packageWithEventsOrganizationId :: String
-    , _packageWithEventsKmId :: String
-    , _packageWithEventsVersion :: String
-    , _packageWithEventsMetamodelVersion :: Int
-    , _packageWithEventsDescription :: String
-    , _packageWithEventsReadme :: String
-    , _packageWithEventsLicense :: String
-    , _packageWithEventsPreviousPackageId :: Maybe String
-    , _packageWithEventsForkOfPackageId :: Maybe String
-    , _packageWithEventsMergeCheckpointPackageId :: Maybe String
-    , _packageWithEventsEvents :: [Event]
-    , _packageWithEventsCreatedAt :: UTCTime
+    { _pId :: String
+    , _name :: String
+    , _organizationId :: String
+    , _kmId :: String
+    , _version :: String
+    , _metamodelVersion :: Int
+    , _description :: String
+    , _readme :: String
+    , _license :: String
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _mergeCheckpointPackageId :: Maybe String
+    , _events :: [Event]
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

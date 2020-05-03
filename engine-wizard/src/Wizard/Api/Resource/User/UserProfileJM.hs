@@ -7,7 +7,7 @@ import Wizard.Api.Resource.User.UserProfileDTO
 import Wizard.Api.Resource.User.UserSubmissionPropsJM ()
 
 instance FromJSON UserProfileDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON UserProfileDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

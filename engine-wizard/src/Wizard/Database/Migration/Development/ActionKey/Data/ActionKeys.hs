@@ -12,21 +12,20 @@ import Wizard.Model.ActionKey.ActionKey
 
 regActionKey =
   ActionKey
-    { _actionKeyUuid = fromJust . U.fromString $ "23f934f2-05b2-45d3-bce9-7675c3f3e5e9"
-    , _actionKeyUserId = fromJust . U.fromString $ "ec6f8e90-2a91-49ec-aa3f-9eab2267fc66"
-    , _actionKeyAType = RegistrationActionKey
-    , _actionKeyHash = "1ba90a0f-845e-41c7-9f1c-a55fc5a0554a"
-    , _actionKeyCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    { _uuid = fromJust . U.fromString $ "23f934f2-05b2-45d3-bce9-7675c3f3e5e9"
+    , _userId = fromJust . U.fromString $ "ec6f8e90-2a91-49ec-aa3f-9eab2267fc66"
+    , _aType = RegistrationActionKey
+    , _hash = "1ba90a0f-845e-41c7-9f1c-a55fc5a0554a"
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     }
 
 forgPassActionKey =
   ActionKey
-    { _actionKeyUuid = fromJust . U.fromString $ "23f934f2-05b2-45d3-bce9-7675c3f3e5e9"
-    , _actionKeyUserId = fromJust . U.fromString $ "ec6f8e90-2a91-49ec-aa3f-9eab2267fc66"
-    , _actionKeyAType = ForgottenPasswordActionKey
-    , _actionKeyHash = "1ba90a0f-845e-41c7-9f1c-a55fc5a0554a"
-    , _actionKeyCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    { _uuid = fromJust . U.fromString $ "23f934f2-05b2-45d3-bce9-7675c3f3e5e9"
+    , _userId = fromJust . U.fromString $ "ec6f8e90-2a91-49ec-aa3f-9eab2267fc66"
+    , _aType = ForgottenPasswordActionKey
+    , _hash = "1ba90a0f-845e-41c7-9f1c-a55fc5a0554a"
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     }
 
-forgTokActionKeyDto =
-  ActionKeyDTO {_actionKeyDTOAType = forgPassActionKey ^. aType, _actionKeyDTOEmail = userAlbert ^. email}
+forgTokActionKeyDto = ActionKeyDTO {_aType = forgPassActionKey ^. aType, _email = userAlbert ^. email}

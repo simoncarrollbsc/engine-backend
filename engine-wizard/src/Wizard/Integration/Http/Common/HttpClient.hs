@@ -50,7 +50,7 @@ runRequest req responseMapper = do
 
 runSimpleRequest :: HttpRequest -> AppContextM (Response BSL.ByteString)
 runSimpleRequest req = do
-  httpClientManager <- asks _appContextHttpClientManager
+  httpClientManager <- asks _httpClientManager
   let opts =
         defaults & manager .~ Right httpClientManager & headers .~ reqHeaders & checkResponse .~
         (Just $ \_ _ -> return ())

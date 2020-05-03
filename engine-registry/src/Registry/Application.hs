@@ -34,10 +34,10 @@ runApplication = do
         localization <- loadLocalization serverConfig
         let baseContext =
               BaseContext
-                { _baseContextServerConfig = serverConfig
-                , _baseContextLocalization = localization
-                , _baseContextBuildInfoConfig = buildInfoConfig
-                , _baseContextPool = dbPool
+                { _serverConfig = serverConfig
+                , _localization = localization
+                , _buildInfoConfig = buildInfoConfig
+                , _pool = dbPool
                 }
         liftIO $ runDBMigrations baseContext
         liftIO $ runWebServer baseContext

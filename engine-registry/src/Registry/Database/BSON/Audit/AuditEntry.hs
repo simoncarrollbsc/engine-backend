@@ -5,6 +5,8 @@ import Data.Bson.Generic
 import Registry.Database.BSON.Statistics.InstanceStatistics ()
 import Registry.Model.Audit.AuditEntry
 
-instance ToBSON AuditEntry
+instance ToBSON AuditEntry where
+  toBSON = toBSON'
 
-instance FromBSON AuditEntry
+instance FromBSON AuditEntry where
+  fromBSON = fromBSON'

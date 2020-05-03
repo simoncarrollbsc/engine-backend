@@ -10,8 +10,8 @@ import Wizard.Model.Config.AppConfig
 toOrganizationCreate :: AppConfig -> RegistryCreateDTO -> OrganizationCreateDTO
 toOrganizationCreate appConfig reqDto =
   OrganizationCreateDTO
-    { _organizationCreateDTOOrganizationId = appConfig ^. organization . organizationId
-    , _organizationCreateDTOName = appConfig ^. organization . name
-    , _organizationCreateDTODescription = appConfig ^. organization . description
-    , _organizationCreateDTOEmail = reqDto ^. email
+    { _organizationId = appConfig ^. organization . organizationId
+    , _name = appConfig ^. organization . name
+    , _description = appConfig ^. organization . description
+    , _email = reqDto ^. email
     }

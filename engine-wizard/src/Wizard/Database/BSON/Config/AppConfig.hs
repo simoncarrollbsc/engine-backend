@@ -6,90 +6,134 @@ import Shared.Database.BSON.Common ()
 import Wizard.Database.BSON.Config.SimpleFeature ()
 import Wizard.Model.Config.AppConfig
 
-instance ToBSON AppConfig
+instance ToBSON AppConfig where
+  toBSON = toBSON'
 
-instance FromBSON AppConfig
+instance FromBSON AppConfig where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigOrganization
+instance ToBSON AppConfigOrganization where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigOrganization
+instance FromBSON AppConfigOrganization where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuth
+instance ToBSON AppConfigAuth where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuth
+instance FromBSON AppConfigAuth where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuthInternal
+instance ToBSON AppConfigAuthInternal where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuthInternal
+instance FromBSON AppConfigAuthInternal where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuthExternal
+instance ToBSON AppConfigAuthExternal where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuthExternal
+instance FromBSON AppConfigAuthExternal where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuthExternalService
+instance ToBSON AppConfigAuthExternalService where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuthExternalService
+instance FromBSON AppConfigAuthExternalService where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuthExternalServiceParameter
+instance ToBSON AppConfigAuthExternalServiceParameter where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuthExternalServiceParameter
+instance FromBSON AppConfigAuthExternalServiceParameter where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigAuthExternalServiceStyle
+instance ToBSON AppConfigAuthExternalServiceStyle where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigAuthExternalServiceStyle
+instance FromBSON AppConfigAuthExternalServiceStyle where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigPrivacyAndSupport
+instance ToBSON AppConfigPrivacyAndSupport where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigPrivacyAndSupport
+instance FromBSON AppConfigPrivacyAndSupport where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigDashboard
+instance ToBSON AppConfigDashboard where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigDashboard
+instance FromBSON AppConfigDashboard where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigDashboardWidgets
+instance ToBSON AppConfigDashboardWidgets where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigDashboardWidgets
+instance FromBSON AppConfigDashboardWidgets where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigLookAndFeel
+instance ToBSON AppConfigLookAndFeel where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigLookAndFeel
+instance FromBSON AppConfigLookAndFeel where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigLookAndFeelCustomMenuLink
+instance ToBSON AppConfigLookAndFeelCustomMenuLink where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigLookAndFeelCustomMenuLink
+instance FromBSON AppConfigLookAndFeelCustomMenuLink where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigRegistry
+instance ToBSON AppConfigRegistry where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigRegistry
+instance FromBSON AppConfigRegistry where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigQuestionnaire
+instance ToBSON AppConfigQuestionnaire where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigQuestionnaire
+instance FromBSON AppConfigQuestionnaire where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigQuestionnaireFeedback
+instance ToBSON AppConfigQuestionnaireFeedback where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigQuestionnaireFeedback
+instance FromBSON AppConfigQuestionnaireFeedback where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigTemplate
+instance ToBSON AppConfigTemplate where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigTemplate
+instance FromBSON AppConfigTemplate where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigSubmission
+instance ToBSON AppConfigSubmission where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigSubmission
+instance FromBSON AppConfigSubmission where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigSubmissionService
+instance ToBSON AppConfigSubmissionService where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigSubmissionService
+instance FromBSON AppConfigSubmissionService where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigSubmissionServiceSupportedFormat
+instance ToBSON AppConfigSubmissionServiceSupportedFormat where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigSubmissionServiceSupportedFormat
+instance FromBSON AppConfigSubmissionServiceSupportedFormat where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigSubmissionServiceRequest
+instance ToBSON AppConfigSubmissionServiceRequest where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigSubmissionServiceRequest
+instance FromBSON AppConfigSubmissionServiceRequest where
+  fromBSON = fromBSON'
 
-instance ToBSON AppConfigSubmissionServiceRequestMultipart
+instance ToBSON AppConfigSubmissionServiceRequestMultipart where
+  toBSON = toBSON'
 
-instance FromBSON AppConfigSubmissionServiceRequestMultipart
+instance FromBSON AppConfigSubmissionServiceRequestMultipart where
+  fromBSON = fromBSON'

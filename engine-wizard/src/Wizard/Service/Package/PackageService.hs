@@ -50,7 +50,7 @@ getSimplePackagesFiltered queryParams = do
 
 getPackageById :: String -> AppContextM PackageDetailDTO
 getPackageById pkgId = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   pkg <- findPackageById pkgId
   versions <- getPackageVersions pkg
   iStat <- getInstanceStatistics
@@ -113,7 +113,7 @@ createPackage pkg = do
 deletePackagesByQueryParams :: [(String, String)] -> AppContextM ()
 deletePackagesByQueryParams queryParams = do
   packages <- findPackagesFiltered queryParams
-  validatePackagesDeletation (_packagePId <$> packages)
+  validatePackagesDeletation (packages ^.. traverse . pId)
   deletePackagesFiltered queryParams
 
 deletePackage :: String -> AppContextM ()
@@ -128,4 +128,4 @@ deletePackage pkgId = do
 getPackageVersions :: Package -> AppContextM [String]
 getPackageVersions pkg = do
   allPkgs <- findPackagesByOrganizationIdAndKmId (pkg ^. organizationId) (pkg ^. kmId)
-  return . fmap _packageVersion $ allPkgs
+  return $ allPkgs ^.. traverse . version

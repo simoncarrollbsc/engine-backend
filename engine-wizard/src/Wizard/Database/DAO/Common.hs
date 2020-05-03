@@ -37,7 +37,7 @@ import Wizard.Model.Context.AppContext
 
 runDB :: Action IO b -> AppContextM b
 runDB action = do
-  dbPool <- asks _appContextPool
+  dbPool <- asks _pool
   liftIO $ runMongoDBPoolDef action dbPool
 
 deserializeEntities :: (FromBSON a) => [Document] -> Either AppError [a]

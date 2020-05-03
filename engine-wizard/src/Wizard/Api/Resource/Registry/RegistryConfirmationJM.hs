@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Registry.RegistryConfirmationDTO
 
 instance FromJSON RegistryConfirmationDTO where
-  parseJSON = simpleParseJSON "_registryConfirmationDTO"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON RegistryConfirmationDTO where
-  toJSON = simpleToJSON "_registryConfirmationDTO"
+  toJSON = genericToJSON simpleOptions'''

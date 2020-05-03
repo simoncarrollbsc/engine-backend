@@ -8,10 +8,10 @@ import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateDTO
 
 data MigratorStateDTO =
   MigratorStateDTO
-    { _migratorStateDTOBranchUuid :: U.UUID
-    , _migratorStateDTOMigrationState :: MigrationStateDTO
-    , _migratorStateDTOBranchPreviousPackageId :: String
-    , _migratorStateDTOTargetPackageId :: String
-    , _migratorStateDTOCurrentKnowledgeModel :: Maybe KnowledgeModelDTO
+    { _uuid :: U.UUID
+    , _migrationState :: MigrationStateDTO
+    , _previousPackageId :: String
+    , _targetPackageId :: String
+    , _currentKnowledgeModel :: Maybe KnowledgeModelDTO
     }
   deriving (Show, Eq, Generic)

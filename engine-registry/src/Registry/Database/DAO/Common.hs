@@ -30,7 +30,7 @@ import Shared.Localization.Messages.Public
 import Shared.Model.Error.Error
 
 runDB action = do
-  dbPool <- asks _appContextPool
+  dbPool <- asks _pool
   liftIO $ runMongoDBPoolDef action dbPool
 
 deserializeEntities :: (FromBSON a) => [Document] -> Either AppError [a]

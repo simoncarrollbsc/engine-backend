@@ -5,30 +5,30 @@ import GHC.Generics
 
 data Template =
   Template
-    { _templateUuid :: U.UUID
-    , _templateName :: String
-    , _templateDescription :: String
-    , _templateAllowedPackages :: [TemplateAllowedPackage]
-    , _templateRecommendedPackageId :: Maybe String
-    , _templateFormats :: [TemplateFormat]
+    { _uuid :: U.UUID
+    , _name :: String
+    , _description :: String
+    , _allowedPackages :: [TemplateAllowedPackage]
+    , _recommendedPackageId :: Maybe String
+    , _formats :: [TemplateFormat]
     }
   deriving (Show, Eq, Generic)
 
 data TemplateAllowedPackage =
   TemplateAllowedPackage
-    { _templateAllowedPackageOrgId :: Maybe String
-    , _templateAllowedPackageKmId :: Maybe String
-    , _templateAllowedPackageMinVersion :: Maybe String
-    , _templateAllowedPackageMaxVersion :: Maybe String
+    { _orgId :: Maybe String
+    , _kmId :: Maybe String
+    , _minVersion :: Maybe String
+    , _maxVersion :: Maybe String
     }
   deriving (Show, Eq, Generic)
 
 data TemplateFormat =
   TemplateFormat
-    { _templateFormatUuid :: U.UUID
-    , _templateFormatName :: String
-    , _templateFormatShortName :: String
-    , _templateFormatIcon :: String
-    , _templateFormatColor :: String
+    { _uuid :: U.UUID
+    , _name :: String
+    , _shortName :: String
+    , _icon :: String
+    , _color :: String
     }
   deriving (Show, Eq, Generic)

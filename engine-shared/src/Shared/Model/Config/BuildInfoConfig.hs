@@ -4,8 +4,8 @@ import GHC.Generics
 
 data BuildInfoConfig =
   BuildInfoConfig
-    { _buildInfoConfigName :: String
-    , _buildInfoConfigVersion :: String
-    , _buildInfoConfigBuiltAt :: String
+    { _name :: String
+    , _version :: String
+    , _builtAt :: String
     }
   deriving (Generic, Show)

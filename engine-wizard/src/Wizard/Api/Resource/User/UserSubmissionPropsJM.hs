@@ -7,13 +7,13 @@ import Wizard.Api.Resource.User.UserSubmissionPropsDTO
 import Wizard.Model.User.User
 
 instance FromJSON UserSubmissionProps where
-  parseJSON = simpleParseJSON "_userSubmissionProps"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON UserSubmissionProps where
-  toJSON = simpleToJSON "_userSubmissionProps"
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON UserSubmissionPropsDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON UserSubmissionPropsDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

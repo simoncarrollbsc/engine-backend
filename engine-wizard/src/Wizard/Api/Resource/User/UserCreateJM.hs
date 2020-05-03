@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.User.UserCreateDTO
 
 instance FromJSON UserCreateDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON UserCreateDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

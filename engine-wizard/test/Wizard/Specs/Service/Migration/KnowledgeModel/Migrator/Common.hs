@@ -11,13 +11,13 @@ import Wizard.Model.Migration.KnowledgeModel.MigratorState
 createTestMigratorStateWithEvents :: [Event] -> [Event] -> Maybe KnowledgeModel -> MigratorState
 createTestMigratorStateWithEvents branchEvents targetPackageEvents mKm =
   MigratorState
-    { _migratorStateBranchUuid = fromJust . U.fromString $ "09080ce7-f513-4493-9583-dce567b8e9c5"
-    , _migratorStateMetamodelVersion = kmMetamodelVersion
-    , _migratorStateMigrationState = RunningState
-    , _migratorStateBranchPreviousPackageId = "b"
-    , _migratorStateTargetPackageId = "t"
-    , _migratorStateBranchEvents = branchEvents
-    , _migratorStateTargetPackageEvents = targetPackageEvents
-    , _migratorStateResultEvents = []
-    , _migratorStateCurrentKnowledgeModel = mKm
+    { _branchUuid = fromJust . U.fromString $ "09080ce7-f513-4493-9583-dce567b8e9c5"
+    , _metamodelVersion = kmMetamodelVersion
+    , _migrationState = RunningState
+    , _branchPreviousPackageId = "b"
+    , _targetPackageId = "t"
+    , _branchEvents = branchEvents
+    , _targetPackageEvents = targetPackageEvents
+    , _resultEvents = []
+    , _currentKnowledgeModel = mKm
     }

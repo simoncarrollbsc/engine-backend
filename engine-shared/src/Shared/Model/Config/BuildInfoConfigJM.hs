@@ -7,4 +7,4 @@ import Shared.Model.Config.EnvironmentJM ()
 import Shared.Util.JSON
 
 instance FromJSON BuildInfoConfig where
-  parseJSON = simpleParseJSON "_buildInfoConfig"
+  parseJSON = genericParseJSON simpleOptions'''

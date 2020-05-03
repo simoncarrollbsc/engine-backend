@@ -41,12 +41,12 @@ prepareWebApp runCallback =
       putStrLn "DATABASE: connected"
       let appContext =
             AppContext
-              { _appContextApplicationConfig = serverConfig
-              , _appContextLocalization = M.empty
-              , _appContextBuildInfoConfig = buildInfoConfig
-              , _appContextPool = dbPool
-              , _appContextTraceUuid = fromJust (U.fromString "2ed6eb01-e75e-4c63-9d81-7f36d84192c0")
-              , _appContextCurrentOrganization = Just orgGlobal
+              { _serverConfig = serverConfig
+              , _localization = M.empty
+              , _buildInfoConfig = buildInfoConfig
+              , _pool = dbPool
+              , _traceUuid = fromJust (U.fromString "2ed6eb01-e75e-4c63-9d81-7f36d84192c0")
+              , _currentOrganization = Just orgGlobal
               }
       runCallback appContext
 

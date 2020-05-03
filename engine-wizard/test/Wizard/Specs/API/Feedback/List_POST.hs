@@ -41,10 +41,10 @@ reqHeaders = [reqAuthHeader, reqCtHeader]
 
 reqDto =
   FeedbackCreateDTO
-    { _feedbackCreateDTOQuestionUuid = question1 ^. uuid
-    , _feedbackCreateDTOPackageId = germanyPackage ^. pId
-    , _feedbackCreateDTOTitle = "New feedback"
-    , _feedbackCreateDTOContent = "Some new feedback description"
+    { _questionUuid = question1 ^. uuid
+    , _packageId = germanyPackage ^. pId
+    , _title = "New feedback"
+    , _content = "Some new feedback description"
     }
 
 reqBody = encode reqDto

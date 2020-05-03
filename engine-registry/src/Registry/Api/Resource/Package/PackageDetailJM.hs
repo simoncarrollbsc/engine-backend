@@ -7,7 +7,7 @@ import Shared.Api.Resource.Organization.OrganizationSimpleJM ()
 import Shared.Util.JSON
 
 instance FromJSON PackageDetailDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON PackageDetailDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

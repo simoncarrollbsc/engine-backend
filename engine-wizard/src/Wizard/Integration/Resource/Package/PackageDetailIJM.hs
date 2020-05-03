@@ -9,39 +9,39 @@ import Wizard.Integration.Resource.Package.PackageDetailIDTO
 instance ToJSON PackageDetailIDTO where
   toJSON PackageDetailIDTO {..} =
     object
-      [ "id" .= _packageDetailIDTOPId
-      , "name" .= _packageDetailIDTOName
-      , "organizationId" .= _packageDetailIDTOOrganizationId
-      , "kmId" .= _packageDetailIDTOKmId
-      , "version" .= _packageDetailIDTOVersion
-      , "metamodelVersion" .= _packageDetailIDTOMetamodelVersion
-      , "description" .= _packageDetailIDTODescription
-      , "readme" .= _packageDetailIDTOReadme
-      , "license" .= _packageDetailIDTOLicense
-      , "previousPackageId" .= _packageDetailIDTOPreviousPackageId
-      , "forkOfPackageId" .= _packageDetailIDTOForkOfPackageId
-      , "mergeCheckpointPackageId" .= _packageDetailIDTOMergeCheckpointPackageId
-      , "versions" .= _packageDetailIDTOVersions
-      , "organization" .= _packageDetailIDTOOrganization
-      , "createdAt" .= _packageDetailIDTOCreatedAt
+      [ "id" .= _pId
+      , "name" .= _name
+      , "organizationId" .= _organizationId
+      , "kmId" .= _kmId
+      , "version" .= _version
+      , "metamodelVersion" .= _metamodelVersion
+      , "description" .= _description
+      , "readme" .= _readme
+      , "license" .= _license
+      , "previousPackageId" .= _previousPackageId
+      , "forkOfPackageId" .= _forkOfPackageId
+      , "mergeCheckpointPackageId" .= _mergeCheckpointPackageId
+      , "versions" .= _versions
+      , "organization" .= _organization
+      , "createdAt" .= _createdAt
       ]
 
 instance FromJSON PackageDetailIDTO where
   parseJSON (Object o) = do
-    _packageDetailIDTOPId <- o .: "id"
-    _packageDetailIDTOName <- o .: "name"
-    _packageDetailIDTOOrganizationId <- o .: "organizationId"
-    _packageDetailIDTOKmId <- o .: "kmId"
-    _packageDetailIDTOVersion <- o .: "version"
-    _packageDetailIDTOMetamodelVersion <- o .: "metamodelVersion"
-    _packageDetailIDTODescription <- o .: "description"
-    _packageDetailIDTOReadme <- o .: "readme"
-    _packageDetailIDTOLicense <- o .: "license"
-    _packageDetailIDTOPreviousPackageId <- o .: "previousPackageId"
-    _packageDetailIDTOForkOfPackageId <- o .: "forkOfPackageId"
-    _packageDetailIDTOMergeCheckpointPackageId <- o .: "mergeCheckpointPackageId"
-    _packageDetailIDTOVersions <- o .: "versions"
-    _packageDetailIDTOOrganization <- o .: "organization"
-    _packageDetailIDTOCreatedAt <- o .: "createdAt"
+    _pId <- o .: "id"
+    _name <- o .: "name"
+    _organizationId <- o .: "organizationId"
+    _kmId <- o .: "kmId"
+    _version <- o .: "version"
+    _metamodelVersion <- o .: "metamodelVersion"
+    _description <- o .: "description"
+    _readme <- o .: "readme"
+    _license <- o .: "license"
+    _previousPackageId <- o .: "previousPackageId"
+    _forkOfPackageId <- o .: "forkOfPackageId"
+    _mergeCheckpointPackageId <- o .: "mergeCheckpointPackageId"
+    _versions <- o .: "versions"
+    _organization <- o .: "organization"
+    _createdAt <- o .: "createdAt"
     return PackageDetailIDTO {..}
   parseJSON _ = mzero

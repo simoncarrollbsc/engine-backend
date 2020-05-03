@@ -42,12 +42,7 @@ reqUrl = "/knowledge-models/preview"
 
 reqHeaders = [reqAuthHeader, reqCtHeader]
 
-reqDto =
-  KnowledgeModelChangeDTO
-    { _knowledgeModelChangeDTOPackageId = Just $ germanyPackage ^. pId
-    , _knowledgeModelChangeDTOEvents = []
-    , _knowledgeModelChangeDTOTagUuids = []
-    }
+reqDto = KnowledgeModelChangeDTO {_packageId = Just $ germanyPackage ^. pId, _events = [], _tagUuids = []}
 
 reqBody = encode reqDto
 

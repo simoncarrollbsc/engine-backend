@@ -26,18 +26,16 @@ computeIndications levelsEnabled qtnLevel km replies ch =
 -- --------------------------------
 computeAnsweredIndication :: Int -> KnowledgeModel -> [Reply] -> Chapter -> Indication
 computeAnsweredIndication qtnLevel km replies ch =
-  AnsweredIndication' $
   AnsweredIndication
-    { _answeredIndicationAnsweredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
-    , _answeredIndicationUnansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
+    { _answeredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
+    , _unansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
     }
 
 computeLevelsAnsweredIndication :: Int -> KnowledgeModel -> [Reply] -> Chapter -> Indication
 computeLevelsAnsweredIndication qtnLevel km replies ch =
-  LevelsAnsweredIndication' $
   LevelsAnsweredIndication
-    { _levelsAnsweredIndicationAnsweredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
-    , _levelsAnsweredIndicationUnansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
+    { _answeredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
+    , _unansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
     }
 
 evaluateChapter :: Int -> Int -> Int -> KnowledgeModel -> [Reply] -> Chapter -> Int
@@ -65,9 +63,9 @@ evaluateQuestion found notFound qtnLevel km replies path q' =
 evaluateOptionsQuestion :: OptionsQuestion -> Int -> Int -> Int -> KnowledgeModel -> [Reply] -> String -> Int
 evaluateOptionsQuestion q found notFound qtnLevel km replies path =
   case getReply replies path of
-    Just (Reply {_replyValue = AnswerReply {..}}) ->
-      let currentPath = composePathUuid path _answerReplyValue
-          qs = getQuestionsForAnswerUuid km _answerReplyValue
+    Just (Reply {_value = AnswerReply {..}}) ->
+      let currentPath = composePathUuid path _answerValue
+          qs = getQuestionsForAnswerUuid km _answerValue
        in sum . fmap (evaluateQuestion found notFound qtnLevel km replies currentPath) $ qs
     Nothing -> isRequiredNow (q ^. requiredLevel) qtnLevel notFound
 
@@ -76,7 +74,7 @@ evaluateListQuestion found notFound qtnLevel km replies currentPath q =
   let itemQs = getItemTemplateQuestionsForQuestionUuid km $ q ^. uuid
       itemCount =
         case getReply replies currentPath of
-          Just (Reply {_replyValue = ItemListReply {..}}) -> _itemListReplyValue
+          Just (Reply {_value = ItemListReply {..}}) -> _itemListValue
           _ -> 0
       indexes = generateList itemCount
       evaluateQuestion' index =

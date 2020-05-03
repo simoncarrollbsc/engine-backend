@@ -8,8 +8,8 @@ import Wizard.Model.Migration.KnowledgeModel.MigratorState
 
 data MigratorConflictDTO =
   MigratorConflictDTO
-    { _migratorConflictDTOOriginalEventUuid :: U.UUID
-    , _migratorConflictDTOAction :: MigrationConflictAction
-    , _migratorConflictDTOEvent :: Maybe EventDTO
+    { _originalEventUuid :: U.UUID
+    , _action :: MigrationConflictAction
+    , _event :: Maybe EventDTO
     }
   deriving (Show, Eq, Generic)

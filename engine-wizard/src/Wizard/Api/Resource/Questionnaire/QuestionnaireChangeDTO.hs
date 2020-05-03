@@ -9,11 +9,11 @@ import Wizard.Model.Questionnaire.Questionnaire
 
 data QuestionnaireChangeDTO =
   QuestionnaireChangeDTO
-    { _questionnaireChangeDTOName :: String
-    , _questionnaireChangeDTOAccessibility :: QuestionnaireAccessibility
-    , _questionnaireChangeDTOLevel :: Int
-    , _questionnaireChangeDTOReplies :: [ReplyDTO]
-    , _questionnaireChangeDTOLabels :: [LabelDTO]
-    , _questionnaireChangeDTOTemplateUuid :: Maybe U.UUID
+    { _name :: String
+    , _accessibility :: QuestionnaireAccessibility
+    , _level :: Int
+    , _replies :: [ReplyDTO]
+    , _labels :: [LabelDTO]
+    , _templateUuid :: Maybe U.UUID
     }
   deriving (Show, Eq, Generic)

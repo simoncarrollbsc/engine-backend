@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Submission.SubmissionDTO
 
 instance FromJSON SubmissionDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON SubmissionDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

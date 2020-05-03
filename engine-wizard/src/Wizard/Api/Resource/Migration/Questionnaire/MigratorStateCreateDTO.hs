@@ -5,7 +5,7 @@ import GHC.Generics
 
 data MigratorStateCreateDTO =
   MigratorStateCreateDTO
-    { _migratorStateCreateDTOTargetPackageId :: String
-    , _migratorStateCreateDTOTargetTagUuids :: [U.UUID]
+    { _targetPackageId :: String
+    , _targetTagUuids :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

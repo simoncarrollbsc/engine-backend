@@ -7,12 +7,12 @@ import Wizard.Model.User.User
 
 data UserChangeDTO =
   UserChangeDTO
-    { _userChangeDTOUuid :: UUID
-    , _userChangeDTOFirstName :: String
-    , _userChangeDTOLastName :: String
-    , _userChangeDTOEmail :: Email
-    , _userChangeDTOAffiliation :: Maybe String
-    , _userChangeDTORole :: Role
-    , _userChangeDTOActive :: Bool
+    { _uuid :: UUID
+    , _firstName :: String
+    , _lastName :: String
+    , _email :: Email
+    , _affiliation :: Maybe String
+    , _role :: Role
+    , _active :: Bool
     }
   deriving (Generic)

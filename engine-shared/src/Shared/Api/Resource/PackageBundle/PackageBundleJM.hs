@@ -7,7 +7,7 @@ import Shared.Api.Resource.PackageBundle.PackageBundleDTO
 import Shared.Util.JSON
 
 instance FromJSON PackageBundleDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON PackageBundleDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

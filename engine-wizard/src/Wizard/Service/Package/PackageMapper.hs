@@ -19,64 +19,64 @@ toSimpleDTO pkg = toSimpleDTO' pkg [] [] []
 toSimpleDTO' :: Package -> [PackageSimpleIDTO] -> [OrganizationSimpleDTO] -> [String] -> PackageSimpleDTO
 toSimpleDTO' pkg pkgRs orgRs localVersions =
   PackageSimpleDTO
-    { _packageSimpleDTOPId = pkg ^. pId
-    , _packageSimpleDTOName = pkg ^. name
-    , _packageSimpleDTOOrganizationId = pkg ^. organizationId
-    , _packageSimpleDTOKmId = pkg ^. kmId
-    , _packageSimpleDTOVersion = pkg ^. version
-    , _packageSimpleDTOVersions = localVersions
-    , _packageSimpleDTODescription = pkg ^. description
-    , _packageSimpleDTOState = computePackageState pkgRs pkg
-    , _packageSimpleDTOOrganization = selectOrganizationByOrgId pkg orgRs
-    , _packageSimpleDTOCreatedAt = pkg ^. createdAt
+    { _pId = pkg ^. pId
+    , _name = pkg ^. name
+    , _organizationId = pkg ^. organizationId
+    , _kmId = pkg ^. kmId
+    , _version = pkg ^. version
+    , _versions = localVersions
+    , _description = pkg ^. description
+    , _state = computePackageState pkgRs pkg
+    , _organization = selectOrganizationByOrgId pkg orgRs
+    , _createdAt = pkg ^. createdAt
     }
 
 toDetailDTO :: Package -> [PackageSimpleIDTO] -> [OrganizationSimpleDTO] -> [String] -> String -> PackageDetailDTO
 toDetailDTO pkg pkgRs orgRs versionLs registryLink =
   PackageDetailDTO
-    { _packageDetailDTOPId = pkg ^. pId
-    , _packageDetailDTOName = pkg ^. name
-    , _packageDetailDTOOrganizationId = pkg ^. organizationId
-    , _packageDetailDTOKmId = pkg ^. kmId
-    , _packageDetailDTOVersion = pkg ^. version
-    , _packageDetailDTODescription = pkg ^. description
-    , _packageDetailDTOReadme = pkg ^. readme
-    , _packageDetailDTOLicense = pkg ^. license
-    , _packageDetailDTOMetamodelVersion = pkg ^. metamodelVersion
-    , _packageDetailDTOPreviousPackageId = pkg ^. previousPackageId
-    , _packageDetailDTOForkOfPackageId = pkg ^. forkOfPackageId
-    , _packageDetailDTOMergeCheckpointPackageId = pkg ^. mergeCheckpointPackageId
-    , _packageDetailDTOVersions = versionLs
-    , _packageDetailDTORemoteLatestVersion =
+    { _pId = pkg ^. pId
+    , _name = pkg ^. name
+    , _organizationId = pkg ^. organizationId
+    , _kmId = pkg ^. kmId
+    , _version = pkg ^. version
+    , _description = pkg ^. description
+    , _readme = pkg ^. readme
+    , _license = pkg ^. license
+    , _metamodelVersion = pkg ^. metamodelVersion
+    , _previousPackageId = pkg ^. previousPackageId
+    , _forkOfPackageId = pkg ^. forkOfPackageId
+    , _mergeCheckpointPackageId = pkg ^. mergeCheckpointPackageId
+    , _versions = versionLs
+    , _remoteLatestVersion =
         case selectPackageByOrgIdAndKmId pkg pkgRs of
           Just pkgR -> Just $ pkgR ^. version
           Nothing -> Nothing
-    , _packageDetailDTOState = computePackageState pkgRs pkg
-    , _packageDetailDTORegistryLink =
+    , _state = computePackageState pkgRs pkg
+    , _registryLink =
         case selectPackageByOrgIdAndKmId pkg pkgRs of
           Just pkgR -> Just registryLink
           Nothing -> Nothing
-    , _packageDetailDTOOrganization = selectOrganizationByOrgId pkg orgRs
-    , _packageDetailDTOCreatedAt = pkg ^. createdAt
+    , _organization = selectOrganizationByOrgId pkg orgRs
+    , _createdAt = pkg ^. createdAt
     }
 
 fromDTO :: PackageDTO -> PackageWithEvents
 fromDTO dto =
   PackageWithEvents
-    { _packageWithEventsPId = dto ^. pId
-    , _packageWithEventsName = dto ^. name
-    , _packageWithEventsOrganizationId = dto ^. organizationId
-    , _packageWithEventsKmId = dto ^. kmId
-    , _packageWithEventsVersion = dto ^. version
-    , _packageWithEventsMetamodelVersion = dto ^. metamodelVersion
-    , _packageWithEventsDescription = dto ^. description
-    , _packageWithEventsReadme = dto ^. readme
-    , _packageWithEventsLicense = dto ^. license
-    , _packageWithEventsPreviousPackageId = dto ^. previousPackageId
-    , _packageWithEventsForkOfPackageId = dto ^. forkOfPackageId
-    , _packageWithEventsMergeCheckpointPackageId = dto ^. mergeCheckpointPackageId
-    , _packageWithEventsEvents = fromDTOs (dto ^. events)
-    , _packageWithEventsCreatedAt = dto ^. createdAt
+    { _pId = dto ^. pId
+    , _name = dto ^. name
+    , _organizationId = dto ^. organizationId
+    , _kmId = dto ^. kmId
+    , _version = dto ^. version
+    , _metamodelVersion = dto ^. metamodelVersion
+    , _description = dto ^. description
+    , _readme = dto ^. readme
+    , _license = dto ^. license
+    , _previousPackageId = dto ^. previousPackageId
+    , _forkOfPackageId = dto ^. forkOfPackageId
+    , _mergeCheckpointPackageId = dto ^. mergeCheckpointPackageId
+    , _events = fromDTOs (dto ^. events)
+    , _createdAt = dto ^. createdAt
     }
 
 buildPackageUrl :: String -> String -> String

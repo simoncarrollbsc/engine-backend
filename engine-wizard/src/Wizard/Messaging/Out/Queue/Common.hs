@@ -17,7 +17,7 @@ createQueue name = newQueue {queueName = name}
 createBody body = newMsg {msgBody = body}
 
 publishToQueue queue body = do
-  msgChannel <- asks _appContextMsgChannel
+  msgChannel <- asks _msgChannel
   publishMessageToQueue msgChannel queue body
 
 -- --------------------------------

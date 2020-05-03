@@ -7,7 +7,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Branch.BranchWithEventsDTO
 
 instance FromJSON BranchWithEventsDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON BranchWithEventsDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

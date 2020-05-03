@@ -10,5 +10,5 @@ import Wizard.Service.Config.ClientConfigMapper
 getClientConfig :: AppContextM ClientConfigDTO
 getClientConfig = do
   appConfig <- getAppConfig
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   return $ toClientConfigDTO serverConfig appConfig

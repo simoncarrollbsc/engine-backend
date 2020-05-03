@@ -5,56 +5,46 @@ import qualified Data.UUID as U
 
 data Report =
   Report
-    { _reportUuid :: U.UUID
-    , _reportTotalReport :: TotalReport
-    , _reportChapterReports :: [ChapterReport]
-    , _reportCreatedAt :: UTCTime
-    , _reportUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _totalReport :: TotalReport
+    , _chapterReports :: [ChapterReport]
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show)
 
 instance Eq Report where
-  a == b =
-    _reportUuid a == _reportUuid b &&
-    _reportTotalReport a == _reportTotalReport b && _reportChapterReports a == _reportChapterReports b
+  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _chapterReports a == _chapterReports b
 
 data TotalReport =
   TotalReport
-    { _totalReportIndications :: [Indication]
-    , _totalReportMetrics :: [MetricSummary]
+    { _indications :: [Indication]
+    , _metrics :: [MetricSummary]
     }
   deriving (Show, Eq)
 
 data ChapterReport =
   ChapterReport
-    { _chapterReportChapterUuid :: U.UUID
-    , _chapterReportIndications :: [Indication]
-    , _chapterReportMetrics :: [MetricSummary]
+    { _chapterUuid :: U.UUID
+    , _indications :: [Indication]
+    , _metrics :: [MetricSummary]
     }
   deriving (Show, Eq)
 
 data Indication
-  = AnsweredIndication' AnsweredIndication
-  | LevelsAnsweredIndication' LevelsAnsweredIndication
-  deriving (Show, Eq)
-
-data AnsweredIndication =
-  AnsweredIndication
-    { _answeredIndicationAnsweredQuestions :: Int
-    , _answeredIndicationUnansweredQuestions :: Int
-    }
-  deriving (Show, Eq)
-
-data LevelsAnsweredIndication =
-  LevelsAnsweredIndication
-    { _levelsAnsweredIndicationAnsweredQuestions :: Int
-    , _levelsAnsweredIndicationUnansweredQuestions :: Int
-    }
+  = AnsweredIndication
+      { _answeredQuestions :: Int
+      , _unansweredQuestions :: Int
+      }
+  | LevelsAnsweredIndication
+      { _answeredQuestions :: Int
+      , _unansweredQuestions :: Int
+      }
   deriving (Show, Eq)
 
 data MetricSummary =
   MetricSummary
-    { _metricSummaryMetricUuid :: U.UUID
-    , _metricSummaryMeasure :: Maybe Double
+    { _metricUuid :: U.UUID
+    , _measure :: Maybe Double
     }
   deriving (Show, Eq)

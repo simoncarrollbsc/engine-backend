@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.BookReference.BookReferenceDTO
 
 instance FromJSON BookReferenceDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON BookReferenceDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

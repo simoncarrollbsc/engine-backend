@@ -11,9 +11,4 @@ getInstanceStatistics = do
   uCount <- countUsers
   pCount <- countPackages
   qCount <- countQuestionnaires
-  return
-    InstanceStatistics
-      { _instanceStatisticsUserCount = uCount
-      , _instanceStatisticsPkgCount = pCount
-      , _instanceStatisticsQtnCount = qCount
-      }
+  return InstanceStatistics {_userCount = uCount, _pkgCount = pCount, _qtnCount = qCount}

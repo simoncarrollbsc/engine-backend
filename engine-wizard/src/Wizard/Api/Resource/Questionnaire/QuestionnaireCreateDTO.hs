@@ -7,10 +7,10 @@ import Wizard.Model.Questionnaire.Questionnaire
 
 data QuestionnaireCreateDTO =
   QuestionnaireCreateDTO
-    { _questionnaireCreateDTOName :: String
-    , _questionnaireCreateDTOPackageId :: String
-    , _questionnaireCreateDTOAccessibility :: QuestionnaireAccessibility
-    , _questionnaireCreateDTOTagUuids :: [U.UUID]
-    , _questionnaireCreateDTOTemplateUuid :: Maybe U.UUID
+    { _name :: String
+    , _packageId :: String
+    , _accessibility :: QuestionnaireAccessibility
+    , _tagUuids :: [U.UUID]
+    , _templateUuid :: Maybe U.UUID
     }
   deriving (Show, Eq, Generic)

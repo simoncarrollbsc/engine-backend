@@ -4,13 +4,13 @@ import Data.Time
 import qualified Data.UUID as U
 import GHC.Generics
 
-import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.Package.Package
-import Wizard.Model.Config.AppConfig
-import Wizard.Model.Level.Level
-import Wizard.Model.Questionnaire.QuestionnaireReply
-import Wizard.Model.Report.Report
-import Wizard.Model.User.User
+import qualified Shared.Model.KnowledgeModel.KnowledgeModel as KnowledgeModel
+import qualified Shared.Model.Package.Package as Package
+import qualified Wizard.Model.Config.AppConfig as AppConfig
+import qualified Wizard.Model.Level.Level as Level
+import qualified Wizard.Model.Questionnaire.QuestionnaireReply as QuestionnaireReply
+import qualified Wizard.Model.Report.Report as Report
+import qualified Wizard.Model.User.User as User
 
 data DocumentFormat
   = JSON
@@ -31,41 +31,39 @@ data DocumentFormat
 
 data DocumentContext =
   DocumentContext
-    { _documentContextUuid :: U.UUID
-    , _documentContextConfig :: DocumentContextConfig
-    , _documentContextQuestionnaireUuid :: String
-    , _documentContextQuestionnaireName :: String
-    , _documentContextQuestionnaireReplies :: [Reply]
-    , _documentContextLevel :: Int
-    , _documentContextKnowledgeModel :: KnowledgeModel
-    , _documentContextMetrics :: [Metric]
-    , _documentContextLevels :: [Level]
-    , _documentContextReport :: Report
-    , _documentContextPackage :: Package
-    , _documentContextOrganization :: AppConfigOrganization
-    , _documentContextCreatedBy :: Maybe User
-    , _documentContextCreatedAt :: UTCTime
-    , _documentContextUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _config :: DocumentContextConfig
+    , _questionnaireUuid :: String
+    , _questionnaireName :: String
+    , _questionnaireReplies :: [QuestionnaireReply.Reply]
+    , _level :: Int
+    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
+    , _metrics :: [KnowledgeModel.Metric]
+    , _levels :: [Level.Level]
+    , _report :: Report.Report
+    , _package :: Package.Package
+    , _organization :: AppConfig.AppConfigOrganization
+    , _createdBy :: Maybe User.User
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq DocumentContext where
   a == b =
-    _documentContextUuid a == _documentContextUuid b &&
-    _documentContextConfig a == _documentContextConfig b &&
-    _documentContextQuestionnaireUuid a == _documentContextQuestionnaireUuid b &&
-    _documentContextQuestionnaireName a == _documentContextQuestionnaireName b &&
-    _documentContextLevel a == _documentContextLevel b &&
-    _documentContextKnowledgeModel a == _documentContextKnowledgeModel b &&
-    _documentContextMetrics a == _documentContextMetrics b &&
-    _documentContextLevels a == _documentContextLevels b &&
-    _documentContextReport a == _documentContextReport b &&
-    _documentContextPackage a == _documentContextPackage b &&
-    _documentContextOrganization a == _documentContextOrganization b &&
-    _documentContextCreatedBy a == _documentContextCreatedBy b
+    _uuid a == _uuid b &&
+    _config a == _config b &&
+    _questionnaireUuid a == _questionnaireUuid b &&
+    _questionnaireName a == _questionnaireName b &&
+    _level a == _level b &&
+    _knowledgeModel a == _knowledgeModel b &&
+    _metrics a == _metrics b &&
+    _levels a == _levels b &&
+    _report a == _report b &&
+    _package a == _package b && _organization a == _organization b && _createdBy a == _createdBy b
 
 data DocumentContextConfig =
   DocumentContextConfig
-    { _documentContextConfigLevelsEnabled :: Bool
+    { _levelsEnabled :: Bool
     }
   deriving (Show, Eq, Generic)

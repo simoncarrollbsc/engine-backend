@@ -4,7 +4,7 @@ import GHC.Generics
 
 data RegistryConfirmationDTO =
   RegistryConfirmationDTO
-    { _registryConfirmationDTOOrganizationId :: String
-    , _registryConfirmationDTOHash :: String
+    { _organizationId :: String
+    , _hash :: String
     }
   deriving (Show, Eq, Generic)

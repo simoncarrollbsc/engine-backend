@@ -10,29 +10,29 @@ import Wizard.Model.Config.AppConfig
 toChangeDTO :: AppConfig -> AppConfigChangeDTO
 toChangeDTO config =
   AppConfigChangeDTO
-    { _appConfigChangeDTOOrganization = config ^. organization
-    , _appConfigChangeDTOAuthentication = config ^. authentication
-    , _appConfigChangeDTOPrivacyAndSupport = config ^. privacyAndSupport
-    , _appConfigChangeDTODashboard = config ^. dashboard
-    , _appConfigChangeDTOLookAndFeel = config ^. lookAndFeel
-    , _appConfigChangeDTOKnowledgeModelRegistry = config ^. knowledgeModelRegistry
-    , _appConfigChangeDTOQuestionnaire = config ^. questionnaire
-    , _appConfigChangeDTOTemplate = config ^. template
-    , _appConfigChangeDTOSubmission = config ^. submission
+    { _organization = config ^. organization
+    , _authentication = config ^. authentication
+    , _privacyAndSupport = config ^. privacyAndSupport
+    , _dashboard = config ^. dashboard
+    , _lookAndFeel = config ^. lookAndFeel
+    , _knowledgeModelRegistry = config ^. knowledgeModelRegistry
+    , _questionnaire = config ^. questionnaire
+    , _template = config ^. template
+    , _submission = config ^. submission
     }
 
 fromChangeDTO :: AppConfigChangeDTO -> AppConfig -> UTCTime -> AppConfig
 fromChangeDTO dto oldConfig now =
   AppConfig
-    { _appConfigOrganization = dto ^. organization
-    , _appConfigAuthentication = dto ^. authentication
-    , _appConfigPrivacyAndSupport = dto ^. privacyAndSupport
-    , _appConfigDashboard = dto ^. dashboard
-    , _appConfigLookAndFeel = dto ^. lookAndFeel
-    , _appConfigKnowledgeModelRegistry = dto ^. knowledgeModelRegistry
-    , _appConfigQuestionnaire = dto ^. questionnaire
-    , _appConfigTemplate = dto ^. template
-    , _appConfigSubmission = dto ^. submission
-    , _appConfigCreatedAt = oldConfig ^. createdAt
-    , _appConfigUpdatedAt = now
+    { _organization = dto ^. organization
+    , _authentication = dto ^. authentication
+    , _privacyAndSupport = dto ^. privacyAndSupport
+    , _dashboard = dto ^. dashboard
+    , _lookAndFeel = dto ^. lookAndFeel
+    , _knowledgeModelRegistry = dto ^. knowledgeModelRegistry
+    , _questionnaire = dto ^. questionnaire
+    , _template = dto ^. template
+    , _submission = dto ^. submission
+    , _createdAt = oldConfig ^. createdAt
+    , _updatedAt = now
     }

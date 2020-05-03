@@ -25,14 +25,14 @@ data MigrationConflictAction
 
 data MigratorState =
   MigratorState
-    { _migratorStateBranchUuid :: U.UUID
-    , _migratorStateMetamodelVersion :: Int
-    , _migratorStateMigrationState :: MigrationState
-    , _migratorStateBranchPreviousPackageId :: String
-    , _migratorStateTargetPackageId :: String
-    , _migratorStateBranchEvents :: [Event]
-    , _migratorStateTargetPackageEvents :: [Event]
-    , _migratorStateResultEvents :: [Event]
-    , _migratorStateCurrentKnowledgeModel :: Maybe KnowledgeModel
+    { _branchUuid :: U.UUID
+    , _metamodelVersion :: Int
+    , _migrationState :: MigrationState
+    , _branchPreviousPackageId :: String
+    , _targetPackageId :: String
+    , _branchEvents :: [Event]
+    , _targetPackageEvents :: [Event]
+    , _resultEvents :: [Event]
+    , _currentKnowledgeModel :: Maybe KnowledgeModel
     }
   deriving (Show, Eq)

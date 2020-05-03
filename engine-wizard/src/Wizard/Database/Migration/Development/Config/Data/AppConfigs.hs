@@ -18,17 +18,17 @@ defaultSecret = "01234567890123456789012345678901"
 defaultAppConfig :: AppConfig
 defaultAppConfig =
   AppConfig
-    { _appConfigOrganization = defaultOrganization
-    , _appConfigAuthentication = defaultAuth
-    , _appConfigPrivacyAndSupport = defaultPrivacyAndSupport
-    , _appConfigDashboard = defaultDashboard
-    , _appConfigLookAndFeel = defaultLookAndFeel
-    , _appConfigKnowledgeModelRegistry = defaultRegistry
-    , _appConfigQuestionnaire = defaultQuestionnaire
-    , _appConfigTemplate = defaultTemplate
-    , _appConfigSubmission = defaultSubmission
-    , _appConfigCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
-    , _appConfigUpdatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    { _organization = defaultOrganization
+    , _authentication = defaultAuth
+    , _privacyAndSupport = defaultPrivacyAndSupport
+    , _dashboard = defaultDashboard
+    , _lookAndFeel = defaultLookAndFeel
+    , _knowledgeModelRegistry = defaultRegistry
+    , _questionnaire = defaultQuestionnaire
+    , _template = defaultTemplate
+    , _submission = defaultSubmission
+    , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
+    , _updatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     }
 
 defaultAppConfigEncrypted :: AppConfig
@@ -37,130 +37,96 @@ defaultAppConfigEncrypted = process defaultSecret defaultAppConfig
 defaultOrganization :: AppConfigOrganization
 defaultOrganization =
   AppConfigOrganization
-    { _appConfigOrganizationName = "Organization Amsterdam"
-    , _appConfigOrganizationDescription = "Some description of Organization Amsterdam"
-    , _appConfigOrganizationOrganizationId = "org.nl.amsterdam"
-    , _appConfigOrganizationAffiliations = []
+    { _name = "Organization Amsterdam"
+    , _description = "Some description of Organization Amsterdam"
+    , _organizationId = "org.nl.amsterdam"
+    , _affiliations = []
     }
 
 defaultAuth :: AppConfigAuth
 defaultAuth =
   AppConfigAuth
-    { _appConfigAuthDefaultRole = _USER_ROLE_DATA_STEWARD
-    , _appConfigAuthInternal = defaultAuthInternal
-    , _appConfigAuthExternal = defaultAuthExternal
-    }
+    {_defaultRole = _USER_ROLE_DATA_STEWARD, _internal = defaultAuthInternal, _external = defaultAuthExternal}
 
 defaultAuthInternal :: AppConfigAuthInternal
-defaultAuthInternal = AppConfigAuthInternal {_appConfigAuthInternalRegistration = SimpleFeature True}
+defaultAuthInternal = AppConfigAuthInternal {_registration = SimpleFeature True}
 
 defaultAuthExternal :: AppConfigAuthExternal
-defaultAuthExternal = AppConfigAuthExternal {_appConfigAuthExternalServices = [defaultAuthExternalService]}
+defaultAuthExternal = AppConfigAuthExternal {_services = [defaultAuthExternalService]}
 
 defaultAuthExternalService :: AppConfigAuthExternalService
 defaultAuthExternalService =
   AppConfigAuthExternalService
-    { _appConfigAuthExternalServiceAId = "google"
-    , _appConfigAuthExternalServiceName = "Google"
-    , _appConfigAuthExternalServiceUrl = "https://accounts.google.com"
-    , _appConfigAuthExternalServiceClientId = "32559869123-a98908094.apps.googleusercontent.com"
-    , _appConfigAuthExternalServiceClientSecret = "sad89089023"
-    , _appConfigAuthExternalServiceParameteres = [defaultAuthExternalServiceParameter]
-    , _appConfigAuthExternalServiceStyle = Just defaultAuthExternalServiceStyle
+    { _aId = "google"
+    , _name = "Google"
+    , _url = "https://accounts.google.com"
+    , _clientId = "32559869123-a98908094.apps.googleusercontent.com"
+    , _clientSecret = "sad89089023"
+    , _parameteres = [defaultAuthExternalServiceParameter]
+    , _style = Just defaultAuthExternalServiceStyle
     }
 
 defaultAuthExternalServiceParameter :: AppConfigAuthExternalServiceParameter
-defaultAuthExternalServiceParameter =
-  AppConfigAuthExternalServiceParameter
-    {_appConfigAuthExternalServiceParameterName = "hd2", _appConfigAuthExternalServiceParameterValue = "google.com"}
+defaultAuthExternalServiceParameter = AppConfigAuthExternalServiceParameter {_name = "hd2", _value = "google.com"}
 
 defaultAuthExternalServiceStyle :: AppConfigAuthExternalServiceStyle
 defaultAuthExternalServiceStyle =
-  AppConfigAuthExternalServiceStyle
-    { _appConfigAuthExternalServiceStyleIcon = Just "fa-google"
-    , _appConfigAuthExternalServiceStyleBackground = Just "#000"
-    , _appConfigAuthExternalServiceStyleColor = Just "#FFF"
-    }
+  AppConfigAuthExternalServiceStyle {_icon = Just "fa-google", _background = Just "#000", _color = Just "#FFF"}
 
 defaultPrivacyAndSupport :: AppConfigPrivacyAndSupport
 defaultPrivacyAndSupport =
   AppConfigPrivacyAndSupport
-    { _appConfigPrivacyAndSupportPrivacyUrl = Nothing
-    , _appConfigPrivacyAndSupportSupportEmail = Nothing
-    , _appConfigPrivacyAndSupportSupportRepositoryName = Nothing
-    , _appConfigPrivacyAndSupportSupportRepositoryUrl = Nothing
-    }
+    {_privacyUrl = Nothing, _supportEmail = Nothing, _supportRepositoryName = Nothing, _supportRepositoryUrl = Nothing}
 
 defaultDashboard :: AppConfigDashboard
 defaultDashboard =
-  AppConfigDashboard
-    { _appConfigDashboardWidgets = Just defaultDashboardWidgets
-    , _appConfigDashboardWelcomeWarning = Nothing
-    , _appConfigDashboardWelcomeInfo = Nothing
-    }
+  AppConfigDashboard {_widgets = Just defaultDashboardWidgets, _welcomeWarning = Nothing, _welcomeInfo = Nothing}
 
 defaultDashboardWidgets :: AppConfigDashboardWidgets
 defaultDashboardWidgets =
-  AppConfigDashboardWidgets
-    { _appConfigDashboardWidgetsAdmin = ["Welcome"]
-    , _appConfigDashboardWidgetsDataSteward = ["Welcome"]
-    , _appConfigDashboardWidgetsResearcher = ["Welcome"]
-    }
+  AppConfigDashboardWidgets {_admin = ["Welcome"], _dataSteward = ["Welcome"], _researcher = ["Welcome"]}
 
 defaultLookAndFeel :: AppConfigLookAndFeel
 defaultLookAndFeel =
   AppConfigLookAndFeel
-    { _appConfigLookAndFeelAppTitle = Nothing
-    , _appConfigLookAndFeelAppTitleShort = Nothing
-    , _appConfigLookAndFeelCustomMenuLinks = [defaultLookAndFeelCustomLink]
-    , _appConfigLookAndFeelLoginInfo = Nothing
+    { _appTitle = Nothing
+    , _appTitleShort = Nothing
+    , _customMenuLinks = [defaultLookAndFeelCustomLink]
+    , _loginInfo = Nothing
     }
 
 defaultLookAndFeelCustomLink :: AppConfigLookAndFeelCustomMenuLink
 defaultLookAndFeelCustomLink =
   AppConfigLookAndFeelCustomMenuLink
-    { _appConfigLookAndFeelCustomMenuLinkIcon = "faq"
-    , _appConfigLookAndFeelCustomMenuLinkTitle = "My Link"
-    , _appConfigLookAndFeelCustomMenuLinkUrl = "http://example.prg"
-    , _appConfigLookAndFeelCustomMenuLinkNewWindow = False
-    }
+    {_icon = "faq", _title = "My Link", _url = "http://example.prg", _newWindow = False}
 
 defaultRegistry :: AppConfigRegistry
-defaultRegistry = AppConfigRegistry {_appConfigRegistryEnabled = True, _appConfigRegistryToken = "GlobalToken"}
+defaultRegistry = AppConfigRegistry {_enabled = True, _token = "GlobalToken"}
 
 defaultQuestionnaire :: AppConfigQuestionnaire
 defaultQuestionnaire =
   AppConfigQuestionnaire
-    { _appConfigQuestionnaireLevels = SimpleFeature True
-    , _appConfigQuestionnaireFeedback = defaultFeedback
-    , _appConfigQuestionnaireQuestionnaireAccessibility = SimpleFeature True
-    }
+    {_levels = SimpleFeature True, _feedback = defaultFeedback, _questionnaireAccessibility = SimpleFeature True}
 
 defaultFeedback :: AppConfigQuestionnaireFeedback
 defaultFeedback =
-  AppConfigQuestionnaireFeedback
-    { _appConfigQuestionnaireFeedbackEnabled = True
-    , _appConfigQuestionnaireFeedbackToken = ""
-    , _appConfigQuestionnaireFeedbackOwner = "DSWGlobal"
-    , _appConfigQuestionnaireFeedbackRepo = "dsw-test"
-    }
+  AppConfigQuestionnaireFeedback {_enabled = True, _token = "", _owner = "DSWGlobal", _repo = "dsw-test"}
 
 defaultTemplate :: AppConfigTemplate
-defaultTemplate = AppConfigTemplate {_appConfigTemplateRecommendedTemplateUuid = Just $ commonWizardTemplate ^. uuid}
+defaultTemplate = AppConfigTemplate {_recommendedTemplateUuid = Just $ commonWizardTemplate ^. uuid}
 
 defaultSubmission :: AppConfigSubmission
-defaultSubmission =
-  AppConfigSubmission {_appConfigSubmissionEnabled = True, _appConfigSubmissionServices = [defaultSubmissionService]}
+defaultSubmission = AppConfigSubmission {_enabled = True, _services = [defaultSubmissionService]}
 
 defaultSubmissionService :: AppConfigSubmissionService
 defaultSubmissionService =
   AppConfigSubmissionService
-    { _appConfigSubmissionServiceSId = "mySubmissionServer"
-    , _appConfigSubmissionServiceName = "My Submission Server"
-    , _appConfigSubmissionServiceDescription = "Some description"
-    , _appConfigSubmissionServiceProps = [defaultSubmissionServiceApiTokenProp, defaultSubmissionServiceSecretProp]
-    , _appConfigSubmissionServiceSupportedFormats = [defaultSubmissionServiceSupportedFormat]
-    , _appConfigSubmissionServiceRequest = defaultSubmissionServiceRequest
+    { _sId = "mySubmissionServer"
+    , _name = "My Submission Server"
+    , _description = "Some description"
+    , _props = [defaultSubmissionServiceApiTokenProp, defaultSubmissionServiceSecretProp]
+    , _supportedFormats = [defaultSubmissionServiceSupportedFormat]
+    , _request = defaultSubmissionServiceRequest
     }
 
 defaultSubmissionServiceApiTokenProp :: String
@@ -172,30 +138,25 @@ defaultSubmissionServiceSecretProp = "Secret"
 defaultSubmissionServiceSupportedFormat :: AppConfigSubmissionServiceSupportedFormat
 defaultSubmissionServiceSupportedFormat =
   AppConfigSubmissionServiceSupportedFormat
-    { _appConfigSubmissionServiceSupportedFormatTemplateUuid = commonWizardTemplate ^. uuid
-    , _appConfigSubmissionServiceSupportedFormatFormatUuid = templateFormatJson ^. uuid
-    }
+    {_templateUuid = commonWizardTemplate ^. uuid, _formatUuid = templateFormatJson ^. uuid}
 
 defaultSubmissionServiceRequest :: AppConfigSubmissionServiceRequest
 defaultSubmissionServiceRequest =
   AppConfigSubmissionServiceRequest
-    { _appConfigSubmissionServiceRequestMethod = "GET"
-    , _appConfigSubmissionServiceRequestUrl = "https://mockserver.ds-wizard.org/submission.json"
-    , _appConfigSubmissionServiceRequestHeaders = M.fromList [("Api-Key", "${API Token}")]
-    , _appConfigSubmissionServiceRequestMultipart = defaultSubmissionServiceRequestMultipart
+    { _method = "GET"
+    , _url = "https://mockserver.ds-wizard.org/submission.json"
+    , _headers = M.fromList [("Api-Key", "${API Token}")]
+    , _multipart = defaultSubmissionServiceRequestMultipart
     }
 
 defaultSubmissionServiceRequestMultipart :: AppConfigSubmissionServiceRequestMultipart
 defaultSubmissionServiceRequestMultipart =
-  AppConfigSubmissionServiceRequestMultipart
-    { _appConfigSubmissionServiceRequestMultipartEnabled = False
-    , _appConfigSubmissionServiceRequestMultipartFileName = "file"
-    }
+  AppConfigSubmissionServiceRequestMultipart {_enabled = False, _fileName = "file"}
 
 -- ------------------------------------------------------------
 -- ------------------------------------------------------------
 editedAppConfig :: AppConfig
-editedAppConfig = defaultAppConfig {_appConfigQuestionnaire = editedQuestionnaire}
+editedAppConfig = defaultAppConfig {_questionnaire = editedQuestionnaire}
 
 editedQuestionnaire :: AppConfigQuestionnaire
-editedQuestionnaire = defaultQuestionnaire {_appConfigQuestionnaireLevels = SimpleFeature False}
+editedQuestionnaire = defaultQuestionnaire {_levels = SimpleFeature False}

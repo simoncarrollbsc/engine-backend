@@ -4,8 +4,8 @@ import GHC.Generics
 
 data TypehintDTO =
   TypehintDTO
-    { _typehintDTOIntId :: String
-    , _typehintDTOName :: String
-    , _typehintDTOUrl :: String
+    { _intId :: String
+    , _name :: String
+    , _url :: String
     }
   deriving (Show, Eq, Generic)

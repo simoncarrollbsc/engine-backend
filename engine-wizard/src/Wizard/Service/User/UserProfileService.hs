@@ -32,7 +32,7 @@ getUserProfile userUuid = do
   where
     getDecryptedUser :: AppContextM User
     getDecryptedUser = do
-      serverConfig <- asks _appContextServerConfig
+      serverConfig <- asks _serverConfig
       user <- findUserById userUuid
       return $ process (serverConfig ^. general . secret) user
     computeUserPropsForProfile :: AppConfig -> User -> [UserSubmissionPropsDTO]
@@ -53,7 +53,7 @@ getUserProfile userUuid = do
 
 modifyUserProfile :: String -> UserProfileChangeDTO -> AppContextM UserProfileDTO
 modifyUserProfile userUuid reqDto = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   user <- findUserById userUuid
   validateUserChangedEmailUniqueness (reqDto ^. email) (user ^. email)
   updatedUser <- updateUserTimestamp $ fromUserProfileChangeDTO reqDto user

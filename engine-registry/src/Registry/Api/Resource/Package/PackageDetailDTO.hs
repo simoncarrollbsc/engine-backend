@@ -7,20 +7,20 @@ import Shared.Api.Resource.Organization.OrganizationSimpleDTO
 
 data PackageDetailDTO =
   PackageDetailDTO
-    { _packageDetailDTOPId :: String
-    , _packageDetailDTOName :: String
-    , _packageDetailDTOOrganizationId :: String
-    , _packageDetailDTOKmId :: String
-    , _packageDetailDTOVersion :: String
-    , _packageDetailDTODescription :: String
-    , _packageDetailDTOReadme :: String
-    , _packageDetailDTOLicense :: String
-    , _packageDetailDTOMetamodelVersion :: Int
-    , _packageDetailDTOPreviousPackageId :: Maybe String
-    , _packageDetailDTOForkOfPackageId :: Maybe String
-    , _packageDetailDTOMergeCheckpointPackageId :: Maybe String
-    , _packageDetailDTOVersions :: [String]
-    , _packageDetailDTOOrganization :: OrganizationSimpleDTO
-    , _packageDetailDTOCreatedAt :: UTCTime
+    { _pId :: String
+    , _name :: String
+    , _organizationId :: String
+    , _kmId :: String
+    , _version :: String
+    , _description :: String
+    , _readme :: String
+    , _license :: String
+    , _metamodelVersion :: Int
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _mergeCheckpointPackageId :: Maybe String
+    , _versions :: [String]
+    , _organization :: OrganizationSimpleDTO
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

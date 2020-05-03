@@ -14,13 +14,13 @@ import Wizard.Service.Config.AppConfigService
 
 getIssues :: AppContextM [IssueIDTO]
 getIssues = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   runRequest (toGetIssuesRequest (serverConfig ^. feedback) (appConfig ^. questionnaire . feedback)) toGetIssuesResponse
 
 createIssue :: String -> U.UUID -> String -> String -> AppContextM IssueIDTO
 createIssue pkgId questionUuid title content = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   runRequest
     (toCreateIssueRequest

@@ -10,13 +10,13 @@ import Wizard.Model.Template.Template
 
 data DocumentDTO =
   DocumentDTO
-    { _documentDTOUuid :: U.UUID
-    , _documentDTOName :: String
-    , _documentDTOState :: DocumentState
-    , _documentDTOQuestionnaire :: Maybe QuestionnaireDTO
-    , _documentDTOTemplate :: Template
-    , _documentDTOFormatUuid :: U.UUID
-    , _documentDTOOwnerUuid :: U.UUID
-    , _documentDTOCreatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _state :: DocumentState
+    , _questionnaire :: Maybe QuestionnaireDTO
+    , _template :: Template
+    , _formatUuid :: U.UUID
+    , _ownerUuid :: U.UUID
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

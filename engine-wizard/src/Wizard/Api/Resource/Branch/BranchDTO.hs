@@ -8,14 +8,14 @@ import Wizard.Model.Branch.BranchState
 
 data BranchDTO =
   BranchDTO
-    { _branchDTOUuid :: U.UUID
-    , _branchDTOName :: String
-    , _branchDTOKmId :: String
-    , _branchDTOState :: BranchState
-    , _branchDTOPreviousPackageId :: Maybe String
-    , _branchDTOForkOfPackageId :: Maybe String
-    , _branchDTOOwnerUuid :: Maybe U.UUID
-    , _branchDTOCreatedAt :: UTCTime
-    , _branchDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _kmId :: String
+    , _state :: BranchState
+    , _previousPackageId :: Maybe String
+    , _forkOfPackageId :: Maybe String
+    , _ownerUuid :: Maybe U.UUID
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)

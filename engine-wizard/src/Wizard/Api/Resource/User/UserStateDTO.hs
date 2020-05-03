@@ -4,6 +4,6 @@ import GHC.Generics
 
 data UserStateDTO =
   UserStateDTO
-    { _userStateDTOActive :: Bool
+    { _active :: Bool
     }
   deriving (Generic)

@@ -7,23 +7,23 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Questionnaire.QuestionnaireReplyDTO
 
 instance FromJSON ReplyDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance FromJSON ReplyValueDTO where
   parseJSON (Object o) = do
     rvType <- o .: "type"
     case rvType of
       "StringReply" -> do
-        _stringReplyDTOValue <- o .: "value"
+        _stringValue <- o .: "value"
         return StringReplyDTO {..}
       "AnswerReply" -> do
-        _answerReplyDTOValue <- o .: "value"
+        _answerValue <- o .: "value"
         return AnswerReplyDTO {..}
       "ItemListReply" -> do
-        _itemListReplyDTOValue <- o .: "value"
+        _itemListValue <- o .: "value"
         return ItemListReplyDTO {..}
       "IntegrationReply" -> do
-        _integrationReplyDTOValue <- o .: "value"
+        _integrationValue <- o .: "value"
         return IntegrationReplyDTO {..}
       _ -> fail "One of the replies has unsupported reply type"
   parseJSON _ = mzero
@@ -36,22 +36,21 @@ instance FromJSON IntegrationReplyValueDTO where
         value <- o .: "value"
         return $ PlainValueDTO value
       "IntegrationValue" -> do
-        _integrationValueDTOIntId <- o .: "id"
-        _integrationValueDTOIntValue <- o .: "value"
+        _intId <- o .: "id"
+        _intValue <- o .: "value"
         return IntegrationValueDTO {..}
   parseJSON _ = mzero
 
 -- --------------------------------------------------------------------
 instance ToJSON ReplyDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''
 
 instance ToJSON ReplyValueDTO where
-  toJSON StringReplyDTO {..} = object ["type" .= "StringReply", "value" .= _stringReplyDTOValue]
-  toJSON AnswerReplyDTO {..} = object ["type" .= "AnswerReply", "value" .= _answerReplyDTOValue]
-  toJSON ItemListReplyDTO {..} = object ["type" .= "ItemListReply", "value" .= _itemListReplyDTOValue]
-  toJSON IntegrationReplyDTO {..} = object ["type" .= "IntegrationReply", "value" .= _integrationReplyDTOValue]
+  toJSON StringReplyDTO {..} = object ["type" .= "StringReply", "value" .= _stringValue]
+  toJSON AnswerReplyDTO {..} = object ["type" .= "AnswerReply", "value" .= _answerValue]
+  toJSON ItemListReplyDTO {..} = object ["type" .= "ItemListReply", "value" .= _itemListValue]
+  toJSON IntegrationReplyDTO {..} = object ["type" .= "IntegrationReply", "value" .= _integrationValue]
 
 instance ToJSON IntegrationReplyValueDTO where
   toJSON (PlainValueDTO value) = object ["type" .= "PlainValue", "value" .= value]
-  toJSON IntegrationValueDTO {..} =
-    object ["type" .= "IntegrationValue", "id" .= _integrationValueDTOIntId, "value" .= _integrationValueDTOIntValue]
+  toJSON IntegrationValueDTO {..} = object ["type" .= "IntegrationValue", "id" .= _intId, "value" .= _intValue]

@@ -12,7 +12,7 @@ import Wizard.Api.Resource.Questionnaire.QuestionnaireReplyJM ()
 import Wizard.Api.Resource.Questionnaire.QuestionnaireStateJM ()
 
 instance FromJSON QuestionnaireDetailDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON QuestionnaireDetailDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

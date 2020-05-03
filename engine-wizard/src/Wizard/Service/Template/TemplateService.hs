@@ -63,7 +63,7 @@ getTemplateByUuid templateUuid mPkgId = do
 -- --------------------------------
 getTemplateFolder :: AppContextM String
 getTemplateFolder = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   return $ (serverConfig ^. general . templateFolder) ++ documentTemplatesFolder
 
 getAllowedPackagesForTemplate :: Template -> [Package] -> [Package]

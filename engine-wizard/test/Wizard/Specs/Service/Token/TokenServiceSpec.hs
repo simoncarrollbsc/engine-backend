@@ -18,8 +18,7 @@ tokenServiceSpec =
     let secret = "01234567890123456789012345678901"
     let jwtVersion = 5
     let jwtExpirationInDays = 1
-    let config =
-          ServerConfigJwt {_serverConfigJwtVersion = jwtVersion, _serverConfigJwtExpiration = jwtExpirationInDays}
+    let config = ServerConfigJwt {_version = jwtVersion, _expiration = jwtExpirationInDays}
     let now = UTCTime (fromJust $ fromGregorianValid 2018 1 25) 0
     it "Successfull verification" $
         -- GIVEN:

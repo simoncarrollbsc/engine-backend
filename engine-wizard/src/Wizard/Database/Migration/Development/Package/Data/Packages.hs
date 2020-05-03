@@ -11,35 +11,35 @@ import Wizard.Integration.Resource.Package.PackageSimpleIDTO
 globalRemotePackage :: PackageSimpleIDTO
 globalRemotePackage =
   PackageSimpleIDTO
-    { _packageSimpleIDTOPId = globalPackage ^. pId
-    , _packageSimpleIDTOName = globalPackage ^. name
-    , _packageSimpleIDTOOrganizationId = globalPackage ^. organizationId
-    , _packageSimpleIDTOKmId = globalPackage ^. kmId
-    , _packageSimpleIDTOVersion = globalPackage ^. version
-    , _packageSimpleIDTODescription = globalPackage ^. description
-    , _packageSimpleIDTOOrganization =
+    { _pId = globalPackage ^. pId
+    , _name = globalPackage ^. name
+    , _organizationId = globalPackage ^. organizationId
+    , _kmId = globalPackage ^. kmId
+    , _version = globalPackage ^. version
+    , _description = globalPackage ^. description
+    , _organization =
         OrganizationSimpleIDTO
           { _organizationSimpleIDTOOrganizationId = orgGlobalSimple ^. organizationId
           , _organizationSimpleIDTOName = orgGlobalSimple ^. name
           , _organizationSimpleIDTOLogo = Just orgLogo
           }
-    , _packageSimpleIDTOCreatedAt = globalPackage ^. createdAt
+    , _createdAt = globalPackage ^. createdAt
     }
 
 globalNetherlandsPackage :: PackageSimpleIDTO
 globalNetherlandsPackage =
   PackageSimpleIDTO
-    { _packageSimpleIDTOPId = netherlandsPackageV2 ^. pId
-    , _packageSimpleIDTOName = netherlandsPackageV2 ^. name
-    , _packageSimpleIDTOOrganizationId = netherlandsPackageV2 ^. organizationId
-    , _packageSimpleIDTOKmId = netherlandsPackageV2 ^. kmId
-    , _packageSimpleIDTOVersion = netherlandsPackageV2 ^. version
-    , _packageSimpleIDTODescription = netherlandsPackageV2 ^. description
-    , _packageSimpleIDTOOrganization =
+    { _pId = netherlandsPackageV2 ^. pId
+    , _name = netherlandsPackageV2 ^. name
+    , _organizationId = netherlandsPackageV2 ^. organizationId
+    , _kmId = netherlandsPackageV2 ^. kmId
+    , _version = netherlandsPackageV2 ^. version
+    , _description = netherlandsPackageV2 ^. description
+    , _organization =
         OrganizationSimpleIDTO
           { _organizationSimpleIDTOOrganizationId = orgNetherlandsSimple ^. organizationId
           , _organizationSimpleIDTOName = orgNetherlandsSimple ^. name
           , _organizationSimpleIDTOLogo = Just orgLogo
           }
-    , _packageSimpleIDTOCreatedAt = globalPackage ^. createdAt
+    , _createdAt = globalPackage ^. createdAt
     }

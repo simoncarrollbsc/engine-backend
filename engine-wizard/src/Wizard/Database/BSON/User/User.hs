@@ -5,10 +5,14 @@ import Data.Bson.Generic
 import Shared.Database.BSON.Common ()
 import Wizard.Model.User.User
 
-instance ToBSON User
+instance ToBSON User where
+  toBSON = toBSON'
 
-instance FromBSON User
+instance FromBSON User where
+  fromBSON = fromBSON'
 
-instance ToBSON UserSubmissionProps
+instance ToBSON UserSubmissionProps where
+  toBSON = toBSON'
 
-instance FromBSON UserSubmissionProps
+instance FromBSON UserSubmissionProps where
+  fromBSON = fromBSON'

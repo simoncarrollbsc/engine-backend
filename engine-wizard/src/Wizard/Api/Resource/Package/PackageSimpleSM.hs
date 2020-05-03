@@ -12,4 +12,4 @@ import Wizard.Api.Resource.Package.PackageStateSM ()
 import Wizard.Service.Package.PackageMapper
 
 instance ToSchema PackageSimpleDTO where
-  declareNamedSchema = simpleToSchema (toSimpleDTO (toPackage globalPackage))
+  declareNamedSchema = simpleToSchema''' (toSimpleDTO (toPackage globalPackage))

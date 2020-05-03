@@ -4,6 +4,8 @@ import Data.Bson.Generic
 
 import Shared.Model.Package.Package
 
-instance ToBSON Package
+instance ToBSON Package where
+  toBSON = toBSON'
 
-instance FromBSON Package
+instance FromBSON Package where
+  fromBSON = fromBSON'

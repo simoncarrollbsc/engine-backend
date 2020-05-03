@@ -4,8 +4,8 @@ import GHC.Generics
 
 data BranchCreateDTO =
   BranchCreateDTO
-    { _branchCreateDTOName :: String
-    , _branchCreateDTOKmId :: String
-    , _branchCreateDTOPreviousPackageId :: Maybe String
+    { _name :: String
+    , _kmId :: String
+    , _previousPackageId :: Maybe String
     }
   deriving (Generic)

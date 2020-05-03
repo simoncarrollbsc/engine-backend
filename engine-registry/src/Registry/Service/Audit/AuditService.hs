@@ -25,10 +25,7 @@ auditListPackages headers =
     let iStat = getInstanceStaticsFromHeaders headers
     let entry =
           ListPackagesAuditEntry
-            { _listPackagesAuditEntryOrganizationId = org ^. organizationId
-            , _listPackagesAuditEntryInstanceStatistics = iStat
-            , _listPackagesAuditEntryCreatedAt = now
-            }
+            {_organizationId = org ^. organizationId, _instanceStatistics = iStat, _createdAt = now}
     insertAuditEntry entry
     return . Right . Just $ entry
 
@@ -37,11 +34,7 @@ auditGetPackageBundle pkgId =
   heGetOrganizationFromContext $ \org -> do
     now <- liftIO getCurrentTime
     let entry =
-          GetPackageBundleAuditEntry
-            { _getPackageBundleAuditEntryOrganizationId = org ^. organizationId
-            , _getPackageBundleAuditEntryPackageId = pkgId
-            , _getPackageBundleAuditEntryCreatedAt = now
-            }
+          GetPackageBundleAuditEntry {_organizationId = org ^. organizationId, _packageId = pkgId, _createdAt = now}
     insertAuditEntry entry
     return . Right . Just $ entry
 
@@ -49,7 +42,7 @@ auditGetPackageBundle pkgId =
 -- PRIVATE
 -- --------------------------------
 heGetOrganizationFromContext callback = do
-  mOrg <- asks _appContextCurrentOrganization
+  mOrg <- asks _currentOrganization
   case mOrg of
     Just org -> callback org
     Nothing -> return . Right $ Nothing
@@ -58,7 +51,7 @@ heGetOrganizationFromContext callback = do
 getInstanceStaticsFromHeaders headers =
   let get key = fromMaybe (-1) (M.lookup key (M.fromList headers) >>= readMaybe)
    in InstanceStatistics
-        { _instanceStatisticsUserCount = get xUserCountHeaderName
-        , _instanceStatisticsPkgCount = get xPkgCountHeaderName
-        , _instanceStatisticsQtnCount = get xQtnCountHeaderName
+        { _userCount = get xUserCountHeaderName
+        , _pkgCount = get xPkgCountHeaderName
+        , _qtnCount = get xQtnCountHeaderName
         }

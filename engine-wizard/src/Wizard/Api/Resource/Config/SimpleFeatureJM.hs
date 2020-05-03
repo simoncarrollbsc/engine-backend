@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Model.Config.SimpleFeature
 
 instance FromJSON SimpleFeature where
-  parseJSON = simpleParseJSON "_simpleFeature"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON SimpleFeature where
-  toJSON = simpleToJSON "_simpleFeature"
+  toJSON = genericToJSON simpleOptions'''

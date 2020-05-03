@@ -41,14 +41,14 @@ startWebApp appContext = do
   shutdownFlag <- liftIO newEmptyMVar
   let baseContext =
         BaseContext
-          { _baseContextServerConfig = appContext ^. serverConfig
-          , _baseContextLocalization = appContext ^. localization
-          , _baseContextBuildInfoConfig = appContext ^. buildInfoConfig
-          , _baseContextPool = appContext ^. pool
-          , _baseContextMsgChannel = appContext ^. msgChannel
-          , _baseContextHttpClientManager = appContext ^. httpClientManager
-          , _baseContextRegistryClient = appContext ^. registryClient
-          , _baseContextShutdownFlag = shutdownFlag
+          { _serverConfig = appContext ^. serverConfig
+          , _localization = appContext ^. localization
+          , _buildInfoConfig = appContext ^. buildInfoConfig
+          , _pool = appContext ^. pool
+          , _msgChannel = appContext ^. msgChannel
+          , _httpClientManager = appContext ^. httpClientManager
+          , _registryClient = appContext ^. registryClient
+          , _shutdownFlag = shutdownFlag
           }
   let config = appContext ^. serverConfig
   let webPort = config ^. general . serverPort

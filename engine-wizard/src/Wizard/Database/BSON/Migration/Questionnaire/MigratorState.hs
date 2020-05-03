@@ -6,6 +6,8 @@ import Shared.Database.BSON.Common ()
 import Wizard.Database.BSON.Questionnaire.Questionnaire ()
 import Wizard.Model.Migration.Questionnaire.MigratorState
 
-instance ToBSON MigratorState
+instance ToBSON MigratorState where
+  toBSON = toBSON'
 
-instance FromBSON MigratorState
+instance FromBSON MigratorState where
+  fromBSON = fromBSON'

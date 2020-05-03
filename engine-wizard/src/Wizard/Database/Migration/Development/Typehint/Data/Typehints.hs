@@ -10,33 +10,21 @@ import Wizard.Api.Resource.Typehint.TypehintRequestDTO
 
 lifeScienceTypehint :: TypehintDTO
 lifeScienceTypehint =
-  TypehintDTO
-    { _typehintDTOIntId = "op-p000001"
-    , _typehintDTOName = "Life Science Ontology"
-    , _typehintDTOUrl = "https://example.com/ontologies/${id}"
-    }
+  TypehintDTO {_intId = "op-p000001", _name = "Life Science Ontology", _url = "https://example.com/ontologies/${id}"}
 
 mathematicalTypehint :: TypehintDTO
 mathematicalTypehint =
-  TypehintDTO
-    { _typehintDTOIntId = "op-p000008"
-    , _typehintDTOName = "Mathematical Ontology"
-    , _typehintDTOUrl = "https://example.com/ontologies/${id}"
-    }
+  TypehintDTO {_intId = "op-p000008", _name = "Mathematical Ontology", _url = "https://example.com/ontologies/${id}"}
 
 legalTypehint :: TypehintDTO
 legalTypehint =
-  TypehintDTO
-    { _typehintDTOIntId = "op-p000015"
-    , _typehintDTOName = "Legal Ontology"
-    , _typehintDTOUrl = "https://example.com/ontologies/${id}"
-    }
+  TypehintDTO {_intId = "op-p000015", _name = "Legal Ontology", _url = "https://example.com/ontologies/${id}"}
 
 typehintRequest :: TypehintRequestDTO
 typehintRequest =
   TypehintRequestDTO
-    { _typehintRequestDTOPackageId = Just $ germanyPackage ^. pId
-    , _typehintRequestDTOEvents = []
-    , _typehintRequestDTOQuestionUuid = q4_it1_q6_aYes_followUpQuestion5 ^. uuid
-    , _typehintRequestDTOQ = "dog"
+    { _packageId = Just $ germanyPackage ^. pId
+    , _events = []
+    , _questionUuid = q4_it1_q6_aYes_followUpQuestion5 ^. uuid
+    , _q = "dog"
     }

@@ -25,11 +25,11 @@ import Wizard.Model.Statistics.InstanceStatistics
 toRetrieveOrganizationsRequest :: ServerConfigRegistry -> AppConfigRegistry -> HttpRequest
 toRetrieveOrganizationsRequest serverConfig appConfig =
   HttpRequest
-    { _httpRequestRequestMethod = "GET"
-    , _httpRequestRequestUrl = serverConfig ^. url ++ "/organizations/simple"
-    , _httpRequestRequestHeaders = M.empty
-    , _httpRequestRequestBody = BS.empty
-    , _httpRequestMultipartFileName = Nothing
+    { _requestMethod = "GET"
+    , _requestUrl = serverConfig ^. url ++ "/organizations/simple"
+    , _requestHeaders = M.empty
+    , _requestBody = BS.empty
+    , _multipartFileName = Nothing
     }
 
 toCreateOrganizationRequest ::
@@ -40,34 +40,30 @@ toCreateOrganizationRequest serverConfig reqDto =
 toConfirmOrganizationRegistrationRequest ::
      ServerConfig -> RegistryConfirmationDTO -> ClientM (Headers '[ Header "x-trace-uuid" String] OrganizationDTO)
 toConfirmOrganizationRegistrationRequest serverConfig reqDto =
-  client
-    detail_state_PUT_Api
-    (OrganizationStateDTO {_organizationStateDTOActive = True})
-    (reqDto ^. organizationId)
-    (Just $ reqDto ^. hash)
+  client detail_state_PUT_Api (OrganizationStateDTO {_active = True}) (reqDto ^. organizationId) (Just $ reqDto ^. hash)
 
 toRetrievePackagesRequest :: ServerConfigRegistry -> AppConfigRegistry -> InstanceStatistics -> HttpRequest
 toRetrievePackagesRequest serverConfig appConfig iStat =
   HttpRequest
-    { _httpRequestRequestMethod = "GET"
-    , _httpRequestRequestUrl = serverConfig ^. url ++ "/packages"
-    , _httpRequestRequestHeaders =
+    { _requestMethod = "GET"
+    , _requestUrl = serverConfig ^. url ++ "/packages"
+    , _requestHeaders =
         M.fromList
           [ (authorizationHeaderName, "Bearer " ++ appConfig ^. token)
           , (xUserCountHeaderName, show $ iStat ^. userCount)
           , (xPkgCountHeaderName, show $ iStat ^. pkgCount)
           , (xQtnCountHeaderName, show $ iStat ^. qtnCount)
           ]
-    , _httpRequestRequestBody = BS.empty
-    , _httpRequestMultipartFileName = Nothing
+    , _requestBody = BS.empty
+    , _multipartFileName = Nothing
     }
 
 toRetrievePackageBundleByIdRequest :: ServerConfigRegistry -> AppConfigRegistry -> String -> HttpRequest
 toRetrievePackageBundleByIdRequest serverConfig appConfig pkgId =
   HttpRequest
-    { _httpRequestRequestMethod = "GET"
-    , _httpRequestRequestUrl = serverConfig ^. url ++ "/packages/" ++ pkgId ++ "/bundle"
-    , _httpRequestRequestHeaders = M.fromList [(authorizationHeaderName, "Bearer " ++ appConfig ^. token)]
-    , _httpRequestRequestBody = BS.empty
-    , _httpRequestMultipartFileName = Nothing
+    { _requestMethod = "GET"
+    , _requestUrl = serverConfig ^. url ++ "/packages/" ++ pkgId ++ "/bundle"
+    , _requestHeaders = M.fromList [(authorizationHeaderName, "Bearer " ++ appConfig ^. token)]
+    , _requestBody = BS.empty
+    , _multipartFileName = Nothing
     }

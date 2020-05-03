@@ -15,33 +15,32 @@ data QuestionnaireAccessibility
 
 data Questionnaire =
   Questionnaire
-    { _questionnaireUuid :: U.UUID
-    , _questionnaireName :: String
-    , _questionnaireLevel :: Int
-    , _questionnaireAccessibility :: QuestionnaireAccessibility
-    , _questionnairePackageId :: String
-    , _questionnaireSelectedTagUuids :: [U.UUID]
-    , _questionnaireTemplateUuid :: Maybe U.UUID
-    , _questionnaireFormatUuid :: Maybe U.UUID
-    , _questionnaireOwnerUuid :: Maybe U.UUID
-    , _questionnaireCreatorUuid :: Maybe U.UUID
-    , _questionnaireReplies :: [Reply]
-    , _questionnaireLabels :: [Label]
-    , _questionnaireCreatedAt :: UTCTime
-    , _questionnaireUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _level :: Int
+    , _accessibility :: QuestionnaireAccessibility
+    , _packageId :: String
+    , _selectedTagUuids :: [U.UUID]
+    , _templateUuid :: Maybe U.UUID
+    , _formatUuid :: Maybe U.UUID
+    , _ownerUuid :: Maybe U.UUID
+    , _creatorUuid :: Maybe U.UUID
+    , _replies :: [Reply]
+    , _labels :: [Label]
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Generic, Show)
 
 instance Eq Questionnaire where
   a == b =
-    _questionnaireUuid a == _questionnaireUuid b &&
-    _questionnaireName a == _questionnaireName b &&
-    _questionnaireLevel a == _questionnaireLevel b &&
-    _questionnaireAccessibility a == _questionnaireAccessibility b &&
-    _questionnairePackageId a == _questionnairePackageId b &&
-    _questionnaireSelectedTagUuids a == _questionnaireSelectedTagUuids b &&
-    _questionnaireTemplateUuid a == _questionnaireTemplateUuid b &&
-    _questionnaireFormatUuid a == _questionnaireFormatUuid b &&
-    _questionnaireOwnerUuid a == _questionnaireOwnerUuid b &&
-    _questionnaireCreatorUuid a == _questionnaireCreatorUuid b &&
-    _questionnaireReplies a == _questionnaireReplies b && _questionnaireLabels a == _questionnaireLabels b
+    _uuid a == _uuid b &&
+    _name a == _name b &&
+    _level a == _level b &&
+    _accessibility a == _accessibility b &&
+    _packageId a == _packageId b &&
+    _selectedTagUuids a == _selectedTagUuids b &&
+    _templateUuid a == _templateUuid b &&
+    _formatUuid a == _formatUuid b &&
+    _ownerUuid a == _ownerUuid b &&
+    _creatorUuid a == _creatorUuid b && _replies a == _replies b && _labels a == _labels b

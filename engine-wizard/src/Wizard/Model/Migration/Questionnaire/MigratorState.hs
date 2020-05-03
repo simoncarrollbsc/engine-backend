@@ -5,8 +5,8 @@ import GHC.Generics
 
 data MigratorState =
   MigratorState
-    { _migratorStateOldQuestionnaireUuid :: U.UUID
-    , _migratorStateNewQuestionnaireUuid :: U.UUID
-    , _migratorStateResolvedQuestionUuids :: [U.UUID]
+    { _oldQuestionnaireUuid :: U.UUID
+    , _newQuestionnaireUuid :: U.UUID
+    , _resolvedQuestionUuids :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

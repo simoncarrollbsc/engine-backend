@@ -13,7 +13,7 @@ import Wizard.Util.Logger
 
 getIntegrationConfig :: String -> AppContextM (M.Map String String)
 getIntegrationConfig sectionName = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let integrationConfigPath = serverConfig ^. general . integrationConfig
   eIntConfig <- liftIO $ decodeFileEither integrationConfigPath
   case eIntConfig of

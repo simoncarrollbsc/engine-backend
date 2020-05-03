@@ -3,6 +3,4 @@ module Registry.Database.Migration.Development.Statistics.Data.InstanceStatistic
 import Registry.Model.Statistics.InstanceStatistics
 
 iStat :: InstanceStatistics
-iStat =
-  InstanceStatistics
-    {_instanceStatisticsUserCount = 10, _instanceStatisticsPkgCount = 20, _instanceStatisticsQtnCount = 30}
+iStat = InstanceStatistics {_userCount = 10, _pkgCount = 20, _qtnCount = 30}

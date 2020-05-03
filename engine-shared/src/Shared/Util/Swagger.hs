@@ -9,8 +9,14 @@ import Shared.Util.JSON
 simpleToSchema exampleDTO proxy =
   genericDeclareNamedSchema createSchemaOptions proxy & mapped . schema . example ?~ toJSON exampleDTO
 
+simpleToSchema''' exampleDTO proxy =
+  genericDeclareNamedSchema createSchemaOptions''' proxy & mapped . schema . example ?~ toJSON exampleDTO
+
 createSchemaOptions :: SchemaOptions
 createSchemaOptions = fromAesonOptions simpleOptions
+
+createSchemaOptions''' :: SchemaOptions
+createSchemaOptions''' = fromAesonOptions simpleOptions'''
 
 simpleToSchema' fieldPrefix exampleDTO proxy =
   genericDeclareNamedSchema (createSchemaOptions' fieldPrefix) proxy & mapped . schema . example ?~ toJSON exampleDTO

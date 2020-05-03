@@ -5,11 +5,11 @@ import GHC.Generics
 
 data UserSubmissionPropsDTO =
   UserSubmissionPropsDTO
-    { _userSubmissionPropsDTOSId :: String
-    , _userSubmissionPropsDTOName :: String
-    , _userSubmissionPropsDTOValues :: M.Map String String
+    { _sId :: String
+    , _name :: String
+    , _values :: M.Map String String
     }
   deriving (Generic, Eq, Show)
 
 instance Ord UserSubmissionPropsDTO where
-  compare a b = compare (_userSubmissionPropsDTOSId a) (_userSubmissionPropsDTOSId b)
+  compare a b = compare (_sId a) (_sId b)

@@ -5,10 +5,10 @@ import Data.Map (Map)
 
 data HttpRequest =
   HttpRequest
-    { _httpRequestRequestMethod :: String
-    , _httpRequestRequestUrl :: String
-    , _httpRequestRequestHeaders :: Map String String
-    , _httpRequestRequestBody :: BS.ByteString
-    , _httpRequestMultipartFileName :: Maybe String
+    { _requestMethod :: String
+    , _requestUrl :: String
+    , _requestHeaders :: Map String String
+    , _requestBody :: BS.ByteString
+    , _multipartFileName :: Maybe String
     }
   deriving (Show, Eq)

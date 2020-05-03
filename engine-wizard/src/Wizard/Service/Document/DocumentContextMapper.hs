@@ -26,29 +26,28 @@ import qualified Wizard.Service.User.UserMapper as USR_Mapper
 toDocumentContextDTO :: DocumentContext -> DocumentContextDTO
 toDocumentContextDTO dc =
   DocumentContextDTO
-    { _documentContextDTOUuid = dc ^. uuid
-    , _documentContextDTOConfig = toDocumentContextConfigDTO $ dc ^. config
-    , _documentContextDTOQuestionnaireUuid = dc ^. questionnaireUuid
-    , _documentContextDTOQuestionnaireName = dc ^. questionnaireName
-    , _documentContextDTOQuestionnaireReplies = replies
-    , _documentContextDTOQuestionnaireRepliesMap = M.fromList $ (\reply -> (reply ^. path, reply)) <$> replies
-    , _documentContextDTOLevel = dc ^. level
-    , _documentContextDTOKnowledgeModel = toKnowledgeModelDTO $ dc ^. knowledgeModel
-    , _documentContextDTOMetrics = toMetricDTO <$> dc ^. metrics
-    , _documentContextDTOLevels = toLevelDTO <$> dc ^. levels
-    , _documentContextDTOReport = toReportDTO $ dc ^. report
-    , _documentContextDTOPackage = toSimpleDTO (dc ^. package)
-    , _documentContextDTOOrganization = dc ^. organization
-    , _documentContextDTOCreatedBy = USR_Mapper.toDTO <$> dc ^. createdBy
-    , _documentContextDTOCreatedAt = dc ^. createdAt
-    , _documentContextDTOUpdatedAt = dc ^. updatedAt
+    { _uuid = dc ^. uuid
+    , _config = toDocumentContextConfigDTO $ dc ^. config
+    , _questionnaireUuid = dc ^. questionnaireUuid
+    , _questionnaireName = dc ^. questionnaireName
+    , _questionnaireReplies = replies
+    , _questionnaireRepliesMap = M.fromList $ (\reply -> (reply ^. path, reply)) <$> replies
+    , _level = dc ^. level
+    , _knowledgeModel = toKnowledgeModelDTO $ dc ^. knowledgeModel
+    , _metrics = toMetricDTO <$> dc ^. metrics
+    , _levels = toLevelDTO <$> dc ^. levels
+    , _report = toReportDTO $ dc ^. report
+    , _package = toSimpleDTO (dc ^. package)
+    , _organization = dc ^. organization
+    , _createdBy = USR_Mapper.toDTO <$> dc ^. createdBy
+    , _createdAt = dc ^. createdAt
+    , _updatedAt = dc ^. updatedAt
     }
   where
     replies = QTN_Mapper.toReplyDTO <$> dc ^. questionnaireReplies
 
 toDocumentContextConfigDTO :: DocumentContextConfig -> DocumentContextConfigDTO
-toDocumentContextConfigDTO config =
-  DocumentContextConfigDTO {_documentContextConfigDTOLevelsEnabled = config ^. levelsEnabled}
+toDocumentContextConfigDTO config = DocumentContextConfigDTO {_levelsEnabled = config ^. levelsEnabled}
 
 fromCreateContextDTO ::
      U.UUID
@@ -66,20 +65,19 @@ fromCreateContextDTO ::
   -> DocumentContext
 fromCreateContextDTO dmpUuid appConfig qtn level km metrics ls report pkg org mCreatedBy now =
   DocumentContext
-    { _documentContextUuid = dmpUuid
-    , _documentContextConfig =
-        DocumentContextConfig {_documentContextConfigLevelsEnabled = appConfig ^. questionnaire . levels . enabled}
-    , _documentContextQuestionnaireUuid = U.toString $ qtn ^. uuid
-    , _documentContextQuestionnaireName = qtn ^. name
-    , _documentContextQuestionnaireReplies = qtn ^. replies
-    , _documentContextLevel = level
-    , _documentContextKnowledgeModel = km
-    , _documentContextMetrics = metrics
-    , _documentContextLevels = ls
-    , _documentContextReport = report
-    , _documentContextPackage = pkg
-    , _documentContextOrganization = org
-    , _documentContextCreatedBy = mCreatedBy
-    , _documentContextCreatedAt = now
-    , _documentContextUpdatedAt = now
+    { _uuid = dmpUuid
+    , _config = DocumentContextConfig {_levelsEnabled = appConfig ^. questionnaire . levels . enabled}
+    , _questionnaireUuid = U.toString $ qtn ^. uuid
+    , _questionnaireName = qtn ^. name
+    , _questionnaireReplies = qtn ^. replies
+    , _level = level
+    , _knowledgeModel = km
+    , _metrics = metrics
+    , _levels = ls
+    , _report = report
+    , _package = pkg
+    , _organization = org
+    , _createdBy = mCreatedBy
+    , _createdAt = now
+    , _updatedAt = now
     }

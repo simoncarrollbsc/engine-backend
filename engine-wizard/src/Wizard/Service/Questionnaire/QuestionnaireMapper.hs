@@ -27,174 +27,170 @@ import qualified Wizard.Service.Package.PackageMapper as PM
 toDTO :: Questionnaire -> Package -> QuestionnaireState -> Maybe UserDTO -> QuestionnaireDTO
 toDTO questionnaire package state mOwner =
   QuestionnaireDTO
-    { _questionnaireDTOUuid = questionnaire ^. uuid
-    , _questionnaireDTOName = questionnaire ^. name
-    , _questionnaireDTOLevel = questionnaire ^. level
-    , _questionnaireDTOAccessibility = questionnaire ^. accessibility
-    , _questionnaireDTOState = state
-    , _questionnaireDTOPackage = PM.toSimpleDTO package
-    , _questionnaireDTOOwner = mOwner
-    , _questionnaireDTOCreatedAt = questionnaire ^. createdAt
-    , _questionnaireDTOUpdatedAt = questionnaire ^. updatedAt
+    { _uuid = questionnaire ^. uuid
+    , _name = questionnaire ^. name
+    , _level = questionnaire ^. level
+    , _accessibility = questionnaire ^. accessibility
+    , _state = state
+    , _package = PM.toSimpleDTO package
+    , _owner = mOwner
+    , _createdAt = questionnaire ^. createdAt
+    , _updatedAt = questionnaire ^. updatedAt
     }
 
 toSimpleDTO :: Questionnaire -> PackageWithEvents -> QuestionnaireState -> Maybe UserDTO -> QuestionnaireDTO
 toSimpleDTO questionnaire package state mOwner =
   QuestionnaireDTO
-    { _questionnaireDTOUuid = questionnaire ^. uuid
-    , _questionnaireDTOName = questionnaire ^. name
-    , _questionnaireDTOLevel = questionnaire ^. level
-    , _questionnaireDTOAccessibility = questionnaire ^. accessibility
-    , _questionnaireDTOState = state
-    , _questionnaireDTOPackage = PM.toSimpleDTO . SPM.toPackage $ package
-    , _questionnaireDTOOwner = mOwner
-    , _questionnaireDTOCreatedAt = questionnaire ^. createdAt
-    , _questionnaireDTOUpdatedAt = questionnaire ^. updatedAt
+    { _uuid = questionnaire ^. uuid
+    , _name = questionnaire ^. name
+    , _level = questionnaire ^. level
+    , _accessibility = questionnaire ^. accessibility
+    , _state = state
+    , _package = PM.toSimpleDTO . SPM.toPackage $ package
+    , _owner = mOwner
+    , _createdAt = questionnaire ^. createdAt
+    , _updatedAt = questionnaire ^. updatedAt
     }
 
 toReplyDTO :: Reply -> ReplyDTO
-toReplyDTO reply = ReplyDTO {_replyDTOPath = reply ^. path, _replyDTOValue = toReplyValueDTO $ reply ^. value}
+toReplyDTO reply = ReplyDTO {_path = reply ^. path, _value = toReplyValueDTO $ reply ^. value}
 
 toReplyValueDTO :: ReplyValue -> ReplyValueDTO
-toReplyValueDTO StringReply {..} = StringReplyDTO {_stringReplyDTOValue = _stringReplyValue}
-toReplyValueDTO AnswerReply {..} = AnswerReplyDTO {_answerReplyDTOValue = _answerReplyValue}
-toReplyValueDTO ItemListReply {..} = ItemListReplyDTO {_itemListReplyDTOValue = _itemListReplyValue}
+toReplyValueDTO StringReply {..} = StringReplyDTO {_stringValue = _stringValue}
+toReplyValueDTO AnswerReply {..} = AnswerReplyDTO {_answerValue = _answerValue}
+toReplyValueDTO ItemListReply {..} = ItemListReplyDTO {_itemListValue = _itemListValue}
 toReplyValueDTO IntegrationReply {..} =
-  IntegrationReplyDTO {_integrationReplyDTOValue = toIntegrationReplyValueDTO _integrationReplyValue}
+  IntegrationReplyDTO {_integrationValue = toIntegrationReplyValueDTO _integrationValue}
 
 toIntegrationReplyValueDTO :: IntegrationReplyValue -> IntegrationReplyValueDTO
 toIntegrationReplyValueDTO (PlainValue reply) = PlainValueDTO reply
-toIntegrationReplyValueDTO IntegrationValue {..} =
-  IntegrationValueDTO
-    {_integrationValueDTOIntId = _integrationValueIntId, _integrationValueDTOIntValue = _integrationValueIntValue}
+toIntegrationReplyValueDTO IntegrationValue {..} = IntegrationValueDTO {_intId = _intId, _intValue = _intValue}
 
 toLabelDTO :: Label -> LabelDTO
-toLabelDTO label = LabelDTO {_labelDTOPath = label ^. path, _labelDTOValue = label ^. value}
+toLabelDTO label = LabelDTO {_path = label ^. path, _value = label ^. value}
 
 toDetailWithPackageWithEventsDTO ::
      Questionnaire -> PackageWithEvents -> KnowledgeModel -> QuestionnaireState -> QuestionnaireDetailDTO
 toDetailWithPackageWithEventsDTO questionnaire package knowledgeModel state =
   QuestionnaireDetailDTO
-    { _questionnaireDetailDTOUuid = questionnaire ^. uuid
-    , _questionnaireDetailDTOName = questionnaire ^. name
-    , _questionnaireDetailDTOLevel = questionnaire ^. level
-    , _questionnaireDetailDTOAccessibility = questionnaire ^. accessibility
-    , _questionnaireDetailDTOState = state
-    , _questionnaireDetailDTOPackage = PM.toSimpleDTO . SPM.toPackage $ package
-    , _questionnaireDetailDTOSelectedTagUuids = questionnaire ^. selectedTagUuids
-    , _questionnaireDetailDTOTemplateUuid = questionnaire ^. templateUuid
-    , _questionnaireDetailDTOFormatUuid = questionnaire ^. formatUuid
-    , _questionnaireDetailDTOKnowledgeModel = toKnowledgeModelDTO knowledgeModel
-    , _questionnaireDetailDTOReplies = toReplyDTO <$> questionnaire ^. replies
-    , _questionnaireDetailDTOLabels = toLabelDTO <$> questionnaire ^. labels
-    , _questionnaireDetailDTOOwnerUuid = questionnaire ^. ownerUuid
-    , _questionnaireDetailDTOCreatorUuid = questionnaire ^. creatorUuid
-    , _questionnaireDetailDTOCreatedAt = questionnaire ^. createdAt
-    , _questionnaireDetailDTOUpdatedAt = questionnaire ^. updatedAt
+    { _uuid = questionnaire ^. uuid
+    , _name = questionnaire ^. name
+    , _level = questionnaire ^. level
+    , _accessibility = questionnaire ^. accessibility
+    , _state = state
+    , _package = PM.toSimpleDTO . SPM.toPackage $ package
+    , _selectedTagUuids = questionnaire ^. selectedTagUuids
+    , _templateUuid = questionnaire ^. templateUuid
+    , _formatUuid = questionnaire ^. formatUuid
+    , _knowledgeModel = toKnowledgeModelDTO knowledgeModel
+    , _replies = toReplyDTO <$> questionnaire ^. replies
+    , _labels = toLabelDTO <$> questionnaire ^. labels
+    , _ownerUuid = questionnaire ^. ownerUuid
+    , _creatorUuid = questionnaire ^. creatorUuid
+    , _createdAt = questionnaire ^. createdAt
+    , _updatedAt = questionnaire ^. updatedAt
     }
 
 toDetailWithPackageDTO ::
      Questionnaire -> PackageSimpleDTO -> KnowledgeModel -> QuestionnaireState -> QuestionnaireDetailDTO
 toDetailWithPackageDTO questionnaire package knowledgeModel state =
   QuestionnaireDetailDTO
-    { _questionnaireDetailDTOUuid = questionnaire ^. uuid
-    , _questionnaireDetailDTOName = questionnaire ^. name
-    , _questionnaireDetailDTOLevel = questionnaire ^. level
-    , _questionnaireDetailDTOAccessibility = questionnaire ^. accessibility
-    , _questionnaireDetailDTOState = state
-    , _questionnaireDetailDTOPackage = package
-    , _questionnaireDetailDTOSelectedTagUuids = questionnaire ^. selectedTagUuids
-    , _questionnaireDetailDTOTemplateUuid = questionnaire ^. templateUuid
-    , _questionnaireDetailDTOFormatUuid = questionnaire ^. formatUuid
-    , _questionnaireDetailDTOKnowledgeModel = toKnowledgeModelDTO knowledgeModel
-    , _questionnaireDetailDTOReplies = toReplyDTO <$> questionnaire ^. replies
-    , _questionnaireDetailDTOLabels = toLabelDTO <$> questionnaire ^. labels
-    , _questionnaireDetailDTOOwnerUuid = questionnaire ^. ownerUuid
-    , _questionnaireDetailDTOCreatorUuid = questionnaire ^. creatorUuid
-    , _questionnaireDetailDTOCreatedAt = questionnaire ^. createdAt
-    , _questionnaireDetailDTOUpdatedAt = questionnaire ^. updatedAt
+    { _uuid = questionnaire ^. uuid
+    , _name = questionnaire ^. name
+    , _level = questionnaire ^. level
+    , _accessibility = questionnaire ^. accessibility
+    , _state = state
+    , _package = package
+    , _selectedTagUuids = questionnaire ^. selectedTagUuids
+    , _templateUuid = questionnaire ^. templateUuid
+    , _formatUuid = questionnaire ^. formatUuid
+    , _knowledgeModel = toKnowledgeModelDTO knowledgeModel
+    , _replies = toReplyDTO <$> questionnaire ^. replies
+    , _labels = toLabelDTO <$> questionnaire ^. labels
+    , _ownerUuid = questionnaire ^. ownerUuid
+    , _creatorUuid = questionnaire ^. creatorUuid
+    , _createdAt = questionnaire ^. createdAt
+    , _updatedAt = questionnaire ^. updatedAt
     }
 
 fromReplyDTO :: ReplyDTO -> Reply
-fromReplyDTO reply = Reply {_replyPath = reply ^. path, _replyValue = fromReplyValueDTO $ reply ^. value}
+fromReplyDTO reply = Reply {_path = reply ^. path, _value = fromReplyValueDTO $ reply ^. value}
 
 fromReplyValueDTO :: ReplyValueDTO -> ReplyValue
-fromReplyValueDTO StringReplyDTO {..} = StringReply {_stringReplyValue = _stringReplyDTOValue}
-fromReplyValueDTO AnswerReplyDTO {..} = AnswerReply {_answerReplyValue = _answerReplyDTOValue}
-fromReplyValueDTO ItemListReplyDTO {..} = ItemListReply {_itemListReplyValue = _itemListReplyDTOValue}
+fromReplyValueDTO StringReplyDTO {..} = StringReply {_stringValue = _stringValue}
+fromReplyValueDTO AnswerReplyDTO {..} = AnswerReply {_answerValue = _answerValue}
+fromReplyValueDTO ItemListReplyDTO {..} = ItemListReply {_itemListValue = _itemListValue}
 fromReplyValueDTO IntegrationReplyDTO {..} =
-  IntegrationReply {_integrationReplyValue = fromIntegrationReplyValueDTO _integrationReplyDTOValue}
+  IntegrationReply {_integrationValue = fromIntegrationReplyValueDTO _integrationValue}
 
 fromIntegrationReplyValueDTO :: IntegrationReplyValueDTO -> IntegrationReplyValue
 fromIntegrationReplyValueDTO (PlainValueDTO reply) = PlainValue reply
-fromIntegrationReplyValueDTO IntegrationValueDTO {..} =
-  IntegrationValue
-    {_integrationValueIntId = _integrationValueDTOIntId, _integrationValueIntValue = _integrationValueDTOIntValue}
+fromIntegrationReplyValueDTO IntegrationValueDTO {..} = IntegrationValue {_intId = _intId, _intValue = _intValue}
 
 fromLabelDTO :: LabelDTO -> Label
-fromLabelDTO label = Label {_labelPath = label ^. path, _labelValue = label ^. value}
+fromLabelDTO label = Label {_path = label ^. path, _value = label ^. value}
 
 fromChangeDTO ::
      QuestionnaireDetailDTO -> QuestionnaireChangeDTO -> QuestionnaireAccessibility -> UUID -> UTCTime -> Questionnaire
 fromChangeDTO qtn dto accessibility currentUserUuid now =
   Questionnaire
-    { _questionnaireUuid = qtn ^. uuid
-    , _questionnaireName = dto ^. name
-    , _questionnaireLevel = dto ^. level
-    , _questionnaireAccessibility = accessibility
-    , _questionnairePackageId = qtn ^. package . pId
-    , _questionnaireSelectedTagUuids = qtn ^. selectedTagUuids
-    , _questionnaireTemplateUuid = dto ^. templateUuid
-    , _questionnaireFormatUuid = qtn ^. formatUuid
-    , _questionnaireReplies = fromReplyDTO <$> dto ^. replies
-    , _questionnaireLabels = fromLabelDTO <$> dto ^. labels
-    , _questionnaireOwnerUuid =
+    { _uuid = qtn ^. uuid
+    , _name = dto ^. name
+    , _level = dto ^. level
+    , _accessibility = accessibility
+    , _packageId = qtn ^. package . pId
+    , _selectedTagUuids = qtn ^. selectedTagUuids
+    , _templateUuid = dto ^. templateUuid
+    , _formatUuid = qtn ^. formatUuid
+    , _replies = fromReplyDTO <$> dto ^. replies
+    , _labels = fromLabelDTO <$> dto ^. labels
+    , _ownerUuid =
         if accessibility /= PublicQuestionnaire
           then Just currentUserUuid
           else Nothing
-    , _questionnaireCreatorUuid = qtn ^. creatorUuid
-    , _questionnaireCreatedAt = qtn ^. createdAt
-    , _questionnaireUpdatedAt = now
+    , _creatorUuid = qtn ^. creatorUuid
+    , _createdAt = qtn ^. createdAt
+    , _updatedAt = now
     }
 
 fromQuestionnaireCreateDTO ::
      QuestionnaireCreateDTO -> UUID -> QuestionnaireAccessibility -> UUID -> UTCTime -> UTCTime -> Questionnaire
 fromQuestionnaireCreateDTO dto qtnUuid accessibility currentUserUuid qtnCreatedAt qtnUpdatedAt =
   Questionnaire
-    { _questionnaireUuid = qtnUuid
-    , _questionnaireName = dto ^. name
-    , _questionnaireLevel = 1
-    , _questionnaireAccessibility = accessibility
-    , _questionnairePackageId = dto ^. packageId
-    , _questionnaireSelectedTagUuids = dto ^. tagUuids
-    , _questionnaireTemplateUuid = dto ^. templateUuid
-    , _questionnaireFormatUuid = Nothing
-    , _questionnaireReplies = []
-    , _questionnaireLabels = []
-    , _questionnaireOwnerUuid =
+    { _uuid = qtnUuid
+    , _name = dto ^. name
+    , _level = 1
+    , _accessibility = accessibility
+    , _packageId = dto ^. packageId
+    , _selectedTagUuids = dto ^. tagUuids
+    , _templateUuid = dto ^. templateUuid
+    , _formatUuid = Nothing
+    , _replies = []
+    , _labels = []
+    , _ownerUuid =
         if accessibility /= PublicQuestionnaire
           then Just currentUserUuid
           else Nothing
-    , _questionnaireCreatorUuid = Just currentUserUuid
-    , _questionnaireCreatedAt = qtnCreatedAt
-    , _questionnaireUpdatedAt = qtnUpdatedAt
+    , _creatorUuid = Just currentUserUuid
+    , _createdAt = qtnCreatedAt
+    , _updatedAt = qtnUpdatedAt
     }
 
 fromDetailDTO :: QuestionnaireDetailDTO -> Questionnaire
 fromDetailDTO dto =
   Questionnaire
-    { _questionnaireUuid = dto ^. uuid
-    , _questionnaireName = dto ^. name
-    , _questionnaireLevel = dto ^. level
-    , _questionnaireAccessibility = dto ^. accessibility
-    , _questionnairePackageId = dto ^. package . pId
-    , _questionnaireSelectedTagUuids = dto ^. selectedTagUuids
-    , _questionnaireTemplateUuid = dto ^. templateUuid
-    , _questionnaireFormatUuid = dto ^. formatUuid
-    , _questionnaireReplies = fromReplyDTO <$> dto ^. replies
-    , _questionnaireLabels = fromLabelDTO <$> dto ^. labels
-    , _questionnaireOwnerUuid = dto ^. ownerUuid
-    , _questionnaireCreatorUuid = dto ^. creatorUuid
-    , _questionnaireCreatedAt = dto ^. createdAt
-    , _questionnaireUpdatedAt = dto ^. updatedAt
+    { _uuid = dto ^. uuid
+    , _name = dto ^. name
+    , _level = dto ^. level
+    , _accessibility = dto ^. accessibility
+    , _packageId = dto ^. package . pId
+    , _selectedTagUuids = dto ^. selectedTagUuids
+    , _templateUuid = dto ^. templateUuid
+    , _formatUuid = dto ^. formatUuid
+    , _replies = fromReplyDTO <$> dto ^. replies
+    , _labels = fromLabelDTO <$> dto ^. labels
+    , _ownerUuid = dto ^. ownerUuid
+    , _creatorUuid = dto ^. creatorUuid
+    , _createdAt = dto ^. createdAt
+    , _updatedAt = dto ^. updatedAt
     }

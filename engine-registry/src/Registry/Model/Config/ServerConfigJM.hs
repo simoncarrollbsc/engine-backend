@@ -7,16 +7,16 @@ import Shared.Model.Config.EnvironmentJM ()
 import Shared.Util.JSON
 
 instance FromJSON ServerConfig where
-  parseJSON = simpleParseJSON "_serverConfig"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance FromJSON ServerConfigGeneral where
-  parseJSON = simpleParseJSON "_serverConfigGeneral"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance FromJSON ServerConfigDatabase where
-  parseJSON = simpleParseJSON "_serverConfigDatabase"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance FromJSON ServerConfigMail where
-  parseJSON = simpleParseJSON "_serverConfigMail"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance FromJSON ServerConfigAnalytics where
-  parseJSON = simpleParseJSON "_serverConfigAnalytics"
+  parseJSON = genericParseJSON simpleOptions'''

@@ -15,13 +15,13 @@ import Wizard.Service.Config.AppConfigMapper
 
 getAppConfig :: AppContextM AppConfig
 getAppConfig = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   encryptedAppConfig <- findAppConfig
   return $ process (serverConfig ^. general . secret) encryptedAppConfig
 
 modifyAppConfig :: AppConfig -> AppContextM AppConfig
 modifyAppConfig appConfig = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   let encryptedUpdatedAppConfig = process (serverConfig ^. general . secret) appConfig
   updateAppConfig encryptedUpdatedAppConfig
   return appConfig
@@ -30,7 +30,7 @@ modifyAppConfigDto :: AppConfigChangeDTO -> AppContextM AppConfig
 modifyAppConfigDto reqDto
   -- 1. Get current config
  = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   -- 2. Prepare to update & validate
   now <- liftIO getCurrentTime

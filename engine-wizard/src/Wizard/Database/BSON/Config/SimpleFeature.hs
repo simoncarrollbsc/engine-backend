@@ -7,9 +7,9 @@ import Shared.Database.BSON.Common ()
 import Wizard.Model.Config.SimpleFeature
 
 instance ToBSON SimpleFeature where
-  toBSON SimpleFeature {..} = ["enabled" BSON.=: _simpleFeatureEnabled]
+  toBSON SimpleFeature {..} = ["enabled" BSON.=: _enabled]
 
 instance FromBSON SimpleFeature where
   fromBSON doc = do
-    _simpleFeatureEnabled <- BSON.lookup "enabled" doc
+    _enabled <- BSON.lookup "enabled" doc
     return SimpleFeature {..}

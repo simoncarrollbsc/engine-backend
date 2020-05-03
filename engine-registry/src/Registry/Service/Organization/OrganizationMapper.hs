@@ -13,60 +13,54 @@ import Shared.Api.Resource.Organization.OrganizationSimpleDTO
 toDTO :: Organization -> OrganizationDTO
 toDTO organization =
   OrganizationDTO
-    { _organizationDTOOrganizationId = organization ^. organizationId
-    , _organizationDTOName = organization ^. name
-    , _organizationDTODescription = organization ^. description
-    , _organizationDTOEmail = organization ^. email
-    , _organizationDTORole = organization ^. role
-    , _organizationDTOToken = organization ^. token
-    , _organizationDTOLogo = organization ^. logo
-    , _organizationDTOActive = organization ^. active
-    , _organizationDTOCreatedAt = organization ^. createdAt
-    , _organizationDTOUpdatedAt = organization ^. updatedAt
+    { _organizationId = organization ^. organizationId
+    , _name = organization ^. name
+    , _description = organization ^. description
+    , _email = organization ^. email
+    , _role = organization ^. role
+    , _token = organization ^. token
+    , _logo = organization ^. logo
+    , _active = organization ^. active
+    , _createdAt = organization ^. createdAt
+    , _updatedAt = organization ^. updatedAt
     }
 
 toSimpleDTO :: Organization -> OrganizationSimpleDTO
 toSimpleDTO organization =
   OrganizationSimpleDTO
-    { _organizationSimpleDTOOrganizationId = organization ^. organizationId
-    , _organizationSimpleDTOName = organization ^. name
-    , _organizationSimpleDTOLogo = organization ^. logo
-    }
+    {_organizationId = organization ^. organizationId, _name = organization ^. name, _logo = organization ^. logo}
 
 organizationDTOtoSimpleDTO :: OrganizationDTO -> OrganizationSimpleDTO
 organizationDTOtoSimpleDTO organization =
   OrganizationSimpleDTO
-    { _organizationSimpleDTOOrganizationId = organization ^. organizationId
-    , _organizationSimpleDTOName = organization ^. name
-    , _organizationSimpleDTOLogo = organization ^. logo
-    }
+    {_organizationId = organization ^. organizationId, _name = organization ^. name, _logo = organization ^. logo}
 
 fromCreateDTO :: OrganizationCreateDTO -> OrganizationRole -> String -> UTCTime -> UTCTime -> UTCTime -> Organization
 fromCreateDTO dto orgRole orgToken orgCreatedAt orgUpdatedAt orgLastAccessAt =
   Organization
-    { _organizationOrganizationId = dto ^. organizationId
-    , _organizationName = dto ^. name
-    , _organizationDescription = dto ^. description
-    , _organizationEmail = dto ^. email
-    , _organizationRole = orgRole
-    , _organizationToken = orgToken
-    , _organizationActive = False
-    , _organizationLogo = Nothing
-    , _organizationCreatedAt = orgCreatedAt
-    , _organizationUpdatedAt = orgUpdatedAt
+    { _organizationId = dto ^. organizationId
+    , _name = dto ^. name
+    , _description = dto ^. description
+    , _email = dto ^. email
+    , _role = orgRole
+    , _token = orgToken
+    , _active = False
+    , _logo = Nothing
+    , _createdAt = orgCreatedAt
+    , _updatedAt = orgUpdatedAt
     }
 
 fromChangeDTO :: OrganizationChangeDTO -> OrganizationDTO -> UTCTime -> Organization
 fromChangeDTO dto org orgUpdatedAt =
   Organization
-    { _organizationOrganizationId = org ^. organizationId
-    , _organizationName = dto ^. name
-    , _organizationDescription = dto ^. description
-    , _organizationEmail = dto ^. email
-    , _organizationRole = org ^. role
-    , _organizationToken = org ^. token
-    , _organizationActive = org ^. active
-    , _organizationLogo = org ^. logo
-    , _organizationCreatedAt = org ^. createdAt
-    , _organizationUpdatedAt = orgUpdatedAt
+    { _organizationId = org ^. organizationId
+    , _name = dto ^. name
+    , _description = dto ^. description
+    , _email = dto ^. email
+    , _role = org ^. role
+    , _token = org ^. token
+    , _active = org ^. active
+    , _logo = org ^. logo
+    , _createdAt = org ^. createdAt
+    , _updatedAt = orgUpdatedAt
     }

@@ -6,19 +6,19 @@ import Shared.Util.JSON
 import Wizard.Model.Template.Template
 
 instance FromJSON Template where
-  parseJSON = simpleParseJSON "_template"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON Template where
-  toJSON = simpleToJSON "_template"
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON TemplateAllowedPackage where
-  parseJSON = simpleParseJSON "_templateAllowedPackage"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON TemplateAllowedPackage where
-  toJSON = simpleToJSON "_templateAllowedPackage"
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON TemplateFormat where
-  parseJSON = simpleParseJSON "_templateFormat"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON TemplateFormat where
-  toJSON = simpleToJSON "_templateFormat"
+  toJSON = genericToJSON simpleOptions'''

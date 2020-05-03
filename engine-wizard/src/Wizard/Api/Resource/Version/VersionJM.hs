@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Version.VersionDTO
 
 instance FromJSON VersionDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON VersionDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

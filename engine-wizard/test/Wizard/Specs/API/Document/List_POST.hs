@@ -48,10 +48,10 @@ reqHeadersT authHeader = [authHeader, reqCtHeader]
 
 reqDtoT doc =
   DocumentCreateDTO
-    { _documentCreateDTOName = doc ^. name
-    , _documentCreateDTOQuestionnaireUuid = doc ^. questionnaireUuid
-    , _documentCreateDTOTemplateUuid = doc ^. templateUuid
-    , _documentCreateDTOFormatUuid = doc ^. formatUuid
+    { _name = doc ^. name
+    , _questionnaireUuid = doc ^. questionnaireUuid
+    , _templateUuid = doc ^. templateUuid
+    , _formatUuid = doc ^. formatUuid
     }
 
 reqBody = ""

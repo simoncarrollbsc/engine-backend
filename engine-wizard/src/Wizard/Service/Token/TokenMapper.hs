@@ -4,4 +4,4 @@ import Wizard.Api.Resource.Token.TokenDTO
 import Wizard.Model.Token.Token
 
 toDTO :: Token -> TokenDTO
-toDTO token = TokenDTO {_tokenDTOToken = token}
+toDTO token = TokenDTO {_token = token}

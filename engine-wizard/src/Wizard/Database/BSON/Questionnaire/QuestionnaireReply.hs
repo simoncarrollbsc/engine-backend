@@ -11,8 +11,12 @@ import Wizard.Model.Questionnaire.QuestionnaireReply
 
 instance FromBSON Reply where
   fromBSON doc = do
-    _replyPath <- BSON.lookup "path" doc
-    _replyValue <- BSON.lookup "value" doc
+    _path <- BSON.lookup "path" doc
+    _value <- BSON.lookup "value" doc
+    return Reply {..}
+  fromBSON' doc = do
+    _path <- BSON.lookup "path" doc
+    _value <- BSON.lookup "value" doc
     return Reply {..}
 
 instance FromBSON ReplyValue where
@@ -20,16 +24,31 @@ instance FromBSON ReplyValue where
     rvType <- BSON.lookup "type" doc
     case rvType of
       "StringReply" -> do
-        _stringReplyValue <- BSON.lookup "value" doc
+        _stringValue <- BSON.lookup "value" doc
         return StringReply {..}
       "AnswerReply" -> do
-        _answerReplyValue <- BSON.lookup "value" doc
+        _answerValue <- BSON.lookup "value" doc
         return AnswerReply {..}
       "ItemListReply" -> do
-        _itemListReplyValue <- BSON.lookup "value" doc
+        _itemListValue <- BSON.lookup "value" doc
         return ItemListReply {..}
       "IntegrationReply" -> do
-        _integrationReplyValue <- BSON.lookup "value" doc
+        _integrationValue <- BSON.lookup "value" doc
+        return IntegrationReply {..}
+  fromBSON' doc = do
+    rvType <- BSON.lookup "type" doc
+    case rvType of
+      "StringReply" -> do
+        _stringValue <- BSON.lookup "value" doc
+        return StringReply {..}
+      "AnswerReply" -> do
+        _answerValue <- BSON.lookup "value" doc
+        return AnswerReply {..}
+      "ItemListReply" -> do
+        _itemListValue <- BSON.lookup "value" doc
+        return ItemListReply {..}
+      "IntegrationReply" -> do
+        _integrationValue <- BSON.lookup "value" doc
         return IntegrationReply {..}
 
 instance FromBSON IntegrationReplyValue where
@@ -40,21 +59,37 @@ instance FromBSON IntegrationReplyValue where
         value <- BSON.lookup "value" doc
         return $ PlainValue value
       "IntegrationValue" -> do
-        _integrationValueIntId <- BSON.lookup "id" doc
-        _integrationValueIntValue <- BSON.lookup "value" doc
+        _intId <- BSON.lookup "id" doc
+        _intValue <- BSON.lookup "value" doc
+        return IntegrationValue {..}
+  fromBSON' doc = do
+    intType <- BSON.lookup "type" doc
+    case intType of
+      "PlainValue" -> do
+        value <- BSON.lookup "value" doc
+        return $ PlainValue value
+      "IntegrationValue" -> do
+        _intId <- BSON.lookup "id" doc
+        _intValue <- BSON.lookup "value" doc
         return IntegrationValue {..}
 
 -- --------------------------------------------------------------------
 instance ToBSON Reply where
   toBSON reply = ["path" BSON.=: (reply ^. path), "value" BSON.=: (reply ^. value)]
+  toBSON' reply = ["path" BSON.=: (reply ^. path), "value" BSON.=: (reply ^. value)]
 
 instance ToBSON ReplyValue where
-  toBSON StringReply {..} = ["type" BSON.=: "StringReply", "value" BSON.=: _stringReplyValue]
-  toBSON AnswerReply {..} = ["type" BSON.=: "AnswerReply", "value" BSON.=: (_answerReplyValue)]
-  toBSON ItemListReply {..} = ["type" BSON.=: "ItemListReply", "value" BSON.=: _itemListReplyValue]
-  toBSON IntegrationReply {..} = ["type" BSON.=: "IntegrationReply", "value" BSON.=: _integrationReplyValue]
+  toBSON StringReply {..} = ["type" BSON.=: "StringReply", "value" BSON.=: _stringValue]
+  toBSON AnswerReply {..} = ["type" BSON.=: "AnswerReply", "value" BSON.=: (_answerValue)]
+  toBSON ItemListReply {..} = ["type" BSON.=: "ItemListReply", "value" BSON.=: _itemListValue]
+  toBSON IntegrationReply {..} = ["type" BSON.=: "IntegrationReply", "value" BSON.=: _integrationValue]
+  toBSON' StringReply {..} = ["type" BSON.=: "StringReply", "value" BSON.=: _stringValue]
+  toBSON' AnswerReply {..} = ["type" BSON.=: "AnswerReply", "value" BSON.=: (_answerValue)]
+  toBSON' ItemListReply {..} = ["type" BSON.=: "ItemListReply", "value" BSON.=: _itemListValue]
+  toBSON' IntegrationReply {..} = ["type" BSON.=: "IntegrationReply", "value" BSON.=: _integrationValue]
 
 instance ToBSON IntegrationReplyValue where
   toBSON (PlainValue value) = ["type" BSON.=: "PlainValue", "value" BSON.=: value]
-  toBSON IntegrationValue {..} =
-    ["type" BSON.=: "IntegrationValue", "id" BSON.=: _integrationValueIntId, "value" BSON.=: _integrationValueIntValue]
+  toBSON IntegrationValue {..} = ["type" BSON.=: "IntegrationValue", "id" BSON.=: _intId, "value" BSON.=: _intValue]
+  toBSON' (PlainValue value) = ["type" BSON.=: "PlainValue", "value" BSON.=: value]
+  toBSON' IntegrationValue {..} = ["type" BSON.=: "IntegrationValue", "id" BSON.=: _intId, "value" BSON.=: _intValue]

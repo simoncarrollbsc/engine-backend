@@ -5,53 +5,51 @@ import Data.Time
 import qualified Data.UUID as U
 import GHC.Generics
 
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
-import Wizard.Api.Resource.Level.LevelDTO
-import Wizard.Api.Resource.Package.PackageSimpleDTO
-import Wizard.Api.Resource.Questionnaire.QuestionnaireReplyDTO
-import Wizard.Api.Resource.Report.ReportDTO
-import Wizard.Api.Resource.User.UserDTO
-import Wizard.Model.Config.AppConfig
+import qualified Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO as KnowledgeModelDTO
+import qualified Wizard.Api.Resource.Level.LevelDTO as LevelDTO
+import qualified Wizard.Api.Resource.Package.PackageSimpleDTO as PackageSimpleDTO
+import qualified Wizard.Api.Resource.Questionnaire.QuestionnaireReplyDTO as QuestionnaireReplyDTO
+import qualified Wizard.Api.Resource.Report.ReportDTO as ReportDTO
+import qualified Wizard.Api.Resource.User.UserDTO as UserDTO
+import qualified Wizard.Model.Config.AppConfig as AppConfig
 
 data DocumentContextDTO =
   DocumentContextDTO
-    { _documentContextDTOUuid :: U.UUID
-    , _documentContextDTOConfig :: DocumentContextConfigDTO
-    , _documentContextDTOQuestionnaireUuid :: String
-    , _documentContextDTOQuestionnaireName :: String
-    , _documentContextDTOQuestionnaireReplies :: [ReplyDTO]
-    , _documentContextDTOQuestionnaireRepliesMap :: Map String ReplyDTO
-    , _documentContextDTOLevel :: Int
-    , _documentContextDTOKnowledgeModel :: KnowledgeModelDTO
-    , _documentContextDTOMetrics :: [MetricDTO]
-    , _documentContextDTOLevels :: [LevelDTO]
-    , _documentContextDTOReport :: ReportDTO
-    , _documentContextDTOPackage :: PackageSimpleDTO
-    , _documentContextDTOOrganization :: AppConfigOrganization
-    , _documentContextDTOCreatedBy :: Maybe UserDTO
-    , _documentContextDTOCreatedAt :: UTCTime
-    , _documentContextDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _config :: DocumentContextConfigDTO
+    , _questionnaireUuid :: String
+    , _questionnaireName :: String
+    , _questionnaireReplies :: [QuestionnaireReplyDTO.ReplyDTO]
+    , _questionnaireRepliesMap :: Map String QuestionnaireReplyDTO.ReplyDTO
+    , _level :: Int
+    , _knowledgeModel :: KnowledgeModelDTO.KnowledgeModelDTO
+    , _metrics :: [KnowledgeModelDTO.MetricDTO]
+    , _levels :: [LevelDTO.LevelDTO]
+    , _report :: ReportDTO.ReportDTO
+    , _package :: PackageSimpleDTO.PackageSimpleDTO
+    , _organization :: AppConfig.AppConfigOrganization
+    , _createdBy :: Maybe UserDTO.UserDTO
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq DocumentContextDTO where
   a == b =
-    _documentContextDTOUuid a == _documentContextDTOUuid b &&
-    _documentContextDTOConfig a == _documentContextDTOConfig b &&
-    _documentContextDTOQuestionnaireUuid a == _documentContextDTOQuestionnaireUuid b &&
-    _documentContextDTOQuestionnaireName a == _documentContextDTOQuestionnaireName b &&
-    _documentContextDTOQuestionnaireReplies a == _documentContextDTOQuestionnaireReplies b &&
-    _documentContextDTOLevel a == _documentContextDTOLevel b &&
-    _documentContextDTOKnowledgeModel a == _documentContextDTOKnowledgeModel b &&
-    _documentContextDTOMetrics a == _documentContextDTOMetrics b &&
-    _documentContextDTOLevels a == _documentContextDTOLevels b &&
-    _documentContextDTOReport a == _documentContextDTOReport b &&
-    _documentContextDTOPackage a == _documentContextDTOPackage b &&
-    _documentContextDTOOrganization a == _documentContextDTOOrganization b &&
-    _documentContextDTOCreatedBy a == _documentContextDTOCreatedBy b
+    _uuid a == _uuid b &&
+    _config a == _config b &&
+    _questionnaireUuid a == _questionnaireUuid b &&
+    _questionnaireName a == _questionnaireName b &&
+    _questionnaireReplies a == _questionnaireReplies b &&
+    _level a == _level b &&
+    _knowledgeModel a == _knowledgeModel b &&
+    _metrics a == _metrics b &&
+    _levels a == _levels b &&
+    _report a == _report b &&
+    _package a == _package b && _organization a == _organization b && _createdBy a == _createdBy b
 
 data DocumentContextConfigDTO =
   DocumentContextConfigDTO
-    { _documentContextConfigDTOLevelsEnabled :: Bool
+    { _levelsEnabled :: Bool
     }
   deriving (Show, Eq, Generic)

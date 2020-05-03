@@ -1,6 +1,6 @@
 module LensesConfig where
 
-import Control.Lens (makeFields)
+import Control.Lens (makeFields, makeFieldsNoPrefix)
 
 import Shared.Api.Resource.Event.AnswerEventDTO
 import Shared.Api.Resource.Event.ChapterEventDTO
@@ -155,12 +155,12 @@ makeFields ''Tag
 makeFields ''Integration
 
 -- Model / Package
-makeFields ''Package
+makeFieldsNoPrefix ''Package
 
-makeFields ''PackageWithEvents
+makeFieldsNoPrefix ''PackageWithEvents
 
 -- Model / PackageBundle
-makeFields ''PackageBundle
+makeFieldsNoPrefix ''PackageBundle
 
 -- -------------------------------------
 -- Api / Resource
@@ -286,7 +286,7 @@ makeFields ''TagDTO
 makeFields ''IntegrationDTO
 
 -- Api / Resource / Package
-makeFields ''PackageDTO
+makeFieldsNoPrefix ''PackageDTO
 
 -- Api / Resource / PackageBundle
-makeFields ''PackageBundleDTO
+makeFieldsNoPrefix ''PackageBundleDTO

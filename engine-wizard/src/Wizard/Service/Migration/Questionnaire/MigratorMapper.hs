@@ -11,24 +11,16 @@ import Wizard.Model.Migration.Questionnaire.MigratorState
 
 toDTO :: QuestionnaireDetailDTO -> QuestionnaireDetailDTO -> [U.UUID] -> MigratorStateDTO
 toDTO oldQtn newQtn qtnUuids =
-  MigratorStateDTO
-    { _migratorStateDTOOldQuestionnaire = oldQtn
-    , _migratorStateDTONewQuestionnaire = newQtn
-    , _migratorStateDTOResolvedQuestionUuids = qtnUuids
-    }
+  MigratorStateDTO {_oldQuestionnaire = oldQtn, _newQuestionnaire = newQtn, _resolvedQuestionUuids = qtnUuids}
 
 fromCreateDTO :: U.UUID -> U.UUID -> MigratorState
 fromCreateDTO oldQtnUuid newQtnUuid =
-  MigratorState
-    { _migratorStateOldQuestionnaireUuid = oldQtnUuid
-    , _migratorStateNewQuestionnaireUuid = newQtnUuid
-    , _migratorStateResolvedQuestionUuids = []
-    }
+  MigratorState {_oldQuestionnaireUuid = oldQtnUuid, _newQuestionnaireUuid = newQtnUuid, _resolvedQuestionUuids = []}
 
 fromChangeDTO :: MigratorStateChangeDTO -> MigratorStateDTO -> MigratorState
 fromChangeDTO changeDto ms =
   MigratorState
-    { _migratorStateOldQuestionnaireUuid = ms ^. oldQuestionnaire . uuid
-    , _migratorStateNewQuestionnaireUuid = ms ^. newQuestionnaire . uuid
-    , _migratorStateResolvedQuestionUuids = changeDto ^. resolvedQuestionUuids
+    { _oldQuestionnaireUuid = ms ^. oldQuestionnaire . uuid
+    , _newQuestionnaireUuid = ms ^. newQuestionnaire . uuid
+    , _resolvedQuestionUuids = changeDto ^. resolvedQuestionUuids
     }

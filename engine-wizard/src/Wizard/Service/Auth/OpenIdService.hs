@@ -36,7 +36,7 @@ loginUser :: String -> Maybe String -> Maybe String -> AppContextM TokenDTO
 loginUser authId mError mCode =
   case mCode of
     Just code -> do
-      httpClientManager <- asks _appContextHttpClientManager
+      httpClientManager <- asks _httpClientManager
       (_, openIDClient) <- createOpenIDClient authId
       tokens <-
         liftIO $ O.requestTokens openIDClient Nothing (BS.pack code) httpClientManager :: AppContextM (OT.Tokens Value)
@@ -57,8 +57,8 @@ loginUser authId mError mCode =
 -- --------------------------------
 createOpenIDClient :: String -> AppContextM (AppConfigAuthExternalService, O.OIDC)
 createOpenIDClient authId = do
-  httpClientManager <- asks _appContextHttpClientManager
-  serverConfig <- asks _appContextServerConfig
+  httpClientManager <- asks _httpClientManager
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   case L.find (\s -> s ^. aId == authId) (appConfig ^. authentication . external . services) of
     Just service -> do

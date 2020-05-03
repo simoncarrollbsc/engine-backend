@@ -13,13 +13,13 @@ import Wizard.Api.Resource.Report.ReportJM ()
 import Wizard.Api.Resource.User.UserJM ()
 
 instance FromJSON DocumentContextDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON DocumentContextDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''
 
 instance FromJSON DocumentContextConfigDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON DocumentContextConfigDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

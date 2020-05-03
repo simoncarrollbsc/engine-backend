@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Branch.BranchCreateDTO
 
 instance FromJSON BranchCreateDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON BranchCreateDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

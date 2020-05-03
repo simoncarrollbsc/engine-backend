@@ -8,15 +8,15 @@ import Wizard.Model.Package.PackageState
 
 data PackageSimpleDTO =
   PackageSimpleDTO
-    { _packageSimpleDTOPId :: String
-    , _packageSimpleDTOName :: String
-    , _packageSimpleDTOOrganizationId :: String
-    , _packageSimpleDTOKmId :: String
-    , _packageSimpleDTOVersion :: String
-    , _packageSimpleDTOVersions :: [String]
-    , _packageSimpleDTODescription :: String
-    , _packageSimpleDTOState :: PackageState
-    , _packageSimpleDTOOrganization :: Maybe OrganizationSimpleDTO
-    , _packageSimpleDTOCreatedAt :: UTCTime
+    { _pId :: String
+    , _name :: String
+    , _organizationId :: String
+    , _kmId :: String
+    , _version :: String
+    , _versions :: [String]
+    , _description :: String
+    , _state :: PackageState
+    , _organization :: Maybe OrganizationSimpleDTO
+    , _createdAt :: UTCTime
     }
   deriving (Show, Eq, Generic)

@@ -5,15 +5,13 @@ import GHC.Generics
 
 data LevelDTO =
   LevelDTO
-    { _levelDTOLevel :: Int
-    , _levelDTOTitle :: String
-    , _levelDTODescription :: Maybe String
-    , _levelDTOCreatedAt :: UTCTime
-    , _levelDTOUpdatedAt :: UTCTime
+    { _level :: Int
+    , _title :: String
+    , _description :: Maybe String
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq LevelDTO where
-  a == b =
-    _levelDTOLevel a == _levelDTOLevel b &&
-    _levelDTOTitle a == _levelDTOTitle b && _levelDTODescription a == _levelDTODescription b
+  a == b = _level a == _level b && _title a == _title b && _description a == _description b

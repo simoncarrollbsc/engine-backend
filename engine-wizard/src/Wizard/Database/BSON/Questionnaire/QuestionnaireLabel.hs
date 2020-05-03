@@ -8,9 +8,14 @@ import Wizard.Model.Questionnaire.QuestionnaireLabel
 
 instance FromBSON Label where
   fromBSON doc = do
-    _labelPath <- BSON.lookup "path" doc
-    _labelValue <- BSON.lookup "value" doc
+    _path <- BSON.lookup "path" doc
+    _value <- BSON.lookup "value" doc
+    return Label {..}
+  fromBSON' doc = do
+    _path <- BSON.lookup "path" doc
+    _value <- BSON.lookup "value" doc
     return Label {..}
 
 instance ToBSON Label where
-  toBSON Label {..} = ["path" BSON.=: _labelPath, "value" BSON.=: _labelValue]
+  toBSON Label {..} = ["path" BSON.=: _path, "value" BSON.=: _value]
+  toBSON' Label {..} = ["path" BSON.=: _path, "value" BSON.=: _value]

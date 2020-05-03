@@ -18,17 +18,16 @@ computeMetrics :: [Metric] -> KnowledgeModel -> [Reply] -> Maybe Chapter -> [Met
 computeMetrics metrics km replies mCh = fmap (computeMetricSummary km replies mCh) metrics
 
 computeMetricSummary :: KnowledgeModel -> [Reply] -> Maybe Chapter -> Metric -> MetricSummary
-computeMetricSummary km replies mCh m =
-  MetricSummary {_metricSummaryMetricUuid = m ^. uuid, _metricSummaryMeasure = measure}
+computeMetricSummary km replies mCh m = MetricSummary {_metricUuid = m ^. uuid, _measure = measure}
   where
     measure = weightAverage' . mapMaybe (evaluateAnswer km mCh m) $ replies
     weightAverage' [] = Nothing
     weightAverage' xs = Just . weightAverage $ xs
 
 evaluateAnswer :: KnowledgeModel -> Maybe Chapter -> Metric -> Reply -> Maybe (Double, Double)
-evaluateAnswer km mCh m Reply {_replyPath = path, _replyValue = AnswerReply {..}} =
+evaluateAnswer km mCh m Reply {_path = path, _value = AnswerReply {..}} =
   if isFromChapter mCh path
-    then case M.lookup _answerReplyValue (km ^. answersM) of
+    then case M.lookup _answerValue (km ^. answersM) of
            Just ans ->
              case L.find (\mm -> mm ^. metricUuid == m ^. uuid) (ans ^. metricMeasures) of
                Just mm -> Just (mm ^. measure, mm ^. weight)

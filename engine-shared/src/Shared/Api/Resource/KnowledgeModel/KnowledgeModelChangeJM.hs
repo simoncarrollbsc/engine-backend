@@ -7,7 +7,7 @@ import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeDTO
 import Shared.Util.JSON
 
 instance FromJSON KnowledgeModelChangeDTO where
-  parseJSON = simpleParseJSON "_knowledgeModelChangeDTO"
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON KnowledgeModelChangeDTO where
-  toJSON = simpleToJSON "_knowledgeModelChangeDTO"
+  toJSON = genericToJSON simpleOptions'''

@@ -25,5 +25,5 @@ export_GET pkgId =
     dto <- exportPackageBundle pkgId
     let result = encode dto
     let cdHeader = "attachment;filename=" ++ pkgId ++ ".km"
-    traceUuid <- asks _appContextTraceUuid
+    traceUuid <- asks _traceUuid
     return . addHeader (U.toString traceUuid) . addHeader cdHeader . FileStream . BSL.toStrict $ result

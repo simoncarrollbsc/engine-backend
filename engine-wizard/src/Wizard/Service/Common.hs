@@ -16,7 +16,7 @@ checkIfAppFeatureIsEnabled featureName accessor = do
     else throwError $ UserError . _ERROR_SERVICE_COMMON__FEATURE_IS_DISABLED $ featureName
 
 checkIfServerFeatureIsEnabled featureName accessor = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   if serverConfig ^. accessor
     then return ()
     else throwError $ UserError . _ERROR_SERVICE_COMMON__FEATURE_IS_DISABLED $ featureName

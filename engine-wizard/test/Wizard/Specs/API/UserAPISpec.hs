@@ -104,12 +104,12 @@ userAPI appContext = do
       let reqHeaders = [reqAuthHeader, reqCtHeader]
       let reqDto =
             UserCreateDTO
-              { _userCreateDTOFirstName = "Albert"
-              , _userCreateDTOLastName = "Einstein"
-              , _userCreateDTOEmail = "albert.einstein@example.com"
-              , _userCreateDTOAffiliation = Nothing
-              , _userCreateDTORole = Just _USER_ROLE_ADMIN
-              , _userCreateDTOPassword = "password"
+              { _firstName = "Albert"
+              , _lastName = "Einstein"
+              , _email = "albert.einstein@example.com"
+              , _affiliation = Nothing
+              , _role = Just _USER_ROLE_ADMIN
+              , _password = "password"
               }
       let reqBody = encode reqDto
            -- GIVEN: Prepare expectation
@@ -199,23 +199,23 @@ userAPI appContext = do
       let johnUuid = fromJust . U.fromString $ "cb877c12-2654-41ae-a7b3-6f444d57af7f"
       let johnDto =
             UserCreateDTO
-              { _userCreateDTOFirstName = "John"
-              , _userCreateDTOLastName = "Doe"
-              , _userCreateDTOEmail = "john.doe@example.com"
-              , _userCreateDTOAffiliation = Nothing
-              , _userCreateDTORole = Just _USER_ROLE_ADMIN
-              , _userCreateDTOPassword = "password"
+              { _firstName = "John"
+              , _lastName = "Doe"
+              , _email = "john.doe@example.com"
+              , _affiliation = Nothing
+              , _role = Just _USER_ROLE_ADMIN
+              , _password = "password"
               }
       runInContextIO (createUserByAdminWithUuid johnDto johnUuid) appContext
       let reqDto =
             UserChangeDTO
-              { _userChangeDTOUuid = johnUuid
-              , _userChangeDTOFirstName = "EDITED: Isaac"
-              , _userChangeDTOLastName = "EDITED: Newton"
-              , _userChangeDTOEmail = "albert.einstein@example.com"
-              , _userChangeDTOAffiliation = Nothing
-              , _userChangeDTORole = _USER_ROLE_ADMIN
-              , _userChangeDTOActive = True
+              { _uuid = johnUuid
+              , _firstName = "EDITED: Isaac"
+              , _lastName = "EDITED: Newton"
+              , _email = "albert.einstein@example.com"
+              , _affiliation = Nothing
+              , _role = _USER_ROLE_ADMIN
+              , _active = True
               }
       let reqBody = encode reqDto
            -- AND: Prepare expectation

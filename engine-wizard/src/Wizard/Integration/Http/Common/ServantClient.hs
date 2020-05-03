@@ -21,7 +21,7 @@ createRegistryClient serverConfig httpClientManager = do
 
 runRegistryClient :: ClientM response -> AppContextM response
 runRegistryClient request = do
-  registryClient <- asks _appContextRegistryClient
+  registryClient <- asks _registryClient
   runClient request registryClient
 
 runClient :: ClientM response -> ClientEnv -> AppContextM response

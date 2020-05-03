@@ -7,9 +7,9 @@ import Shared.Api.Resource.Event.EventDTO
 
 data TypehintRequestDTO =
   TypehintRequestDTO
-    { _typehintRequestDTOPackageId :: Maybe String
-    , _typehintRequestDTOEvents :: [EventDTO]
-    , _typehintRequestDTOQuestionUuid :: U.UUID
-    , _typehintRequestDTOQ :: String
+    { _packageId :: Maybe String
+    , _events :: [EventDTO]
+    , _questionUuid :: U.UUID
+    , _q :: String
     }
   deriving (Show, Eq, Generic)

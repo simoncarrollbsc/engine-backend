@@ -5,7 +5,7 @@ import GHC.Generics
 
 data SubmissionCreateDTO =
   SubmissionCreateDTO
-    { _submissionCreateDTOServiceId :: String
-    , _submissionCreateDTODocUuid :: U.UUID
+    { _serviceId :: String
+    , _docUuid :: U.UUID
     }
   deriving (Show, Eq, Generic)

@@ -15,12 +15,12 @@ runAppContextWithBaseContext function baseContext = do
   traceUuid <- liftIO generateUuid
   let appContext =
         AppContext
-          { _appContextApplicationConfig = baseContext ^. serverConfig
-          , _appContextLocalization = baseContext ^. localization
-          , _appContextBuildInfoConfig = baseContext ^. buildInfoConfig
-          , _appContextPool = baseContext ^. pool
-          , _appContextTraceUuid = traceUuid
-          , _appContextCurrentOrganization = Nothing
+          { _serverConfig = baseContext ^. serverConfig
+          , _localization = baseContext ^. localization
+          , _buildInfoConfig = baseContext ^. buildInfoConfig
+          , _pool = baseContext ^. pool
+          , _traceUuid = traceUuid
+          , _currentOrganization = Nothing
           }
   _ <- liftIO . runExceptT $ runStdoutLoggingT $ runReaderT (runAppContextM function) appContext
   return ()

@@ -4,6 +4,6 @@ import GHC.Generics
 
 data UserPasswordDTO =
   UserPasswordDTO
-    { _userPasswordDTOPassword :: String
+    { _password :: String
     }
   deriving (Generic)

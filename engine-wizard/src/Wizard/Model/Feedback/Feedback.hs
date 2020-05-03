@@ -6,21 +6,20 @@ import GHC.Generics
 
 data Feedback =
   Feedback
-    { _feedbackUuid :: U.UUID
-    , _feedbackIssueId :: Int
-    , _feedbackQuestionUuid :: U.UUID
-    , _feedbackPackageId :: String
-    , _feedbackTitle :: String
-    , _feedbackContent :: String
-    , _feedbackCreatedAt :: UTCTime
-    , _feedbackUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _issueId :: Int
+    , _questionUuid :: U.UUID
+    , _packageId :: String
+    , _title :: String
+    , _content :: String
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq Feedback where
   a == b =
-    _feedbackUuid a == _feedbackUuid b &&
-    _feedbackIssueId a == _feedbackIssueId b &&
-    _feedbackQuestionUuid a == _feedbackQuestionUuid b &&
-    _feedbackPackageId a == _feedbackPackageId b &&
-    _feedbackTitle a == _feedbackTitle b && _feedbackContent a == _feedbackContent b
+    _uuid a == _uuid b &&
+    _issueId a == _issueId b &&
+    _questionUuid a == _questionUuid b &&
+    _packageId a == _packageId b && _title a == _title b && _content a == _content b

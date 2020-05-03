@@ -5,6 +5,6 @@ import GHC.Generics
 
 data MigratorStateChangeDTO =
   MigratorStateChangeDTO
-    { _migratorStateChangeDTOResolvedQuestionUuids :: [U.UUID]
+    { _resolvedQuestionUuids :: [U.UUID]
     }
   deriving (Show, Eq, Generic)

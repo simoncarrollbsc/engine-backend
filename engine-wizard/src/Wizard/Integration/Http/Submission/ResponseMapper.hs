@@ -13,4 +13,4 @@ import Wizard.Integration.Http.Common.ResponseMapper
 toUploadDocumentResponse :: Response BSL.ByteString -> Either AppError SubmissionDTO
 toUploadDocumentResponse response =
   let mLocation = extractResponseHeader "Location" response
-   in Right $ SubmissionDTO {_submissionDTOLocation = mLocation}
+   in Right $ SubmissionDTO {_location = mLocation}

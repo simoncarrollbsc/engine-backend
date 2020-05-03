@@ -8,11 +8,11 @@ import Wizard.Model.Template.Template
 
 data TemplateDTO =
   TemplateDTO
-    { _templateDTOUuid :: U.UUID
-    , _templateDTOName :: String
-    , _templateDTODescription :: String
-    , _templateDTOAllowedPackages :: [PackageSimpleDTO]
-    , _templateDTORecommendedPackageId :: Maybe String
-    , _templateDTOFormats :: [TemplateFormat]
+    { _uuid :: U.UUID
+    , _name :: String
+    , _description :: String
+    , _allowedPackages :: [PackageSimpleDTO]
+    , _recommendedPackageId :: Maybe String
+    , _formats :: [TemplateFormat]
     }
   deriving (Show, Eq, Generic)

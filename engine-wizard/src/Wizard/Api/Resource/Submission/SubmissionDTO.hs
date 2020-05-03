@@ -4,6 +4,6 @@ import GHC.Generics
 
 data SubmissionDTO =
   SubmissionDTO
-    { _submissionDTOLocation :: Maybe String
+    { _location :: Maybe String
     }
   deriving (Show, Eq, Generic)

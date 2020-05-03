@@ -1,8 +1,9 @@
 module LensesConfig where
 
-import Control.Lens (makeFields)
+import Control.Lens (makeFields, makeFieldsNoPrefix)
 
 import Registry.Api.Resource.Organization.OrganizationDTO
+import qualified Registry.Model.ActionKey.ActionKey as Registry_ActionKey
 import Shared.Api.Resource.Event.AnswerEventDTO
 import Shared.Api.Resource.Event.ChapterEventDTO
 import Shared.Api.Resource.Event.ExpertEventDTO
@@ -49,11 +50,11 @@ import Wizard.Api.Resource.Feedback.FeedbackCreateDTO
 import Wizard.Api.Resource.Feedback.FeedbackDTO
 import Wizard.Api.Resource.Level.LevelDTO
 import qualified Wizard.Api.Resource.Migration.KnowledgeModel.MigratorConflictDTO as KM_MigratorConflictDTO
-import qualified Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateCreateDTO as KM_MigratorStateCreateDTO
+import qualified Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateCreateDTO as KM_createDTO
 import qualified Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateDTO as KM_MigratorStateDTO
 import qualified Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateDetailDTO as KM_MigratorStateDetailDTO
-import qualified Wizard.Api.Resource.Migration.Questionnaire.MigratorStateChangeDTO as QTN_MigratorStateChangeDTO
-import qualified Wizard.Api.Resource.Migration.Questionnaire.MigratorStateCreateDTO as QTN_MigratorStateCreateDTO
+import qualified Wizard.Api.Resource.Migration.Questionnaire.MigratorStateChangeDTO as QTN_changeDTO
+import qualified Wizard.Api.Resource.Migration.Questionnaire.MigratorStateCreateDTO as QTN_createDTO
 import qualified Wizard.Api.Resource.Migration.Questionnaire.MigratorStateDTO as QTN_MigratorStateDTO
 import Wizard.Api.Resource.Package.PackageDetailDTO
 import Wizard.Api.Resource.Package.PackageSimpleDTO
@@ -115,100 +116,100 @@ import Wizard.Model.User.User
 -- Model
 -- -------------------------------------
 -- Model / ActionKey
-makeFields ''ActionKey
+makeFieldsNoPrefix ''ActionKey
 
 -- Model / BookReference
-makeFields ''BookReference
+makeFieldsNoPrefix ''BookReference
 
 -- Model / Branch
-makeFields ''Branch
+makeFieldsNoPrefix ''Branch
 
-makeFields ''BranchWithEvents
+makeFieldsNoPrefix ''BranchWithEvents
 
 -- Model / Config
-makeFields ''AppConfig
+makeFieldsNoPrefix ''AppConfig
 
-makeFields ''AppConfigOrganization
+makeFieldsNoPrefix ''AppConfigOrganization
 
-makeFields ''AppConfigAuth
+makeFieldsNoPrefix ''AppConfigAuth
 
-makeFields ''AppConfigAuthInternal
+makeFieldsNoPrefix ''AppConfigAuthInternal
 
-makeFields ''AppConfigAuthExternal
+makeFieldsNoPrefix ''AppConfigAuthExternal
 
-makeFields ''AppConfigAuthExternalService
+makeFieldsNoPrefix ''AppConfigAuthExternalService
 
-makeFields ''AppConfigAuthExternalServiceParameter
+makeFieldsNoPrefix ''AppConfigAuthExternalServiceParameter
 
-makeFields ''AppConfigAuthExternalServiceStyle
+makeFieldsNoPrefix ''AppConfigAuthExternalServiceStyle
 
-makeFields ''AppConfigPrivacyAndSupport
+makeFieldsNoPrefix ''AppConfigPrivacyAndSupport
 
-makeFields ''AppConfigDashboard
+makeFieldsNoPrefix ''AppConfigDashboard
 
-makeFields ''AppConfigDashboardWidgets
+makeFieldsNoPrefix ''AppConfigDashboardWidgets
 
-makeFields ''AppConfigLookAndFeel
+makeFieldsNoPrefix ''AppConfigLookAndFeel
 
-makeFields ''AppConfigLookAndFeelCustomMenuLink
+makeFieldsNoPrefix ''AppConfigLookAndFeelCustomMenuLink
 
-makeFields ''AppConfigRegistry
+makeFieldsNoPrefix ''AppConfigRegistry
 
-makeFields ''AppConfigQuestionnaire
+makeFieldsNoPrefix ''AppConfigQuestionnaire
 
-makeFields ''AppConfigQuestionnaireFeedback
+makeFieldsNoPrefix ''AppConfigQuestionnaireFeedback
 
-makeFields ''AppConfigTemplate
+makeFieldsNoPrefix ''AppConfigTemplate
 
-makeFields ''AppConfigSubmission
+makeFieldsNoPrefix ''AppConfigSubmission
 
-makeFields ''AppConfigSubmissionService
+makeFieldsNoPrefix ''AppConfigSubmissionService
 
-makeFields ''AppConfigSubmissionServiceSupportedFormat
+makeFieldsNoPrefix ''AppConfigSubmissionServiceSupportedFormat
 
-makeFields ''AppConfigSubmissionServiceRequest
+makeFieldsNoPrefix ''AppConfigSubmissionServiceRequest
 
-makeFields ''AppConfigSubmissionServiceRequestMultipart
+makeFieldsNoPrefix ''AppConfigSubmissionServiceRequestMultipart
 
-makeFields ''SimpleFeature
+makeFieldsNoPrefix ''SimpleFeature
 
-makeFields ''ServerConfig
+makeFieldsNoPrefix ''ServerConfig
 
-makeFields ''ServerConfigGeneral
+makeFieldsNoPrefix ''ServerConfigGeneral
 
-makeFields ''ServerConfigDatabase
+makeFieldsNoPrefix ''ServerConfigDatabase
 
-makeFields ''ServerConfigMessaging
+makeFieldsNoPrefix ''ServerConfigMessaging
 
-makeFields ''ServerConfigJwt
+makeFieldsNoPrefix ''ServerConfigJwt
 
-makeFields ''ServerConfigRoles
+makeFieldsNoPrefix ''ServerConfigRoles
 
-makeFields ''ServerConfigMail
+makeFieldsNoPrefix ''ServerConfigMail
 
-makeFields ''ServerConfigRegistry
+makeFieldsNoPrefix ''ServerConfigRegistry
 
-makeFields ''ServerConfigAnalytics
+makeFieldsNoPrefix ''ServerConfigAnalytics
 
-makeFields ''ServerConfigFeedback
+makeFieldsNoPrefix ''ServerConfigFeedback
 
-makeFields ''BuildInfoConfig
+makeFieldsNoPrefix ''BuildInfoConfig
 
 -- Model / Context
-makeFields ''BaseContext
+makeFieldsNoPrefix ''BaseContext
 
-makeFields ''AppContext
+makeFieldsNoPrefix ''AppContext
 
 -- Model / Document
-makeFields ''Document
+makeFieldsNoPrefix ''Document
 
-makeFields ''DocumentMetadata
+makeFieldsNoPrefix ''DocumentMetadata
 
-makeFields ''DocumentContext
+makeFieldsNoPrefix ''DocumentContext
 
-makeFields ''DocumentContextConfig
+makeFieldsNoPrefix ''DocumentContextConfig
 
-makeFields ''DocumentTemplateContext
+makeFieldsNoPrefix ''DocumentTemplateContext
 
 -- Model / Event
 makeFields ''EventField
@@ -296,10 +297,10 @@ makeFields ''MoveExpertEvent
 makeFields ''MoveReferenceEvent
 
 -- Model / Feedback
-makeFields ''Feedback
+makeFieldsNoPrefix ''Feedback
 
 -- Model / Http
-makeFields ''HttpRequest
+makeFieldsNoPrefix ''HttpRequest
 
 -- Model / KnowledgeModel
 makeFields ''KnowledgeModel
@@ -339,100 +340,96 @@ makeFields ''Tag
 makeFields ''Integration
 
 -- Model / Level
-makeFields ''Level
+makeFieldsNoPrefix ''Level
 
 -- Model / Migration / KnowledgeModel
-makeFields ''KM_MigratorState.MigratorState
+makeFieldsNoPrefix ''KM_MigratorState.MigratorState
 
 -- Model / Migration / Questionnaire
-makeFields ''QTN_MigratorState.MigratorState
+makeFieldsNoPrefix ''QTN_MigratorState.MigratorState
 
 -- Model / Package
-makeFields ''Package
+makeFieldsNoPrefix ''Package
 
-makeFields ''PackageWithEvents
+makeFieldsNoPrefix ''PackageWithEvents
 
 -- Model / PackageBundle
-makeFields ''PackageBundle
+makeFieldsNoPrefix ''PackageBundle
 
 -- Model / Questionnaire
-makeFields ''Questionnaire
+makeFieldsNoPrefix ''Questionnaire
 
-makeFields ''Reply
+makeFieldsNoPrefix ''Reply
 
-makeFields ''ReplyValue
+makeFieldsNoPrefix ''ReplyValue
 
-makeFields ''IntegrationReplyValue
+makeFieldsNoPrefix ''IntegrationReplyValue
 
-makeFields ''Label
+makeFieldsNoPrefix ''Label
 
 -- Model / Report
-makeFields ''Indication
+makeFieldsNoPrefix ''Indication
 
-makeFields ''AnsweredIndication
+makeFieldsNoPrefix ''MetricSummary
 
-makeFields ''LevelsAnsweredIndication
+makeFieldsNoPrefix ''ChapterReport
 
-makeFields ''MetricSummary
+makeFieldsNoPrefix ''TotalReport
 
-makeFields ''ChapterReport
-
-makeFields ''TotalReport
-
-makeFields ''Report
+makeFieldsNoPrefix ''Report
 
 -- Model / Statistic
-makeFields ''InstanceStatistics
+makeFieldsNoPrefix ''InstanceStatistics
 
 -- Model / Template
-makeFields ''Template
+makeFieldsNoPrefix ''Template
 
-makeFields ''TemplateAllowedPackage
+makeFieldsNoPrefix ''TemplateAllowedPackage
 
-makeFields ''TemplateFormat
+makeFieldsNoPrefix ''TemplateFormat
 
 -- Model / User
-makeFields ''User
+makeFieldsNoPrefix ''User
 
-makeFields ''UserSubmissionProps
+makeFieldsNoPrefix ''UserSubmissionProps
 
 -- -------------------------------------
 -- Api / Resource
 -- -------------------------------------
 -- Api / Resource / ActionKey
-makeFields ''ActionKeyDTO
+makeFieldsNoPrefix ''ActionKeyDTO
 
 -- Api / Resource / BookReference
-makeFields ''BookReferenceDTO
+makeFieldsNoPrefix ''BookReferenceDTO
 
 -- Api / Resource / Branch
-makeFields ''BranchChangeDTO
+makeFieldsNoPrefix ''BranchChangeDTO
 
-makeFields ''BranchCreateDTO
+makeFieldsNoPrefix ''BranchCreateDTO
 
-makeFields ''BranchDTO
+makeFieldsNoPrefix ''BranchDTO
 
-makeFields ''BranchDetailDTO
+makeFieldsNoPrefix ''BranchDetailDTO
 
-makeFields ''BranchWithEventsDTO
+makeFieldsNoPrefix ''BranchWithEventsDTO
 
 -- Api / Resource / Config
-makeFields ''AppConfigChangeDTO
+makeFieldsNoPrefix ''AppConfigChangeDTO
 
-makeFields ''ClientConfigDTO
+makeFieldsNoPrefix ''ClientConfigDTO
 
-makeFields ''ClientConfigRegistryDTO
+makeFieldsNoPrefix ''ClientConfigRegistryDTO
 
-makeFields ''ClientConfigQuestionnaireDTO
+makeFieldsNoPrefix ''ClientConfigQuestionnaireDTO
 
 -- Api / Resource / Document
-makeFields ''DocumentDTO
+makeFieldsNoPrefix ''DocumentDTO
 
-makeFields ''DocumentCreateDTO
+makeFieldsNoPrefix ''DocumentCreateDTO
 
-makeFields ''DocumentContextDTO
+makeFieldsNoPrefix ''DocumentContextDTO
 
-makeFields ''DocumentContextConfigDTO
+makeFieldsNoPrefix ''DocumentContextConfigDTO
 
 -- Api / Resource / Event
 makeFields ''AddKnowledgeModelEventDTO
@@ -518,15 +515,15 @@ makeFields ''MoveExpertEventDTO
 makeFields ''MoveReferenceEventDTO
 
 -- Api / Resource / Feedback
-makeFields ''FeedbackDTO
+makeFieldsNoPrefix ''FeedbackDTO
 
-makeFields ''FeedbackCreateDTO
+makeFieldsNoPrefix ''FeedbackCreateDTO
 
 -- Api / Resource / Info
-makeFields ''InfoDTO
+makeFieldsNoPrefix ''InfoDTO
 
 -- Api / Resource / KnowledgeModel
-makeFields ''KnowledgeModelChangeDTO
+makeFieldsNoPrefix ''KnowledgeModelChangeDTO
 
 makeFields ''KnowledgeModelDTO
 
@@ -565,111 +562,107 @@ makeFields ''TagDTO
 makeFields ''IntegrationDTO
 
 -- Model / Level
-makeFields ''LevelDTO
+makeFieldsNoPrefix ''LevelDTO
 
 -- Api / Resource / Migration / KnowledgeModel
-makeFields ''KM_MigratorConflictDTO.MigratorConflictDTO
+makeFieldsNoPrefix ''KM_MigratorConflictDTO.MigratorConflictDTO
 
-makeFields ''KM_MigratorStateCreateDTO.MigratorStateCreateDTO
+makeFieldsNoPrefix ''KM_createDTO.MigratorStateCreateDTO
 
-makeFields ''KM_MigratorStateDetailDTO.MigratorStateDetailDTO
+makeFieldsNoPrefix ''KM_MigratorStateDetailDTO.MigratorStateDetailDTO
 
-makeFields ''KM_MigratorStateDTO.MigratorStateDTO
+makeFieldsNoPrefix ''KM_MigratorStateDTO.MigratorStateDTO
 
 -- Api / Resource / Migration / Questionnaire
-makeFields ''QTN_MigratorStateDTO.MigratorStateDTO
+makeFieldsNoPrefix ''QTN_MigratorStateDTO.MigratorStateDTO
 
-makeFields ''QTN_MigratorStateCreateDTO.MigratorStateCreateDTO
+makeFieldsNoPrefix ''QTN_createDTO.MigratorStateCreateDTO
 
-makeFields ''QTN_MigratorStateChangeDTO.MigratorStateChangeDTO
+makeFieldsNoPrefix ''QTN_changeDTO.MigratorStateChangeDTO
 
 -- Api / Resource / Organization
-makeFields ''OrganizationSimpleDTO
+makeFieldsNoPrefix ''OrganizationSimpleDTO
 
 -- Api / Resource / Package
-makeFields ''PackageDTO
+makeFieldsNoPrefix ''PackageDTO
 
-makeFields ''PackageSimpleDTO
+makeFieldsNoPrefix ''PackageSimpleDTO
 
-makeFields ''PackageDetailDTO
+makeFieldsNoPrefix ''PackageDetailDTO
 
 -- Api / Resource / PackageBundle
-makeFields ''PackageBundleDTO
+makeFieldsNoPrefix ''PackageBundleDTO
 
 -- Api / Resource / Questionnaire
-makeFields ''QuestionnaireCreateDTO
+makeFieldsNoPrefix ''QuestionnaireCreateDTO
 
-makeFields ''QuestionnaireDTO
+makeFieldsNoPrefix ''QuestionnaireDTO
 
-makeFields ''QuestionnaireDetailDTO
+makeFieldsNoPrefix ''QuestionnaireDetailDTO
 
-makeFields ''QuestionnaireChangeDTO
+makeFieldsNoPrefix ''QuestionnaireChangeDTO
 
-makeFields ''ReplyDTO
+makeFieldsNoPrefix ''ReplyDTO
 
-makeFields ''ReplyValueDTO
+makeFieldsNoPrefix ''ReplyValueDTO
 
-makeFields ''IntegrationReplyValueDTO
+makeFieldsNoPrefix ''IntegrationReplyValueDTO
 
-makeFields ''LabelDTO
+makeFieldsNoPrefix ''LabelDTO
 
 -- Api / Resource / Registry
-makeFields ''RegistryConfirmationDTO
+makeFieldsNoPrefix ''RegistryConfirmationDTO
 
-makeFields ''RegistryCreateDTO
+makeFieldsNoPrefix ''RegistryCreateDTO
 
 -- Api / Resource / Report
-makeFields ''IndicationDTO
+makeFieldsNoPrefix ''IndicationDTO
 
-makeFields ''AnsweredIndicationDTO
+makeFieldsNoPrefix ''MetricSummaryDTO
 
-makeFields ''LevelsAnsweredIndicationDTO
+makeFieldsNoPrefix ''ChapterReportDTO
 
-makeFields ''MetricSummaryDTO
+makeFieldsNoPrefix ''TotalReportDTO
 
-makeFields ''ChapterReportDTO
-
-makeFields ''TotalReportDTO
-
-makeFields ''ReportDTO
+makeFieldsNoPrefix ''ReportDTO
 
 -- Api / Resource / Submission
-makeFields ''SubmissionCreateDTO
+makeFieldsNoPrefix ''SubmissionCreateDTO
 
-makeFields ''SubmissionDTO
+makeFieldsNoPrefix ''SubmissionDTO
 
 -- Api / Resource / Template
-makeFields ''TemplateDTO
+makeFieldsNoPrefix ''TemplateDTO
 
 -- Api / Resource / Token
-makeFields ''TokenDTO
+makeFieldsNoPrefix ''TokenDTO
 
-makeFields ''TokenCreateDTO
+makeFieldsNoPrefix ''TokenCreateDTO
 
 -- Api / Resource / Typehint
-makeFields ''TypehintDTO
+makeFieldsNoPrefix ''TypehintDTO
 
-makeFields ''TypehintRequestDTO
+makeFieldsNoPrefix ''TypehintRequestDTO
 
 -- Api / Resource / User
-makeFields ''UserChangeDTO
+makeFieldsNoPrefix ''UserChangeDTO
 
-makeFields ''UserCreateDTO
+makeFieldsNoPrefix ''UserCreateDTO
 
-makeFields ''UserDTO
+makeFieldsNoPrefix ''UserDTO
 
-makeFields ''UserPasswordDTO
+makeFieldsNoPrefix ''UserPasswordDTO
 
-makeFields ''UserProfileDTO
+makeFieldsNoPrefix ''UserProfileDTO
 
-makeFields ''UserProfileChangeDTO
+makeFieldsNoPrefix ''UserProfileChangeDTO
 
-makeFields ''UserStateDTO
+makeFieldsNoPrefix ''UserStateDTO
 
-makeFields ''UserSubmissionPropsDTO
+makeFieldsNoPrefix ''UserSubmissionPropsDTO
 
 -- Api / Resource / Version
-makeFields ''VersionDTO
+makeFieldsNoPrefix ''VersionDTO
 
 -- -------------------------------------
 -- Integration
@@ -681,9 +674,9 @@ makeFields ''IssueIDTO
 makeFields ''OrganizationSimpleIDTO
 
 -- Integration / Resource / Package
-makeFields ''PackageDetailIDTO
+makeFieldsNoPrefix ''PackageDetailIDTO
 
-makeFields ''PackageSimpleIDTO
+makeFieldsNoPrefix ''PackageSimpleIDTO
 
 -- Integration / Resource / Typehint
 makeFields ''TypehintIDTO
@@ -691,5 +684,8 @@ makeFields ''TypehintIDTO
 -- -------------------------------------
 -- Registry
 -- -------------------------------------
+-- Model / ActionKey
+makeFieldsNoPrefix ''Registry_ActionKey.ActionKey
+
 -- Api / Resource / Organization
-makeFields ''OrganizationDTO
+makeFieldsNoPrefix ''OrganizationDTO

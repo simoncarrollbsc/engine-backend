@@ -7,7 +7,7 @@ import Wizard.Api.Resource.Migration.Questionnaire.MigratorStateDTO
 import Wizard.Api.Resource.Questionnaire.QuestionnaireDetailJM ()
 
 instance FromJSON MigratorStateDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON MigratorStateDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

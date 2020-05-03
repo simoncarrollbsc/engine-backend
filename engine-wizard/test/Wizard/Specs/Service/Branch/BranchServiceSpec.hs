@@ -98,8 +98,7 @@ branchServiceIntegrationSpec appContext =
         runInContext B.runMigration appContext
         runInContext (insertPackage netherlandsPackageV2) appContext
         runInContext (deleteEventsAtBranch branchUuid) appContext
-        let migratorCreateDto =
-              MigratorStateCreateDTO {_migratorStateCreateDTOTargetPackageId = netherlandsPackageV2 ^. pId}
+        let migratorCreateDto = MigratorStateCreateDTO {_targetPackageId = netherlandsPackageV2 ^. pId}
         runInContext (createMigration branchUuid migratorCreateDto) appContext
         -- AND: Prepare branch
         let branch = amsterdamBranchWithEvents
@@ -116,15 +115,9 @@ branchServiceIntegrationSpec appContext =
        do
         runInContext PKG.runMigration appContext
         runInContext B.runMigration appContext
-        let migratorCreateDto =
-              MigratorStateCreateDTO {_migratorStateCreateDTOTargetPackageId = netherlandsPackageV2 ^. pId}
+        let migratorCreateDto = MigratorStateCreateDTO {_targetPackageId = netherlandsPackageV2 ^. pId}
         runInContext (createMigration branchUuid migratorCreateDto) appContext
-        let reqDto =
-              MigratorConflictDTO
-                { _migratorConflictDTOOriginalEventUuid = a_km1_ch4 ^. uuid
-                , _migratorConflictDTOAction = MCAReject
-                , _migratorConflictDTOEvent = Nothing
-                }
+        let reqDto = MigratorConflictDTO {_originalEventUuid = a_km1_ch4 ^. uuid, _action = MCAReject, _event = Nothing}
         runInContext (solveConflictAndMigrate branchUuid reqDto) appContext
         -- AND: Prepare branch
         let branch = amsterdamBranchWithEvents & events .~ []

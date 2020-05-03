@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Level.LevelDTO
 
 instance FromJSON LevelDTO where
-  parseJSON = genericParseJSON simpleOptions
+  parseJSON = genericParseJSON simpleOptions'''
 
 instance ToJSON LevelDTO where
-  toJSON = genericToJSON simpleOptions
+  toJSON = genericToJSON simpleOptions'''

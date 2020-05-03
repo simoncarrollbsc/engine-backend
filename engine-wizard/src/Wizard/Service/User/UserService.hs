@@ -51,7 +51,7 @@ createUserByAdmin reqDto = do
 createUserByAdminWithUuid :: UserCreateDTO -> U.UUID -> AppContextM UserDTO
 createUserByAdminWithUuid reqDto uUuid = do
   uPasswordHash <- generatePasswordHash (reqDto ^. password)
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let uRole = fromMaybe (appConfig ^. authentication . defaultRole) (reqDto ^. role)
   let uPermissions = getPermissionForRole serverConfig uRole
@@ -62,7 +62,7 @@ registrateUser reqDto = do
   checkIfRegistrationIsEnabled
   uUuid <- liftIO generateUuid
   uPasswordHash <- generatePasswordHash (reqDto ^. password)
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let uRole = appConfig ^. authentication . defaultRole
   let uPermissions = getPermissionForRole serverConfig uRole
@@ -95,7 +95,7 @@ createUserFromExternalService serviceId firstName lastName email mImageUrl = do
           return $ toDTO updatedUser
         else throwError $ UnauthorizedError _ERROR_SERVICE_TOKEN__ACCOUNT_IS_NOT_ACTIVATED
     Nothing -> do
-      serverConfig <- asks _appContextServerConfig
+      serverConfig <- asks _serverConfig
       uUuid <- liftIO generateUuid
       password <- liftIO $ generateRandomString 40
       uPasswordHash <- generatePasswordHash password
@@ -116,7 +116,7 @@ modifyUser :: String -> UserChangeDTO -> AppContextM UserDTO
 modifyUser userUuid reqDto = do
   user <- findUserById userUuid
   validateUserChangedEmailUniqueness (reqDto ^. email) (user ^. email)
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   updatedUser <- updateUserTimestamp $ fromUserChangeDTO reqDto user (getPermissions serverConfig reqDto user)
   updateUserById updatedUser
   return . toDTO $ updatedUser
@@ -204,7 +204,7 @@ updateUserTimestamp user = do
   return $ user & updatedAt ?~ now
 
 sendAnalyticsEmailIfEnabled user = do
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   when (serverConfig ^. analytics . enabled) (sendRegistrationCreatedAnalyticsMail (toDTO user))
 
 checkIfRegistrationIsEnabled =

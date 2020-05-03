@@ -4,7 +4,7 @@ import Control.Lens ((^.))
 import Control.Monad (unless)
 import Control.Monad.Except (catchError, runExceptT, throwError)
 import Control.Monad.Logger (runStdoutLoggingT)
-import Control.Monad.Reader (asks, liftIO, runReaderT)
+import Control.Monad.Reader (ask, liftIO, runReaderT)
 import Data.Aeson
 import qualified Data.ByteString.Char8 as BS
 import qualified Data.ByteString.Lazy.Char8 as BSL
@@ -48,27 +48,28 @@ import Wizard.Util.Logger
 
 runInUnauthService :: AppContextM a -> BaseContextM a
 runInUnauthService function = do
-  traceUuid <- liftIO generateUuid
-  serverConfig <- asks _baseContextServerConfig
-  localization <- asks _baseContextLocalization
-  buildInfoConfig <- asks _baseContextBuildInfoConfig
-  dbPool <- asks _baseContextPool
-  msgChannel <- asks _baseContextMsgChannel
-  httpClientManager <- asks _baseContextHttpClientManager
-  registryClient <- asks _baseContextRegistryClient
-  shutdownFlag <- asks _baseContextShutdownFlag
+  traceUuid_ <- liftIO generateUuid
+  context <- ask
+  let serverConfig_ = context ^. serverConfig
+  let localization_ = context ^. localization
+  let buildInfoConfig_ = context ^. buildInfoConfig
+  let dbPool_ = context ^. pool
+  let msgChannel_ = context ^. msgChannel
+  let httpClientManager_ = context ^. httpClientManager
+  let registryClient_ = context ^. registryClient
+  let shutdownFlag_ = context ^. shutdownFlag
   let appContext =
         AppContext
-          { _appContextServerConfig = serverConfig
-          , _appContextLocalization = localization
-          , _appContextBuildInfoConfig = buildInfoConfig
-          , _appContextPool = dbPool
-          , _appContextMsgChannel = msgChannel
-          , _appContextHttpClientManager = httpClientManager
-          , _appContextRegistryClient = registryClient
-          , _appContextTraceUuid = traceUuid
-          , _appContextCurrentUser = Nothing
-          , _appContextShutdownFlag = shutdownFlag
+          { _serverConfig = serverConfig_
+          , _localization = localization_
+          , _buildInfoConfig = buildInfoConfig_
+          , _pool = dbPool_
+          , _msgChannel = msgChannel_
+          , _httpClientManager = httpClientManager_
+          , _registryClient = registryClient_
+          , _traceUuid = traceUuid_
+          , _currentUser = Nothing
+          , _shutdownFlag = shutdownFlag_
           }
   eResult <- liftIO . runExceptT $ runStdoutLoggingT $ runReaderT (runAppContextM function) appContext
   case eResult of
@@ -79,27 +80,28 @@ runInUnauthService function = do
 
 runInAuthService :: UserDTO -> AppContextM a -> BaseContextM a
 runInAuthService user function = do
-  traceUuid <- liftIO generateUuid
-  serverConfig <- asks _baseContextServerConfig
-  localization <- asks _baseContextLocalization
-  buildInfoConfig <- asks _baseContextBuildInfoConfig
-  dbPool <- asks _baseContextPool
-  msgChannel <- asks _baseContextMsgChannel
-  httpClientManager <- asks _baseContextHttpClientManager
-  registryClient <- asks _baseContextRegistryClient
-  shutdownFlag <- asks _baseContextShutdownFlag
+  traceUuid_ <- liftIO generateUuid
+  context <- ask
+  let serverConfig_ = context ^. serverConfig
+  let localization_ = context ^. localization
+  let buildInfoConfig_ = context ^. buildInfoConfig
+  let dbPool_ = context ^. pool
+  let msgChannel_ = context ^. msgChannel
+  let httpClientManager_ = context ^. httpClientManager
+  let registryClient_ = context ^. registryClient
+  let shutdownFlag_ = context ^. shutdownFlag
   let appContext =
         AppContext
-          { _appContextServerConfig = serverConfig
-          , _appContextLocalization = localization
-          , _appContextBuildInfoConfig = buildInfoConfig
-          , _appContextPool = dbPool
-          , _appContextMsgChannel = msgChannel
-          , _appContextHttpClientManager = httpClientManager
-          , _appContextRegistryClient = registryClient
-          , _appContextTraceUuid = traceUuid
-          , _appContextCurrentUser = Just user
-          , _appContextShutdownFlag = shutdownFlag
+          { _serverConfig = serverConfig_
+          , _localization = localization_
+          , _buildInfoConfig = buildInfoConfig_
+          , _pool = dbPool_
+          , _msgChannel = msgChannel_
+          , _httpClientManager = httpClientManager_
+          , _registryClient = registryClient_
+          , _traceUuid = traceUuid_
+          , _currentUser = Just user
+          , _shutdownFlag = shutdownFlag_
           }
   eResult <- liftIO . runExceptT $ runStdoutLoggingT $ runReaderT (runAppContextM function) appContext
   case eResult of
@@ -141,8 +143,9 @@ getCurrentUserUuid tokenHeader = do
 
 addTraceUuidHeader :: a -> AppContextM (Headers '[ Header "x-trace-uuid" String] a)
 addTraceUuidHeader result = do
-  traceUuid <- asks _appContextTraceUuid
-  return $ addHeader (U.toString traceUuid) result
+  context <- ask
+  let traceUuid_ = context ^. traceUuid
+  return $ addHeader (U.toString traceUuid_) result
 
 sendError :: AppError -> BaseContextM ServerError
 sendError AcceptedError =
@@ -157,25 +160,30 @@ sendError (FoundError url) =
   return $
   err302 {errBody = encode $ FoundErrorDTO url, errHeaders = [contentTypeHeaderJSON, ("Location", BS.pack url)]}
 sendError (ValidationError formErrorRecords fieldErrorRecords) = do
-  ls <- asks _baseContextLocalization
+  context <- ask
+  let ls = context ^. localization
   let formErrors = fmap (locale ls) formErrorRecords
   let localeTuple (k, v) = (k, locale ls v)
   let fieldErrors = fmap localeTuple fieldErrorRecords
   return $ err400 {errBody = encode $ ValidationErrorDTO formErrors fieldErrors, errHeaders = [contentTypeHeaderJSON]}
 sendError (UserError localeRecord) = do
-  ls <- asks _baseContextLocalization
+  context <- ask
+  let ls = context ^. localization
   let message = locale ls localeRecord
   return $ err400 {errBody = encode $ UserErrorDTO message, errHeaders = [contentTypeHeaderJSON]}
 sendError (UnauthorizedError localeRecord) = do
-  ls <- asks _baseContextLocalization
+  context <- ask
+  let ls = context ^. localization
   let message = locale ls localeRecord
   return $ err401 {errBody = encode $ UnauthorizedErrorDTO message, errHeaders = [contentTypeHeaderJSON]}
 sendError (ForbiddenError localeRecord) = do
-  ls <- asks _baseContextLocalization
+  context <- ask
+  let ls = context ^. localization
   let message = locale ls localeRecord
   return $ err403 {errBody = encode $ ForbiddenErrorDTO message, errHeaders = [contentTypeHeaderJSON]}
 sendError (NotExistsError localeRecord) = do
-  ls <- asks _baseContextLocalization
+  context <- ask
+  let ls = context ^. localization
   let message = locale ls localeRecord
   return $ err404 {errBody = encode $ NotExistsErrorDTO message, errHeaders = [contentTypeHeaderJSON]}
 sendError (GeneralServerError errorMessage) = do
@@ -235,20 +243,22 @@ checkPermission mTokenHeader perm = do
 
 isAdmin :: AppContextM Bool
 isAdmin = do
-  mUser <- asks _appContextCurrentUser
+  context <- ask
+  let mUser = context ^. currentUser
   case mUser of
     Just user -> return $ user ^. role == _USER_ROLE_ADMIN
     Nothing -> return False
 
 checkServiceToken :: Maybe String -> AppContextM ()
 checkServiceToken mTokenHeader = do
-  serverConfig <- asks _appContextServerConfig
-  let mToken = mTokenHeader >>= separateToken >>= validateServiceToken serverConfig
+  context <- ask
+  let serverConfig_ = context ^. serverConfig
+  let mToken = mTokenHeader >>= separateToken >>= validateServiceToken serverConfig_
   case mToken of
     Just _ -> return ()
     Nothing -> throwError . UnauthorizedError $ _ERROR_SERVICE_TOKEN__UNABLE_TO_GET_OR_VERIFY_SERVICE_TOKEN
   where
-    validateServiceToken serverConfig token =
-      if token == serverConfig ^. general . serviceToken
+    validateServiceToken serverConfig_ token =
+      if token == serverConfig_ ^. general . serviceToken
         then Just token
         else Nothing

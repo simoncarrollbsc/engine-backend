@@ -4,30 +4,28 @@ import Data.Time
 import qualified Data.UUID as U
 import GHC.Generics
 
-import Wizard.Api.Resource.Package.PackageSimpleDTO
-import Wizard.Api.Resource.User.UserDTO
-import Wizard.Model.Questionnaire.Questionnaire
-import Wizard.Model.Questionnaire.QuestionnaireState
+import qualified Wizard.Api.Resource.Package.PackageSimpleDTO as PackageSimpleDTO
+import qualified Wizard.Api.Resource.User.UserDTO as UserDTO
+import qualified Wizard.Model.Questionnaire.Questionnaire as Questionnaire
+import qualified Wizard.Model.Questionnaire.QuestionnaireState as QuestionnaireState
 
 data QuestionnaireDTO =
   QuestionnaireDTO
-    { _questionnaireDTOUuid :: U.UUID
-    , _questionnaireDTOName :: String
-    , _questionnaireDTOLevel :: Int
-    , _questionnaireDTOAccessibility :: QuestionnaireAccessibility
-    , _questionnaireDTOState :: QuestionnaireState
-    , _questionnaireDTOPackage :: PackageSimpleDTO
-    , _questionnaireDTOOwner :: Maybe UserDTO
-    , _questionnaireDTOCreatedAt :: UTCTime
-    , _questionnaireDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _name :: String
+    , _level :: Int
+    , _accessibility :: Questionnaire.QuestionnaireAccessibility
+    , _state :: QuestionnaireState.QuestionnaireState
+    , _package :: PackageSimpleDTO.PackageSimpleDTO
+    , _owner :: Maybe UserDTO.UserDTO
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq QuestionnaireDTO where
   a == b =
-    _questionnaireDTOUuid a == _questionnaireDTOUuid b &&
-    _questionnaireDTOName a == _questionnaireDTOName b &&
-    _questionnaireDTOLevel a == _questionnaireDTOLevel b &&
-    _questionnaireDTOAccessibility a == _questionnaireDTOAccessibility b &&
-    _questionnaireDTOState a == _questionnaireDTOState b &&
-    _questionnaireDTOPackage a == _questionnaireDTOPackage b && _questionnaireDTOOwner a == _questionnaireDTOOwner b
+    _uuid a == _uuid b &&
+    _name a == _name b &&
+    _level a == _level b &&
+    _accessibility a == _accessibility b && _state a == _state b && _package a == _package b && _owner a == _owner b

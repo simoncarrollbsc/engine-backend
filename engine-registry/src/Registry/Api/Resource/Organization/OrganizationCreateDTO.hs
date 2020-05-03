@@ -4,9 +4,9 @@ import GHC.Generics
 
 data OrganizationCreateDTO =
   OrganizationCreateDTO
-    { _organizationCreateDTOOrganizationId :: String
-    , _organizationCreateDTOName :: String
-    , _organizationCreateDTODescription :: String
-    , _organizationCreateDTOEmail :: String
+    { _organizationId :: String
+    , _name :: String
+    , _description :: String
+    , _email :: String
     }
   deriving (Show, Eq, Generic)

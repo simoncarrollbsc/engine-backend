@@ -6,7 +6,6 @@ import LensesConfig
 import Shared.Api.Resource.Package.PackageDTO
 import Shared.Model.Package.Package
 import Shared.Model.Package.PackageWithEvents
-import Shared.Service.Event.EventMapper
 
 toPackage :: PackageWithEvents -> Package
 toPackage pkg =
@@ -41,7 +40,7 @@ toDTO pkg =
     , _previousPackageId = pkg ^. previousPackageId
     , _forkOfPackageId = pkg ^. forkOfPackageId
     , _mergeCheckpointPackageId = pkg ^. mergeCheckpointPackageId
-    , _events = toDTOs (pkg ^. events)
+    , _events = pkg ^. events
     , _createdAt = pkg ^. createdAt
     }
 

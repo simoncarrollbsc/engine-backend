@@ -4,13 +4,7 @@ import qualified Data.Bson as BSON
 import Data.Bson.Generic
 import Data.Maybe
 
-import Shared.Database.BSON.Event.Answer ()
-import Shared.Database.BSON.Event.Chapter ()
-import Shared.Database.BSON.Event.Common
-import Shared.Database.BSON.Event.Expert ()
-import Shared.Database.BSON.Event.KnowledgeModel ()
-import Shared.Database.BSON.Event.Question ()
-import Shared.Database.BSON.Event.Reference ()
+import Shared.Database.BSON.Event.Common ()
 import Shared.Model.Package.PackageWithEvents
 
 instance ToBSON PackageWithEvents where
@@ -27,7 +21,7 @@ instance ToBSON PackageWithEvents where
     , "previousPackageId" BSON.=: _previousPackageId
     , "forkOfPackageId" BSON.=: _forkOfPackageId
     , "mergeCheckpointPackageId" BSON.=: _mergeCheckpointPackageId
-    , "events" BSON.=: convertEventToBSON <$> _events
+    , "events" BSON.=: toBSON <$> _events
     , "createdAt" BSON.=: _createdAt
     ]
   toBSON' PackageWithEvents {..} =
@@ -43,7 +37,7 @@ instance ToBSON PackageWithEvents where
     , "previousPackageId" BSON.=: _previousPackageId
     , "forkOfPackageId" BSON.=: _forkOfPackageId
     , "mergeCheckpointPackageId" BSON.=: _mergeCheckpointPackageId
-    , "events" BSON.=: convertEventToBSON <$> _events
+    , "events" BSON.=: toBSON <$> _events
     , "createdAt" BSON.=: _createdAt
     ]
 
@@ -62,7 +56,7 @@ instance FromBSON PackageWithEvents where
     _forkOfPackageId <- BSON.lookup "forkOfPackageId" doc
     _mergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
     pkgEventsSerialized <- BSON.lookup "events" doc
-    let _events = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
+    let _events = (fromJust . fromBSON) <$> pkgEventsSerialized
     _createdAt <- BSON.lookup "createdAt" doc
     return PackageWithEvents {..}
   fromBSON' doc = do
@@ -79,6 +73,6 @@ instance FromBSON PackageWithEvents where
     _forkOfPackageId <- BSON.lookup "forkOfPackageId" doc
     _mergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
     pkgEventsSerialized <- BSON.lookup "events" doc
-    let _events = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
+    let _events = (fromJust . fromBSON) <$> pkgEventsSerialized
     _createdAt <- BSON.lookup "createdAt" doc
     return PackageWithEvents {..}

@@ -7,7 +7,6 @@ import Shared.Constant.KnowledgeModel
 import Shared.Model.Event.Event
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.Package.Package
-import Shared.Service.Event.EventMapper
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateDTO
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateDTO
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigratorStateDetailDTO

@@ -6,7 +6,6 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Constant.KnowledgeModel
-import Shared.Service.Event.EventMapper
 import Wizard.Api.Resource.Branch.BranchChangeDTO
 import Wizard.Api.Resource.Branch.BranchCreateDTO
 import Wizard.Api.Resource.Branch.BranchDTO

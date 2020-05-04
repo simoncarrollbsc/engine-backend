@@ -6,7 +6,6 @@ import LensesConfig
 import Shared.Database.Migration.Development.Event.Data.Events
 import Shared.Database.Migration.Development.KnowledgeModel.Data.KnowledgeModels
 import Shared.Database.Migration.Development.Package.Data.Packages
-import Shared.Service.Event.EventMapper
 import Shared.Service.KnowledgeModel.KnowledgeModelMapper
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateDTO
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigratorConflictDTO

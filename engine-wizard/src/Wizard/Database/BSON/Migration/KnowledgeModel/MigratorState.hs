@@ -7,25 +7,19 @@ import Data.Maybe
 
 import LensesConfig
 import Shared.Database.BSON.Common ()
-import Shared.Database.BSON.Event.Answer ()
-import Shared.Database.BSON.Event.Chapter ()
-import Shared.Database.BSON.Event.Common
-import Shared.Database.BSON.Event.Expert ()
-import Shared.Database.BSON.Event.KnowledgeModel ()
-import Shared.Database.BSON.Event.Question ()
-import Shared.Database.BSON.Event.Reference ()
+import Shared.Database.BSON.Event.Common ()
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Model.Migration.KnowledgeModel.MigratorState
 
 instance ToBSON MigrationState where
   toBSON RunningState = ["stateType" BSON.=: "RunningState"]
   toBSON (ConflictState (CorrectorConflict event)) =
-    ["stateType" BSON.=: "ConflictState", "targetEvent" BSON.=: convertEventToBSON event]
+    ["stateType" BSON.=: "ConflictState", "targetEvent" BSON.=: toBSON event]
   toBSON ErrorState = ["stateType" BSON.=: "ErrorState"]
   toBSON CompletedState = ["stateType" BSON.=: "CompletedState"]
   toBSON' RunningState = ["stateType" BSON.=: "RunningState"]
   toBSON' (ConflictState (CorrectorConflict event)) =
-    ["stateType" BSON.=: "ConflictState", "targetEvent" BSON.=: convertEventToBSON event]
+    ["stateType" BSON.=: "ConflictState", "targetEvent" BSON.=: toBSON event]
   toBSON' ErrorState = ["stateType" BSON.=: "ErrorState"]
   toBSON' CompletedState = ["stateType" BSON.=: "CompletedState"]
 
@@ -36,7 +30,7 @@ instance FromBSON MigrationState where
       "RunningState" -> return RunningState
       "ConflictState" -> do
         event <- BSON.lookup "targetEvent" doc
-        return . ConflictState . CorrectorConflict . fromJust . chooseEventDeserializator $ event
+        return . ConflictState . CorrectorConflict . fromJust . fromBSON $ event
       "ErrorState" -> return ErrorState
       "CompletedState" -> return CompletedState
   fromBSON' doc = do
@@ -45,7 +39,7 @@ instance FromBSON MigrationState where
       "RunningState" -> return RunningState
       "ConflictState" -> do
         event <- BSON.lookup "targetEvent" doc
-        return . ConflictState . CorrectorConflict . fromJust . chooseEventDeserializator $ event
+        return . ConflictState . CorrectorConflict . fromJust . fromBSON $ event
       "ErrorState" -> return ErrorState
       "CompletedState" -> return CompletedState
 
@@ -56,9 +50,9 @@ instance ToBSON MigratorState where
     , "migrationState" BSON.=: (ms ^. migrationState)
     , "branchPreviousPackageId" BSON.=: (ms ^. branchPreviousPackageId)
     , "targetPackageId" BSON.=: (ms ^. targetPackageId)
-    , "branchEvents" BSON.=: convertEventToBSON <$> (ms ^. branchEvents)
-    , "targetPackageEvents" BSON.=: convertEventToBSON <$> (ms ^. targetPackageEvents)
-    , "resultEvents" BSON.=: convertEventToBSON <$> (ms ^. resultEvents)
+    , "branchEvents" BSON.=: toBSON <$> (ms ^. branchEvents)
+    , "targetPackageEvents" BSON.=: toBSON <$> (ms ^. targetPackageEvents)
+    , "resultEvents" BSON.=: toBSON <$> (ms ^. resultEvents)
     , "currentKnowledgeModel" BSON.=: (Nothing :: Maybe KnowledgeModel)
     ]
   toBSON' ms =
@@ -67,9 +61,9 @@ instance ToBSON MigratorState where
     , "migrationState" BSON.=: (ms ^. migrationState)
     , "branchPreviousPackageId" BSON.=: (ms ^. branchPreviousPackageId)
     , "targetPackageId" BSON.=: (ms ^. targetPackageId)
-    , "branchEvents" BSON.=: convertEventToBSON <$> (ms ^. branchEvents)
-    , "targetPackageEvents" BSON.=: convertEventToBSON <$> (ms ^. targetPackageEvents)
-    , "resultEvents" BSON.=: convertEventToBSON <$> (ms ^. resultEvents)
+    , "branchEvents" BSON.=: toBSON <$> (ms ^. branchEvents)
+    , "targetPackageEvents" BSON.=: toBSON <$> (ms ^. targetPackageEvents)
+    , "resultEvents" BSON.=: toBSON <$> (ms ^. resultEvents)
     , "currentKnowledgeModel" BSON.=: (Nothing :: Maybe KnowledgeModel)
     ]
 
@@ -81,11 +75,11 @@ instance FromBSON MigratorState where
     msBranchPreviousPackageId <- BSON.lookup "branchPreviousPackageId" doc
     msTargetPackageId <- BSON.lookup "targetPackageId" doc
     msBranchEventsSerialized <- BSON.lookup "branchEvents" doc
-    let msBranchEvents = fmap (fromJust . chooseEventDeserializator) msBranchEventsSerialized
+    let msBranchEvents = fmap (fromJust . fromBSON) msBranchEventsSerialized
     msTargetPackageEventsSerialized <- BSON.lookup "targetPackageEvents" doc
-    let msTargetPackageEvents = fmap (fromJust . chooseEventDeserializator) msTargetPackageEventsSerialized
+    let msTargetPackageEvents = fmap (fromJust . fromBSON) msTargetPackageEventsSerialized
     msResultEventsSerialized <- BSON.lookup "resultEvents" doc
-    let msResultEvents = fmap (fromJust . chooseEventDeserializator) msResultEventsSerialized
+    let msResultEvents = fmap (fromJust . fromBSON) msResultEventsSerialized
     return
       MigratorState
         { _branchUuid = msBranchUuid
@@ -105,11 +99,11 @@ instance FromBSON MigratorState where
     msBranchPreviousPackageId <- BSON.lookup "branchPreviousPackageId" doc
     msTargetPackageId <- BSON.lookup "targetPackageId" doc
     msBranchEventsSerialized <- BSON.lookup "branchEvents" doc
-    let msBranchEvents = fmap (fromJust . chooseEventDeserializator) msBranchEventsSerialized
+    let msBranchEvents = fmap (fromJust . fromBSON) msBranchEventsSerialized
     msTargetPackageEventsSerialized <- BSON.lookup "targetPackageEvents" doc
-    let msTargetPackageEvents = fmap (fromJust . chooseEventDeserializator) msTargetPackageEventsSerialized
+    let msTargetPackageEvents = fmap (fromJust . fromBSON) msTargetPackageEventsSerialized
     msResultEventsSerialized <- BSON.lookup "resultEvents" doc
-    let msResultEvents = fmap (fromJust . chooseEventDeserializator) msResultEventsSerialized
+    let msResultEvents = fmap (fromJust . fromBSON) msResultEventsSerialized
     return
       MigratorState
         { _branchUuid = msBranchUuid

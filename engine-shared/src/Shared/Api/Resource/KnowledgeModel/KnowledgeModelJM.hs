@@ -3,30 +3,29 @@ module Shared.Api.Resource.KnowledgeModel.KnowledgeModelJM where
 import Control.Monad
 import Data.Aeson
 
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Util.JSON
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON KnowledgeModelDTO where
-  toJSON = simpleToJSON "_knowledgeModelDTO"
+instance ToJSON KnowledgeModel where
+  toJSON = simpleToJSON "_knowledgeModel"
 
-instance FromJSON KnowledgeModelDTO where
+instance FromJSON KnowledgeModel where
   parseJSON = genericParseJSON simpleOptions
 
-instance ToJSON KnowledgeModelEntitiesDTO where
-  toJSON = simpleToJSON "_knowledgeModelEntitiesDTO"
+instance ToJSON KnowledgeModelEntities where
+  toJSON = simpleToJSON "_knowledgeModelEntities"
 
-instance FromJSON KnowledgeModelEntitiesDTO where
+instance FromJSON KnowledgeModelEntities where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON ChapterDTO where
-  toJSON = simpleToJSON "_chapterDTO"
+instance ToJSON Chapter where
+  toJSON = simpleToJSON "_chapter"
 
-instance FromJSON ChapterDTO where
+instance FromJSON Chapter where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
@@ -35,127 +34,127 @@ instance ToJSON QuestionValueType
 
 instance FromJSON QuestionValueType
 
-instance ToJSON QuestionDTO where
+instance ToJSON Question where
   toJSON = toSumJSON
 
-instance FromJSON QuestionDTO where
+instance FromJSON Question where
   parseJSON (Object o) = do
     questionType <- o .: "questionType"
     case questionType of
-      "OptionsQuestion" -> parseJSON (Object o) >>= \event -> return (OptionsQuestionDTO' event)
-      "ListQuestion" -> parseJSON (Object o) >>= \event -> return (ListQuestionDTO' event)
-      "ValueQuestion" -> parseJSON (Object o) >>= \event -> return (ValueQuestionDTO' event)
-      "IntegrationQuestion" -> parseJSON (Object o) >>= \event -> return (IntegrationQuestionDTO' event)
+      "OptionsQuestion" -> parseJSON (Object o) >>= \event -> return (OptionsQuestion' event)
+      "ListQuestion" -> parseJSON (Object o) >>= \event -> return (ListQuestion' event)
+      "ValueQuestion" -> parseJSON (Object o) >>= \event -> return (ValueQuestion' event)
+      "IntegrationQuestion" -> parseJSON (Object o) >>= \event -> return (IntegrationQuestion' event)
       _ -> fail "One of the questions has unsupported questionType"
   parseJSON _ = mzero
 
 -- --------------------------------------------------------------------
-instance ToJSON OptionsQuestionDTO where
-  toJSON = simpleToJSON' "_optionsQuestionDTO" "questionType"
+instance ToJSON OptionsQuestion where
+  toJSON = simpleToJSON' "_optionsQuestion" "questionType"
 
-instance FromJSON OptionsQuestionDTO where
+instance FromJSON OptionsQuestion where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON ListQuestionDTO where
-  toJSON = simpleToJSON' "_listQuestionDTO" "questionType"
+instance ToJSON ListQuestion where
+  toJSON = simpleToJSON' "_listQuestion" "questionType"
 
-instance FromJSON ListQuestionDTO where
+instance FromJSON ListQuestion where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON ValueQuestionDTO where
-  toJSON = simpleToJSON' "_valueQuestionDTO" "questionType"
+instance ToJSON ValueQuestion where
+  toJSON = simpleToJSON' "_valueQuestion" "questionType"
 
-instance FromJSON ValueQuestionDTO where
+instance FromJSON ValueQuestion where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON IntegrationQuestionDTO where
-  toJSON = simpleToJSON' "_integrationQuestionDTO" "questionType"
+instance ToJSON IntegrationQuestion where
+  toJSON = simpleToJSON' "_integrationQuestion" "questionType"
 
-instance FromJSON IntegrationQuestionDTO where
-  parseJSON = genericParseJSON simpleOptions
-
--- --------------------------------------------------------------------
--- --------------------------------------------------------------------
-instance ToJSON AnswerDTO where
-  toJSON = simpleToJSON "_answerDTO"
-
-instance FromJSON AnswerDTO where
+instance FromJSON IntegrationQuestion where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON ExpertDTO where
-  toJSON = simpleToJSON "_expertDTO"
+instance ToJSON Answer where
+  toJSON = simpleToJSON "_answer"
 
-instance FromJSON ExpertDTO where
+instance FromJSON Answer where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON ReferenceDTO where
+instance ToJSON Expert where
+  toJSON = simpleToJSON "_expert"
+
+instance FromJSON Expert where
+  parseJSON = genericParseJSON simpleOptions
+
+-- --------------------------------------------------------------------
+-- --------------------------------------------------------------------
+instance ToJSON Reference where
   toJSON = toSumJSON
 
-instance FromJSON ReferenceDTO where
+instance FromJSON Reference where
   parseJSON (Object o) = do
     referenceType <- o .: "referenceType"
     case referenceType of
-      "ResourcePageReference" -> parseJSON (Object o) >>= \event -> return (ResourcePageReferenceDTO' event)
-      "URLReference" -> parseJSON (Object o) >>= \event -> return (URLReferenceDTO' event)
-      "CrossReference" -> parseJSON (Object o) >>= \event -> return (CrossReferenceDTO' event)
+      "ResourcePageReference" -> parseJSON (Object o) >>= \event -> return (ResourcePageReference' event)
+      "URLReference" -> parseJSON (Object o) >>= \event -> return (URLReference' event)
+      "CrossReference" -> parseJSON (Object o) >>= \event -> return (CrossReference' event)
       _ -> fail "One of the references has unsupported referenceType"
   parseJSON _ = mzero
 
 -- --------------------------------------------------------------------
-instance ToJSON ResourcePageReferenceDTO where
-  toJSON = simpleToJSON' "_resourcePageReferenceDTO" "referenceType"
+instance ToJSON ResourcePageReference where
+  toJSON = simpleToJSON' "_resourcePageReference" "referenceType"
 
-instance FromJSON ResourcePageReferenceDTO where
+instance FromJSON ResourcePageReference where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON URLReferenceDTO where
-  toJSON = simpleToJSON' "_uRLReferenceDTO" "referenceType"
+instance ToJSON URLReference where
+  toJSON = simpleToJSON' "_uRLReference" "referenceType"
 
-instance FromJSON URLReferenceDTO where
+instance FromJSON URLReference where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON CrossReferenceDTO where
-  toJSON = simpleToJSON' "_crossReferenceDTO" "referenceType"
+instance ToJSON CrossReference where
+  toJSON = simpleToJSON' "_crossReference" "referenceType"
 
-instance FromJSON CrossReferenceDTO where
+instance FromJSON CrossReference where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON MetricDTO where
+instance ToJSON Metric where
   toJSON = genericToJSON simpleOptions
 
-instance FromJSON MetricDTO where
+instance FromJSON Metric where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
-instance ToJSON MetricMeasureDTO where
+instance ToJSON MetricMeasure where
   toJSON = genericToJSON simpleOptions
 
-instance FromJSON MetricMeasureDTO where
-  parseJSON = genericParseJSON simpleOptions
-
--- --------------------------------------------------------------------
--- --------------------------------------------------------------------
-instance ToJSON TagDTO where
-  toJSON = genericToJSON simpleOptions
-
-instance FromJSON TagDTO where
+instance FromJSON MetricMeasure where
   parseJSON = genericParseJSON simpleOptions
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToJSON IntegrationDTO where
+instance ToJSON Tag where
   toJSON = genericToJSON simpleOptions
 
-instance FromJSON IntegrationDTO where
+instance FromJSON Tag where
+  parseJSON = genericParseJSON simpleOptions
+
+-- --------------------------------------------------------------------
+-- --------------------------------------------------------------------
+instance ToJSON Integration where
+  toJSON = genericToJSON simpleOptions
+
+instance FromJSON Integration where
   parseJSON = genericParseJSON simpleOptions

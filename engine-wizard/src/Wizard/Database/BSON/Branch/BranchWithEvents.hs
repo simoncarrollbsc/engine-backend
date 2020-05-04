@@ -15,7 +15,7 @@ instance ToBSON BranchWithEvents where
     , "kmId" BSON.=: _kmId
     , "metamodelVersion" BSON.=: _metamodelVersion
     , "previousPackageId" BSON.=: _previousPackageId
-    , "events" BSON.=: convertEventToBSON <$> _events
+    , "events" BSON.=: toBSON <$> _events
     , "ownerUuid" BSON.=: _ownerUuid
     , "createdAt" BSON.=: _createdAt
     , "updatedAt" BSON.=: _updatedAt
@@ -26,7 +26,7 @@ instance ToBSON BranchWithEvents where
     , "kmId" BSON.=: _kmId
     , "metamodelVersion" BSON.=: _metamodelVersion
     , "previousPackageId" BSON.=: _previousPackageId
-    , "events" BSON.=: convertEventToBSON <$> _events
+    , "events" BSON.=: toBSON <$> _events
     , "ownerUuid" BSON.=: _ownerUuid
     , "createdAt" BSON.=: _createdAt
     , "updatedAt" BSON.=: _updatedAt
@@ -40,7 +40,7 @@ instance FromBSON BranchWithEvents where
     _metamodelVersion <- BSON.lookup "metamodelVersion" doc
     _previousPackageId <- BSON.lookup "previousPackageId" doc
     eventsSerialized <- BSON.lookup "events" doc
-    let _events = fmap (fromJust . chooseEventDeserializator) eventsSerialized
+    let _events = fmap (fromJust . fromBSON) eventsSerialized
     _ownerUuid <- BSON.lookup "ownerUuid" doc
     _createdAt <- BSON.lookup "createdAt" doc
     _updatedAt <- BSON.lookup "updatedAt" doc
@@ -52,7 +52,7 @@ instance FromBSON BranchWithEvents where
     _metamodelVersion <- BSON.lookup "metamodelVersion" doc
     _previousPackageId <- BSON.lookup "previousPackageId" doc
     eventsSerialized <- BSON.lookup "events" doc
-    let _events = fmap (fromJust . chooseEventDeserializator) eventsSerialized
+    let _events = fmap (fromJust . fromBSON) eventsSerialized
     _ownerUuid <- BSON.lookup "ownerUuid" doc
     _createdAt <- BSON.lookup "createdAt" doc
     _updatedAt <- BSON.lookup "updatedAt" doc

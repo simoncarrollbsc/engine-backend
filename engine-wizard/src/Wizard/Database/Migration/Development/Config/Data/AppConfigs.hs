@@ -101,7 +101,7 @@ defaultLookAndFeelCustomLink =
     {_icon = "faq", _title = "My Link", _url = "http://example.prg", _newWindow = False}
 
 defaultRegistry :: AppConfigRegistry
-defaultRegistry = AppConfigRegistry {_enabled = True, _token = "GlobalToken"}
+defaultRegistry = AppConfigRegistry {_enabled = False, _token = "GlobalToken"}
 
 defaultQuestionnaire :: AppConfigQuestionnaire
 defaultQuestionnaire =

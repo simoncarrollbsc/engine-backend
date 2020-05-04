@@ -10,16 +10,16 @@ instance FromJSON AddExpertEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON AddExpertEventDTO where
-  toJSON = simpleToJSON' "_addExpertEventDTO" "eventType"
+  toJSON = simpleToJSON' "_addExpertEventDTO" "type"
 
 instance FromJSON EditExpertEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON EditExpertEventDTO where
-  toJSON = simpleToJSON' "_editExpertEventDTO" "eventType"
+  toJSON = simpleToJSON' "_editExpertEventDTO" "type"
 
 instance FromJSON DeleteExpertEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON DeleteExpertEventDTO where
-  toJSON = simpleToJSON' "_deleteExpertEventDTO" "eventType"
+  toJSON = simpleToJSON' "_deleteExpertEventDTO" "type"

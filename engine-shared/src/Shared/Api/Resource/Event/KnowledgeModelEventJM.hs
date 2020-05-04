@@ -10,10 +10,10 @@ instance FromJSON AddKnowledgeModelEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON AddKnowledgeModelEventDTO where
-  toJSON = simpleToJSON' "_addKnowledgeModelEventDTO" "eventType"
+  toJSON = simpleToJSON' "_addKnowledgeModelEventDTO" "type"
 
 instance FromJSON EditKnowledgeModelEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON EditKnowledgeModelEventDTO where
-  toJSON = simpleToJSON' "_editKnowledgeModelEventDTO" "eventType"
+  toJSON = simpleToJSON' "_editKnowledgeModelEventDTO" "type"

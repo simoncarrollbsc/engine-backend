@@ -17,19 +17,25 @@ import Shared.Api.Resource.Event.TagEventJM ()
 import Shared.Util.JSON
 
 instance ToJSON EventDTO where
-  toJSON = toSumJSON' "eventType"
+  toJSON = toSumJSON' "type"
 
 instance FromJSON EventDTO where
   parseJSON (Object o) = do
-    eventType <- o .: "eventType"
+    eventType <- o .: "type"
     case eventType of
       "AddKnowledgeModelEvent" -> parseJSON (Object o) >>= \event -> return (AddKnowledgeModelEventDTO' event)
       "EditKnowledgeModelEvent" -> parseJSON (Object o) >>= \event -> return (EditKnowledgeModelEventDTO' event)
       "AddChapterEvent" -> parseJSON (Object o) >>= \event -> return (AddChapterEventDTO' event)
       "EditChapterEvent" -> parseJSON (Object o) >>= \event -> return (EditChapterEventDTO' event)
       "DeleteChapterEvent" -> parseJSON (Object o) >>= \event -> return (DeleteChapterEventDTO' event)
-      "AddQuestionEvent" -> parseJSON (Object o) >>= \event -> return (AddQuestionEventDTO' event)
-      "EditQuestionEvent" -> parseJSON (Object o) >>= \event -> return (EditQuestionEventDTO' event)
+      "AddOptionsQuestionEvent" -> parseJSON (Object o) >>= \event -> return (AddQuestionEventDTO' event)
+      "AddValueQuestionEvent" -> parseJSON (Object o) >>= \event -> return (AddQuestionEventDTO' event)
+      "AddIntegrationQuestionEvent" -> parseJSON (Object o) >>= \event -> return (AddQuestionEventDTO' event)
+      "AddListQuestionEvent" -> parseJSON (Object o) >>= \event -> return (AddQuestionEventDTO' event)
+      "EditOptionsQuestionEvent" -> parseJSON (Object o) >>= \event -> return (EditQuestionEventDTO' event)
+      "EditValueQuestionEvent" -> parseJSON (Object o) >>= \event -> return (EditQuestionEventDTO' event)
+      "EditIntegrationQuestionEvent" -> parseJSON (Object o) >>= \event -> return (EditQuestionEventDTO' event)
+      "EditListQuestionEvent" -> parseJSON (Object o) >>= \event -> return (EditQuestionEventDTO' event)
       "DeleteQuestionEvent" -> parseJSON (Object o) >>= \event -> return (DeleteQuestionEventDTO' event)
       "AddAnswerEvent" -> parseJSON (Object o) >>= \event -> return (AddAnswerEventDTO' event)
       "EditAnswerEvent" -> parseJSON (Object o) >>= \event -> return (EditAnswerEventDTO' event)

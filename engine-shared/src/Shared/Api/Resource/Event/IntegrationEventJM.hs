@@ -10,18 +10,18 @@ instance FromJSON AddIntegrationEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON AddIntegrationEventDTO where
-  toJSON = simpleToJSON' "_addIntegrationEventDTO" "eventType"
+  toJSON = simpleToJSON' "_addIntegrationEventDTO" "type"
 
 -- --------------------------------------------
 instance FromJSON EditIntegrationEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON EditIntegrationEventDTO where
-  toJSON = simpleToJSON' "_editIntegrationEventDTO" "eventType"
+  toJSON = simpleToJSON' "_editIntegrationEventDTO" "type"
 
 -- --------------------------------------------
 instance FromJSON DeleteIntegrationEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON DeleteIntegrationEventDTO where
-  toJSON = simpleToJSON' "_deleteIntegrationEventDTO" "eventType"
+  toJSON = simpleToJSON' "_deleteIntegrationEventDTO" "type"

@@ -10,16 +10,16 @@ instance FromJSON AddChapterEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON AddChapterEventDTO where
-  toJSON = simpleToJSON' "_addChapterEventDTO" "eventType"
+  toJSON = simpleToJSON' "_addChapterEventDTO" "type"
 
 instance FromJSON EditChapterEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON EditChapterEventDTO where
-  toJSON = simpleToJSON' "_editChapterEventDTO" "eventType"
+  toJSON = simpleToJSON' "_editChapterEventDTO" "type"
 
 instance FromJSON DeleteChapterEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON DeleteChapterEventDTO where
-  toJSON = simpleToJSON' "_deleteChapterEventDTO" "eventType"
+  toJSON = simpleToJSON' "_deleteChapterEventDTO" "type"

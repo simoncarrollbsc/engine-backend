@@ -9,22 +9,22 @@ instance FromJSON MoveQuestionEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON MoveQuestionEventDTO where
-  toJSON = simpleToJSON' "_moveQuestionEventDTO" "eventType"
+  toJSON = simpleToJSON' "_moveQuestionEventDTO" "type"
 
 instance FromJSON MoveAnswerEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON MoveAnswerEventDTO where
-  toJSON = simpleToJSON' "_moveAnswerEventDTO" "eventType"
+  toJSON = simpleToJSON' "_moveAnswerEventDTO" "type"
 
 instance FromJSON MoveExpertEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON MoveExpertEventDTO where
-  toJSON = simpleToJSON' "_moveExpertEventDTO" "eventType"
+  toJSON = simpleToJSON' "_moveExpertEventDTO" "type"
 
 instance FromJSON MoveReferenceEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON MoveReferenceEventDTO where
-  toJSON = simpleToJSON' "_moveReferenceEventDTO" "eventType"
+  toJSON = simpleToJSON' "_moveReferenceEventDTO" "type"

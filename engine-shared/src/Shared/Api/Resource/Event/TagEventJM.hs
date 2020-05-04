@@ -10,18 +10,18 @@ instance FromJSON AddTagEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON AddTagEventDTO where
-  toJSON = simpleToJSON' "_addTagEventDTO" "eventType"
+  toJSON = simpleToJSON' "_addTagEventDTO" "type"
 
 -- --------------------------------------------
 instance FromJSON EditTagEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON EditTagEventDTO where
-  toJSON = simpleToJSON' "_editTagEventDTO" "eventType"
+  toJSON = simpleToJSON' "_editTagEventDTO" "type"
 
 -- --------------------------------------------
 instance FromJSON DeleteTagEventDTO where
   parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON DeleteTagEventDTO where
-  toJSON = simpleToJSON' "_deleteTagEventDTO" "eventType"
+  toJSON = simpleToJSON' "_deleteTagEventDTO" "type"

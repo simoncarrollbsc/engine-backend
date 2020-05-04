@@ -12,7 +12,7 @@ import Shared.Service.Event.EventToDTO
 import Shared.Util.Swagger
 
 instance ToSchema AddChapterEventDTO where
-  declareNamedSchema = simpleToSchema'' "_addChapterEventDTO" "eventType" (toDTO a_km1_ch1)
+  declareNamedSchema = simpleToSchema'' "_addChapterEventDTO" "type" (toDTO a_km1_ch1)
 
 instance ToSchema EditChapterEventDTO where
   declareNamedSchema = simpleToSchema'' "_editChapterEventDTO" "eventType" (toDTO e_km1_ch1)

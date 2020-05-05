@@ -18,7 +18,7 @@ computeMetrics :: [Metric] -> KnowledgeModel -> [Reply] -> Maybe Chapter -> [Met
 computeMetrics metrics km replies mCh = fmap (computeMetricSummary km replies mCh) metrics
 
 computeMetricSummary :: KnowledgeModel -> [Reply] -> Maybe Chapter -> Metric -> MetricSummary
-computeMetricSummary km replies mCh m = MetricSummary {_metricUuid = m ^. uuid, _measure = measure}
+computeMetricSummary km replies mCh m = MetricSummary {_uuid = m ^. uuid, _measure = measure}
   where
     measure = weightAverage' . mapMaybe (evaluateAnswer km mCh m) $ replies
     weightAverage' [] = Nothing

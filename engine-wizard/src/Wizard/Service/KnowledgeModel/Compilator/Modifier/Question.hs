@@ -19,51 +19,51 @@ instance CreateEntity AddQuestionEvent Question where
   createEntity (AddOptionsQuestionEvent' e) =
     OptionsQuestion' $
     OptionsQuestion
-      { _optionsQuestionUuid = e ^. entityUuid
-      , _optionsQuestionTitle = e ^. title
-      , _optionsQuestionText = e ^. text
-      , _optionsQuestionRequiredLevel = e ^. requiredLevel
-      , _optionsQuestionTagUuids = e ^. tagUuids
-      , _optionsQuestionReferenceUuids = []
-      , _optionsQuestionExpertUuids = []
-      , _optionsQuestionAnswerUuids = []
+      { _uuid = e ^. entityUuid
+      , _title = e ^. title
+      , _text = e ^. text
+      , _requiredLevel = e ^. requiredLevel
+      , _tagUuids = e ^. tagUuids
+      , _referenceUuids = []
+      , _uuids = []
+      , _uuids = []
       }
   createEntity (AddListQuestionEvent' e) =
     ListQuestion' $
     ListQuestion
-      { _listQuestionUuid = e ^. entityUuid
-      , _listQuestionTitle = e ^. title
-      , _listQuestionText = e ^. text
-      , _listQuestionRequiredLevel = e ^. requiredLevel
-      , _listQuestionTagUuids = e ^. tagUuids
-      , _listQuestionReferenceUuids = []
-      , _listQuestionExpertUuids = []
-      , _listQuestionItemTemplateQuestionUuids = []
+      { _uuid = e ^. entityUuid
+      , _title = e ^. title
+      , _text = e ^. text
+      , _requiredLevel = e ^. requiredLevel
+      , _tagUuids = e ^. tagUuids
+      , _referenceUuids = []
+      , _uuids = []
+      , _itemTemplateQuestionUuids = []
       }
   createEntity (AddValueQuestionEvent' e) =
     ValueQuestion' $
     ValueQuestion
-      { _valueQuestionUuid = e ^. entityUuid
-      , _valueQuestionTitle = e ^. title
-      , _valueQuestionText = e ^. text
-      , _valueQuestionRequiredLevel = e ^. requiredLevel
-      , _valueQuestionTagUuids = e ^. tagUuids
-      , _valueQuestionReferenceUuids = []
-      , _valueQuestionExpertUuids = []
-      , _valueQuestionValueType = e ^. valueType
+      { _uuid = e ^. entityUuid
+      , _title = e ^. title
+      , _text = e ^. text
+      , _requiredLevel = e ^. requiredLevel
+      , _tagUuids = e ^. tagUuids
+      , _referenceUuids = []
+      , _uuids = []
+      , _valueType = e ^. valueType
       }
   createEntity (AddIntegrationQuestionEvent' e) =
     IntegrationQuestion' $
     IntegrationQuestion
-      { _integrationQuestionUuid = e ^. entityUuid
-      , _integrationQuestionTitle = e ^. title
-      , _integrationQuestionText = e ^. text
-      , _integrationQuestionRequiredLevel = e ^. requiredLevel
-      , _integrationQuestionTagUuids = e ^. tagUuids
-      , _integrationQuestionReferenceUuids = []
-      , _integrationQuestionExpertUuids = []
-      , _integrationQuestionIntegrationUuid = e ^. integrationUuid
-      , _integrationQuestionProps = e ^. props
+      { _uuid = e ^. entityUuid
+      , _title = e ^. title
+      , _text = e ^. text
+      , _requiredLevel = e ^. requiredLevel
+      , _tagUuids = e ^. tagUuids
+      , _referenceUuids = []
+      , _uuids = []
+      , _uuid = e ^. integrationUuid
+      , _props = e ^. props
       }
 
 instance EditEntity EditQuestionEvent Question where
@@ -110,14 +110,14 @@ convertToOptionsQuestion q' =
     createQuestion q =
       OptionsQuestion' $
       OptionsQuestion
-        { _optionsQuestionUuid = q ^. uuid
-        , _optionsQuestionTitle = q ^. title
-        , _optionsQuestionText = q ^. text
-        , _optionsQuestionRequiredLevel = q ^. requiredLevel
-        , _optionsQuestionTagUuids = q ^. tagUuids
-        , _optionsQuestionReferenceUuids = q ^. referenceUuids
-        , _optionsQuestionExpertUuids = q ^. expertUuids
-        , _optionsQuestionAnswerUuids = []
+        { _uuid = q ^. uuid
+        , _title = q ^. title
+        , _text = q ^. text
+        , _requiredLevel = q ^. requiredLevel
+        , _tagUuids = q ^. tagUuids
+        , _referenceUuids = q ^. referenceUuids
+        , _uuids = q ^. expertUuids
+        , _uuids = []
         }
 
 convertToListQuestion :: Question -> Question
@@ -131,14 +131,14 @@ convertToListQuestion q' =
     createQuestion q =
       ListQuestion' $
       ListQuestion
-        { _listQuestionUuid = q ^. uuid
-        , _listQuestionTitle = q ^. title
-        , _listQuestionText = q ^. text
-        , _listQuestionRequiredLevel = q ^. requiredLevel
-        , _listQuestionTagUuids = q ^. tagUuids
-        , _listQuestionReferenceUuids = q ^. referenceUuids
-        , _listQuestionExpertUuids = q ^. expertUuids
-        , _listQuestionItemTemplateQuestionUuids = []
+        { _uuid = q ^. uuid
+        , _title = q ^. title
+        , _text = q ^. text
+        , _requiredLevel = q ^. requiredLevel
+        , _tagUuids = q ^. tagUuids
+        , _referenceUuids = q ^. referenceUuids
+        , _uuids = q ^. expertUuids
+        , _itemTemplateQuestionUuids = []
         }
 
 convertToValueQuestion :: Question -> Question
@@ -152,14 +152,14 @@ convertToValueQuestion q' =
     createQuestion q =
       ValueQuestion' $
       ValueQuestion
-        { _valueQuestionUuid = q ^. uuid
-        , _valueQuestionTitle = q ^. title
-        , _valueQuestionText = q ^. text
-        , _valueQuestionRequiredLevel = q ^. requiredLevel
-        , _valueQuestionTagUuids = q ^. tagUuids
-        , _valueQuestionReferenceUuids = q ^. referenceUuids
-        , _valueQuestionExpertUuids = q ^. expertUuids
-        , _valueQuestionValueType = StringQuestionValueType
+        { _uuid = q ^. uuid
+        , _title = q ^. title
+        , _text = q ^. text
+        , _requiredLevel = q ^. requiredLevel
+        , _tagUuids = q ^. tagUuids
+        , _referenceUuids = q ^. referenceUuids
+        , _uuids = q ^. expertUuids
+        , _valueType = StringQuestionValueType
         }
 
 convertToIntegrationQuestion :: Question -> Question
@@ -173,15 +173,15 @@ convertToIntegrationQuestion q' =
     createQuestion q =
       IntegrationQuestion' $
       IntegrationQuestion
-        { _integrationQuestionUuid = q ^. uuid
-        , _integrationQuestionTitle = q ^. title
-        , _integrationQuestionText = q ^. text
-        , _integrationQuestionRequiredLevel = q ^. requiredLevel
-        , _integrationQuestionTagUuids = q ^. tagUuids
-        , _integrationQuestionReferenceUuids = q ^. referenceUuids
-        , _integrationQuestionExpertUuids = q ^. expertUuids
-        , _integrationQuestionIntegrationUuid = U.nil
-        , _integrationQuestionProps = M.empty
+        { _uuid = q ^. uuid
+        , _title = q ^. title
+        , _text = q ^. text
+        , _requiredLevel = q ^. requiredLevel
+        , _tagUuids = q ^. tagUuids
+        , _referenceUuids = q ^. referenceUuids
+        , _uuids = q ^. expertUuids
+        , _uuid = U.nil
+        , _props = M.empty
         }
 
 updateIntegrationProps :: EditIntegrationEvent -> Question -> Question

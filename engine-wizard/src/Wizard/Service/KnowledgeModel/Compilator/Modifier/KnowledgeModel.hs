@@ -11,20 +11,20 @@ import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 instance CreateEntity AddKnowledgeModelEvent KnowledgeModel where
   createEntity e =
     KnowledgeModel
-      { _knowledgeModelUuid = e ^. entityUuid
-      , _knowledgeModelName = e ^. name
-      , _knowledgeModelChapterUuids = []
-      , _knowledgeModelTagUuids = []
-      , _knowledgeModelIntegrationUuids = []
-      , _knowledgeModelEntities =
+      { _uuid = e ^. entityUuid
+      , _name = e ^. name
+      , _uuids = []
+      , _tagUuids = []
+      , _integrationUuids = []
+      , _entities =
           KnowledgeModelEntities
-            { _knowledgeModelEntitiesChapters = M.empty
-            , _knowledgeModelEntitiesQuestions = M.empty
-            , _knowledgeModelEntitiesAnswers = M.empty
-            , _knowledgeModelEntitiesExperts = M.empty
-            , _knowledgeModelEntitiesReferences = M.empty
-            , _knowledgeModelEntitiesIntegrations = M.empty
-            , _knowledgeModelEntitiesTags = M.empty
+            { _chapters = M.empty
+            , _questions = M.empty
+            , _answers = M.empty
+            , _experts = M.empty
+            , _references = M.empty
+            , _integrations = M.empty
+            , _tags = M.empty
             }
       }
 

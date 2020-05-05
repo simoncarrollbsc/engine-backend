@@ -10,19 +10,19 @@ import Shared.Model.KnowledgeModel.KnowledgeModel
 -- METRIC MEASURES
 -- -----------------------------------------------------------------
 metricMeasureF1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricF ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricF ^. uuid, _measure = 1.0, _weight = 1.0}
 
 metricMeasureA1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricA ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricA ^. uuid, _measure = 1.0, _weight = 1.0}
 
 metricMeasureI1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricI ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricI ^. uuid, _measure = 1.0, _weight = 1.0}
 
 metricMeasureR1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricR ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricR ^. uuid, _measure = 1.0, _weight = 1.0}
 
 metricMeasureG1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricG ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricG ^. uuid, _measure = 1.0, _weight = 1.0}
 
 metricMeasureO1 =
-  MetricMeasure {_metricMeasureMetricUuid = metricO ^. uuid, _metricMeasureMeasure = 1.0, _metricMeasureWeight = 1.0}
+  MetricMeasure {_metricUuid = metricO ^. uuid, _measure = 1.0, _weight = 1.0}

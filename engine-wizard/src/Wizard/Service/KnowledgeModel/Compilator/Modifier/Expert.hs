@@ -8,7 +8,7 @@ import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 
 instance CreateEntity AddExpertEvent Expert where
-  createEntity e = Expert {_expertUuid = e ^. entityUuid, _expertName = e ^. name, _expertEmail = e ^. email}
+  createEntity e = Expert {_uuid = e ^. entityUuid, _name = e ^. name, _email = e ^. email}
 
 instance EditEntity EditExpertEvent Expert where
   editEntity e = applyEmail . applyName

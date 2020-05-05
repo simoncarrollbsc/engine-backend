@@ -11,54 +11,54 @@ import Shared.Model.KnowledgeModel.KnowledgeModel
 ontologyPortal :: Integration
 ontologyPortal =
   Integration
-    { _integrationUuid = fromJust $ U.fromString "e595a99e-5b10-4ac1-a6ef-379c849f9c84"
-    , _integrationIId = "ontologyPortal"
-    , _integrationName = "Ontology Portal"
-    , _integrationProps = ["domain", "country"]
-    , _integrationLogo = ""
-    , _integrationRequestMethod = "GET"
-    , _integrationRequestUrl = "${baseurl}/ontology-portal.json?domain=${domain}&country=${country}&q=${q}"
-    , _integrationRequestHeaders = fromList [("Api-Key", "${apikey}")]
-    , _integrationRequestBody = ""
-    , _integrationResponseListField = "nested.results"
-    , _integrationResponseIdField = "id"
-    , _integrationResponseNameField = "name"
-    , _integrationItemUrl = "https://example.com/ontologies/${id}"
+    { _uuid = fromJust $ U.fromString "e595a99e-5b10-4ac1-a6ef-379c849f9c84"
+    , _iId = "ontologyPortal"
+    , _name = "Ontology Portal"
+    , _props = ["domain", "country"]
+    , _logo = ""
+    , _requestMethod = "GET"
+    , _requestUrl = "${baseurl}/ontology-portal.json?domain=${domain}&country=${country}&q=${q}"
+    , _requestHeaders = fromList [("Api-Key", "${apikey}")]
+    , _requestBody = ""
+    , _responseListField = "nested.results"
+    , _responseIdField = "id"
+    , _responseNameField = "name"
+    , _itemUrl = "https://example.com/ontologies/${id}"
     }
 
 ontologyPortalEdited :: Integration
 ontologyPortalEdited =
   Integration
-    { _integrationUuid = ontologyPortal ^. uuid
-    , _integrationIId = "editedOntologyPortal"
-    , _integrationName = "EDITED: Ontology Portal"
-    , _integrationProps = ["domain", "language"]
-    , _integrationLogo = ""
-    , _integrationRequestMethod = "PUT"
-    , _integrationRequestUrl =
+    { _uuid = ontologyPortal ^. uuid
+    , _iId = "editedOntologyPortal"
+    , _name = "EDITED: Ontology Portal"
+    , _props = ["domain", "language"]
+    , _logo = ""
+    , _requestMethod = "PUT"
+    , _requestUrl =
         "${baseurl}/ontology-portal-edited.json?domain=${domain}&language=${language}&q=${q}&edited"
-    , _integrationRequestHeaders = fromList [("Api-Key-Edited", "${apikey}-EDITED")]
-    , _integrationRequestBody = "{}"
-    , _integrationResponseListField = "nested.results"
-    , _integrationResponseIdField = "idEdited"
-    , _integrationResponseNameField = "nameEdited"
-    , _integrationItemUrl = "https://example.com/ontologies-edited/${id}"
+    , _requestHeaders = fromList [("Api-Key-Edited", "${apikey}-EDITED")]
+    , _requestBody = "{}"
+    , _responseListField = "nested.results"
+    , _responseIdField = "idEdited"
+    , _responseNameField = "nameEdited"
+    , _itemUrl = "https://example.com/ontologies-edited/${id}"
     }
 
 bioPortal :: Integration
 bioPortal =
   Integration
-    { _integrationUuid = fromJust $ U.fromString "32b5f11d-960b-4ce9-889f-fc7d29964122"
-    , _integrationIId = "bioPortal"
-    , _integrationName = "Bio Portal"
-    , _integrationProps = ["domain", "branch"]
-    , _integrationLogo = ""
-    , _integrationRequestMethod = "GET"
-    , _integrationRequestUrl = "${baseurl}/bio-portal.json?domain=${domain}&branch=${branch}&q=${q}"
-    , _integrationRequestHeaders = fromList [("Api-Key", "${apikey}")]
-    , _integrationRequestBody = ""
-    , _integrationResponseListField = ""
-    , _integrationResponseIdField = "id"
-    , _integrationResponseNameField = "name"
-    , _integrationItemUrl = "https://example.com/portals/${id}"
+    { _uuid = fromJust $ U.fromString "32b5f11d-960b-4ce9-889f-fc7d29964122"
+    , _iId = "bioPortal"
+    , _name = "Bio Portal"
+    , _props = ["domain", "branch"]
+    , _logo = ""
+    , _requestMethod = "GET"
+    , _requestUrl = "${baseurl}/bio-portal.json?domain=${domain}&branch=${branch}&q=${q}"
+    , _requestHeaders = fromList [("Api-Key", "${apikey}")]
+    , _requestBody = ""
+    , _responseListField = ""
+    , _responseIdField = "id"
+    , _responseNameField = "name"
+    , _itemUrl = "https://example.com/portals/${id}"
     }

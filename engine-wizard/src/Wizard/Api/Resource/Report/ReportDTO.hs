@@ -8,14 +8,14 @@ data ReportDTO =
   ReportDTO
     { _uuid :: U.UUID
     , _totalReport :: TotalReportDTO
-    , _chapterReports :: [ChapterReportDTO]
+    , _reports :: [ChapterReportDTO]
     , _createdAt :: UTCTime
     , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq ReportDTO where
-  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _chapterReports a == _chapterReports b
+  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _reports a == _reports b
 
 data TotalReportDTO =
   TotalReportDTO
@@ -26,7 +26,7 @@ data TotalReportDTO =
 
 data ChapterReportDTO =
   ChapterReportDTO
-    { _chapterUuid :: U.UUID
+    { _uuid :: U.UUID
     , _indications :: [IndicationDTO]
     , _metrics :: [MetricSummaryDTO]
     }
@@ -45,7 +45,7 @@ data IndicationDTO
 
 data MetricSummaryDTO =
   MetricSummaryDTO
-    { _metricUuid :: U.UUID
+    { _uuid :: U.UUID
     , _measure :: Double
     }
   deriving (Show, Eq, Generic)

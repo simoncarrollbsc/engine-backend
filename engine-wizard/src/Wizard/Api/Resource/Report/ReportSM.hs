@@ -33,4 +33,4 @@ answeredAnsweredIndication :: IndicationDTO
 answeredAnsweredIndication = AnsweredIndicationDTO {_answeredQuestions = 12, _unansweredQuestions = 1}
 
 metricSummaryF :: MetricSummaryDTO
-metricSummaryF = MetricSummaryDTO {_metricUuid = metricF ^. uuid, _measure = 1.0}
+metricSummaryF = MetricSummaryDTO {_uuid = metricF ^. uuid, _measure = 1.0}

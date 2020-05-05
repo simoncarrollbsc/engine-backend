@@ -22,7 +22,7 @@ data DocumentContextDTO =
     , _questionnaireReplies :: [QuestionnaireReplyDTO.ReplyDTO]
     , _questionnaireRepliesMap :: Map String QuestionnaireReplyDTO.ReplyDTO
     , _level :: Int
-    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
+    , _e :: KnowledgeModel.KnowledgeModel
     , _metrics :: [KnowledgeModel.Metric]
     , _levels :: [LevelDTO.LevelDTO]
     , _report :: ReportDTO.ReportDTO

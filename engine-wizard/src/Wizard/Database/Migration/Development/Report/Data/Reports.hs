@@ -15,7 +15,7 @@ report1 =
   Report
     { _uuid = fromJust (U.fromString "921bcb7e-e15f-49e4-b176-dbbe2f573af0")
     , _totalReport = report1_total
-    , _chapterReports = [report1_ch1, report1_ch2, report1_ch3]
+    , _reports = [report1_ch1, report1_ch2, report1_ch3]
     , _createdAt = UTCTime (fromJust $ fromGregorianValid 2018 1 20) 0
     , _updatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 25) 0
     }
@@ -28,10 +28,10 @@ report1_total =
         , AnsweredIndication {_answeredQuestions = 12, _unansweredQuestions = 1}
         ]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricI ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Just 1.0}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricI ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Just 1.0}
         ]
     }
 
@@ -43,12 +43,12 @@ report1_total_full =
         , AnsweredIndication {_answeredQuestions = 12, _unansweredQuestions = 1}
         ]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricI ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricI ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
@@ -57,105 +57,105 @@ report1_total_full_disabled_levels =
   TotalReport
     { _indications = [AnsweredIndication {_answeredQuestions = 12, _unansweredQuestions = 1}]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricI ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricI ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch1 :: ChapterReport
 report1_ch1 =
   ChapterReport
-    { _chapterUuid = chapter1 ^. uuid
+    { _uuid = chapter1 ^. uuid
     , _indications =
         [ LevelsAnsweredIndication {_answeredQuestions = 1, _unansweredQuestions = 0}
         , AnsweredIndication {_answeredQuestions = 3, _unansweredQuestions = 0}
         ]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricI ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Just 1.0}
+        [ MetricSummary {_uuid = metricI ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Just 1.0}
         ]
     }
 
 report1_ch1_full :: ChapterReport
 report1_ch1_full =
   ChapterReport
-    { _chapterUuid = report1_ch1 ^. chapterUuid
+    { _uuid = report1_ch1 ^. chapterUuid
     , _indications = report1_ch1 ^. indications
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Nothing}
         ] ++
         (report1_ch1 ^. metrics) ++
-        [ MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch1_full_disabled_levels :: ChapterReport
 report1_ch1_full_disabled_levels =
   ChapterReport
-    { _chapterUuid = report1_ch1 ^. chapterUuid
+    { _uuid = report1_ch1 ^. chapterUuid
     , _indications = [AnsweredIndication {_answeredQuestions = 3, _unansweredQuestions = 0}]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Nothing}
         ] ++
         (report1_ch1 ^. metrics) ++
-        [ MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch2 :: ChapterReport
 report1_ch2 =
   ChapterReport
-    { _chapterUuid = chapter2 ^. uuid
+    { _uuid = chapter2 ^. uuid
     , _indications =
         [ LevelsAnsweredIndication {_answeredQuestions = 2, _unansweredQuestions = 1}
         , AnsweredIndication {_answeredQuestions = 7, _unansweredQuestions = 1}
         ]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Just 1.0}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Just 1.0}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Just 1.0}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Just 1.0}
         ]
     }
 
 report1_ch2_full :: ChapterReport
 report1_ch2_full =
   ChapterReport
-    { _chapterUuid = report1_ch2 ^. chapterUuid
+    { _uuid = report1_ch2 ^. chapterUuid
     , _indications = report1_ch2 ^. indications
     , _metrics =
         (report1_ch2 ^. metrics) ++
-        [ MetricSummary {_metricUuid = metricI ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricI ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch2_full_disabled_levels :: ChapterReport
 report1_ch2_full_disabled_levels =
   ChapterReport
-    { _chapterUuid = report1_ch2 ^. chapterUuid
+    { _uuid = report1_ch2 ^. chapterUuid
     , _indications = [AnsweredIndication {_answeredQuestions = 7, _unansweredQuestions = 1}]
     , _metrics =
         (report1_ch2 ^. metrics) ++
-        [ MetricSummary {_metricUuid = metricI ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricI ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch3 :: ChapterReport
 report1_ch3 =
   ChapterReport
-    { _chapterUuid = chapter3 ^. uuid
+    { _uuid = chapter3 ^. uuid
     , _indications =
         [ LevelsAnsweredIndication {_answeredQuestions = 2, _unansweredQuestions = 0}
         , AnsweredIndication {_answeredQuestions = 2, _unansweredQuestions = 0}
@@ -166,29 +166,29 @@ report1_ch3 =
 report1_ch3_full :: ChapterReport
 report1_ch3_full =
   ChapterReport
-    { _chapterUuid = report1_ch3 ^. chapterUuid
+    { _uuid = report1_ch3 ^. chapterUuid
     , _indications = report1_ch3 ^. indications
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricI ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricI ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }
 
 report1_ch3_full_disabled_levels :: ChapterReport
 report1_ch3_full_disabled_levels =
   ChapterReport
-    { _chapterUuid = report1_ch3 ^. chapterUuid
+    { _uuid = report1_ch3 ^. chapterUuid
     , _indications = [AnsweredIndication {_answeredQuestions = 2, _unansweredQuestions = 0}]
     , _metrics =
-        [ MetricSummary {_metricUuid = metricF ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricA ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricI ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricR ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricG ^. uuid, _measure = Nothing}
-        , MetricSummary {_metricUuid = metricO ^. uuid, _measure = Nothing}
+        [ MetricSummary {_uuid = metricF ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricA ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricI ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricR ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricG ^. uuid, _measure = Nothing}
+        , MetricSummary {_uuid = metricO ^. uuid, _measure = Nothing}
         ]
     }

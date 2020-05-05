@@ -1,7 +1,7 @@
 module Shared.Api.Resource.KnowledgeModel.KnowledgeModelSM where
 
 import Control.Lens ((^.))
-import Data.Swagger hiding (Tag, Reference)
+import Data.Swagger hiding (Reference, Tag)
 
 import LensesConfig
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelJM ()
@@ -34,31 +34,8 @@ instance ToSchema Chapter where
 -- --------------------------------------------------------------------
 instance ToSchema QuestionValueType
 
-instance ToSchema Question
-
--- --------------------------------------------------------------------
-instance ToSchema OptionsQuestion where
-  declareNamedSchema = simpleToSchema'' "questionType" "_optionsQuestion" dto
-    where
-      dto = question2'
-
--- --------------------------------------------------------------------
-instance ToSchema ListQuestion where
-  declareNamedSchema = simpleToSchema'' "questionType" "_listQuestion" dto
-    where
-      dto = question4'
-
--- --------------------------------------------------------------------
-instance ToSchema ValueQuestion where
-  declareNamedSchema = simpleToSchema'' "questionType" "_valueQuestion" dto
-    where
-      dto = question1'
-
--- --------------------------------------------------------------------
-instance ToSchema IntegrationQuestion where
-  declareNamedSchema = simpleToSchema'' "questionType" "_integrationQuestion" dto
-    where
-      dto = question9'
+instance ToSchema Question where
+  declareNamedSchema = simpleToSchema question1
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
@@ -72,25 +49,8 @@ instance ToSchema Expert where
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------
-instance ToSchema Reference
-
--- --------------------------------------------------------------------
-instance ToSchema ResourcePageReference where
-  declareNamedSchema = simpleToSchema'' "referenceType" "_resourcePageReference" dto
-    where
-      dto = km1_ch1_q2_r1'
-
--- --------------------------------------------------------------------
-instance ToSchema URLReference where
-  declareNamedSchema = simpleToSchema'' "referenceType" "_uRLReference" dto
-    where
-      dto = km1_ch1_q2_r2'
-
--- --------------------------------------------------------------------
-instance ToSchema CrossReference where
-  declareNamedSchema = simpleToSchema'' "referenceType" "_crossReference" dto
-    where
-      dto = km1_ch1_q2_r3
+instance ToSchema Reference where
+  declareNamedSchema = simpleToSchema km1_ch1_q2_r1
 
 -- --------------------------------------------------------------------
 -- --------------------------------------------------------------------

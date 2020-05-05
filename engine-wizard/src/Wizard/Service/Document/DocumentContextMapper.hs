@@ -33,7 +33,7 @@ toDocumentContextDTO dc =
     , _questionnaireReplies = replies
     , _questionnaireRepliesMap = M.fromList $ (\reply -> (reply ^. path, reply)) <$> replies
     , _level = dc ^. level
-    , _knowledgeModel = toKnowledgeModelDTO $ dc ^. knowledgeModel
+    , _e = toKnowledgeModelDTO $ dc ^. knowledgeModel
     , _metrics = toMetricDTO <$> dc ^. metrics
     , _levels = toLevelDTO <$> dc ^. levels
     , _report = toReportDTO $ dc ^. report
@@ -71,7 +71,7 @@ fromCreateContextDTO dmpUuid appConfig qtn level km metrics ls report pkg org mC
     , _questionnaireName = qtn ^. name
     , _questionnaireReplies = qtn ^. replies
     , _level = level
-    , _knowledgeModel = km
+    , _e = km
     , _metrics = metrics
     , _levels = ls
     , _report = report

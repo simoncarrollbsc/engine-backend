@@ -7,19 +7,19 @@ import Shared.Model.KnowledgeModel.KnowledgeModel
 defaultKnowledgeModel :: KnowledgeModel
 defaultKnowledgeModel =
   KnowledgeModel
-    { _knowledgeModelUuid = U.nil
-    , _knowledgeModelName = ""
-    , _knowledgeModelChapterUuids = []
-    , _knowledgeModelTagUuids = []
-    , _knowledgeModelIntegrationUuids = []
-    , _knowledgeModelEntities =
+    { _uuid = U.nil
+    , _name = ""
+    , _chapterUuids = []
+    , _tagUuids = []
+    , _integrationUuids = []
+    , _entities =
         KnowledgeModelEntities
-          { _knowledgeModelEntitiesChapters = M.empty
-          , _knowledgeModelEntitiesQuestions = M.empty
-          , _knowledgeModelEntitiesAnswers = M.empty
-          , _knowledgeModelEntitiesExperts = M.empty
-          , _knowledgeModelEntitiesReferences = M.empty
-          , _knowledgeModelEntitiesIntegrations = M.empty
-          , _knowledgeModelEntitiesTags = M.empty
+          { _chapters = M.empty
+          , _questions = M.empty
+          , _answers = M.empty
+          , _experts = M.empty
+          , _references = M.empty
+          , _integrations = M.empty
+          , _tags = M.empty
           }
     }

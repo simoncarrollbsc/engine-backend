@@ -46,9 +46,9 @@ sanitizatorSpec =
       it "Event - some KM uuids missing, no new added in event" $
         -- Given:
        do
-        let kmChapterUuids = _chapterUuid <$> [chapter3, chapter2]
-        let kmTagUuids = _tagUuid <$> [tagBioInformatic]
-        let kmIntegrationUuids = _integrationUuid <$> [bioPortal]
+        let kmChapterUuids = _uuid <$> [chapter3, chapter2]
+        let kmTagUuids = _uuid <$> [tagBioInformatic]
+        let kmIntegrationUuids = _uuid <$> [bioPortal]
         let edited_e_km1 =
               ((e_km1 & chapterUuids .~ ChangedValue kmChapterUuids) & tagUuids .~ ChangedValue kmTagUuids) &
               integrationUuids .~ ChangedValue kmIntegrationUuids

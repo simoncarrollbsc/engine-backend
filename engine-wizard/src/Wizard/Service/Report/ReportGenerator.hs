@@ -18,7 +18,7 @@ import Wizard.Service.Report.Evaluator.Metric
 computeChapterReport :: Bool -> Int -> [Metric] -> KnowledgeModel -> [Reply] -> Chapter -> ChapterReport
 computeChapterReport levelsEnabled requiredLevel metrics km replies ch =
   ChapterReport
-    { _chapterUuid = ch ^. uuid
+    { _uuid = ch ^. uuid
     , _indications = computeIndications levelsEnabled requiredLevel km replies ch
     , _metrics = computeMetrics metrics km replies (Just ch)
     }
@@ -47,7 +47,7 @@ generateReport requiredLevel metrics km replies = do
     Report
       { _uuid = rUuid
       , _totalReport = computeTotalReport _levelsEnabled requiredLevel metrics km replies
-      , _chapterReports =
+      , _reports =
           computeChapterReport _levelsEnabled requiredLevel metrics km replies <$> getChaptersForKmUuid km
       , _createdAt = now
       , _updatedAt = now

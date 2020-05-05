@@ -22,7 +22,7 @@ data QuestionnaireDetailDTO =
     , _selectedTagUuids :: [U.UUID]
     , _templateUuid :: Maybe U.UUID
     , _formatUuid :: Maybe U.UUID
-    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
+    , _e :: KnowledgeModel.KnowledgeModel
     , _replies :: [QuestionnaireReplyDTO.ReplyDTO]
     , _labels :: [QuestionnaireLabelDTO.LabelDTO]
     , _ownerUuid :: Maybe U.UUID
@@ -43,5 +43,5 @@ instance Eq QuestionnaireDetailDTO where
     _selectedTagUuids a == _selectedTagUuids b &&
     _templateUuid a == _templateUuid b &&
     _formatUuid a == _formatUuid b &&
-    _knowledgeModel a == _knowledgeModel b &&
+    _e a == _e b &&
     _replies a == _replies b && _ownerUuid a == _ownerUuid b && _creatorUuid a == _creatorUuid b

@@ -16,7 +16,7 @@ toClientConfigDTO serverConfig appConfig =
     , _privacyAndSupport = appConfig ^. privacyAndSupport
     , _dashboard = appConfig ^. dashboard
     , _lookAndFeel = appConfig ^. lookAndFeel
-    , _knowledgeModelRegistry =
+    , _eRegistry =
         toClientConfigRegistryDTO (serverConfig ^. registry) (appConfig ^. knowledgeModelRegistry)
     , _questionnaire = toClientConfigQuestionnaireDTO $ appConfig ^. questionnaire
     , _template = appConfig ^. template

@@ -9,7 +9,7 @@ import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 
 instance CreateEntity AddTagEvent Tag where
   createEntity e =
-    Tag {_tagUuid = e ^. entityUuid, _tagName = e ^. name, _tagDescription = e ^. description, _tagColor = e ^. color}
+    Tag {_uuid = e ^. entityUuid, _name = e ^. name, _description = e ^. description, _color = e ^. color}
 
 instance EditEntity EditTagEvent Tag where
   editEntity e = applyColor . applyDescription . applyName

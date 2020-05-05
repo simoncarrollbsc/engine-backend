@@ -10,7 +10,7 @@ import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 instance CreateEntity AddChapterEvent Chapter where
   createEntity e =
     Chapter
-      {_chapterUuid = e ^. entityUuid, _chapterTitle = e ^. title, _chapterText = e ^. text, _chapterQuestionUuids = []}
+      {_uuid = e ^. entityUuid, _title = e ^. title, _text = e ^. text, _questionUuids = []}
 
 instance EditEntity EditChapterEvent Chapter where
   editEntity e = applyQuestionUuids . applyText . applyTitle

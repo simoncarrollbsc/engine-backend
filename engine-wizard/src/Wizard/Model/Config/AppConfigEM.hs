@@ -11,7 +11,7 @@ instance SensitiveData AppConfig where
   process key entity =
     entity
       { _authentication = process key (entity ^. authentication)
-      , _knowledgeModelRegistry = process key (entity ^. knowledgeModelRegistry)
+      , _eRegistry = process key (entity ^. knowledgeModelRegistry)
       , _questionnaire = process key (entity ^. questionnaire)
       }
 

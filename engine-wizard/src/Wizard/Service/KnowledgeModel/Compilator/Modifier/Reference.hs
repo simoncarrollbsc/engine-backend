@@ -12,16 +12,16 @@ instance CreateEntity AddReferenceEvent Reference where
   createEntity (AddResourcePageReferenceEvent' e) =
     ResourcePageReference' $
     ResourcePageReference
-      {_resourcePageReferenceUuid = e ^. entityUuid, _resourcePageReferenceShortUuid = e ^. shortUuid}
+      {_uuid = e ^. entityUuid, _shortUuid = e ^. shortUuid}
   createEntity (AddURLReferenceEvent' e) =
     URLReference' $
-    URLReference {_uRLReferenceUuid = e ^. entityUuid, _uRLReferenceUrl = e ^. url, _uRLReferenceLabel = e ^. label}
+    URLReference {_uuid = e ^. entityUuid, _url = e ^. url, _label = e ^. label}
   createEntity (AddCrossReferenceEvent' e) =
     CrossReference' $
     CrossReference
-      { _crossReferenceUuid = e ^. entityUuid
-      , _crossReferenceTargetUuid = e ^. targetUuid
-      , _crossReferenceDescription = e ^. description
+      { _uuid = e ^. entityUuid
+      , _targetUuid = e ^. targetUuid
+      , _description = e ^. description
       }
 
 instance EditEntity EditReferenceEvent Reference where
@@ -49,7 +49,7 @@ convertToResourcePageReference ref' =
     (CrossReference' ref) -> createQuestion ref
   where
     createQuestion ref =
-      ResourcePageReference {_resourcePageReferenceUuid = ref ^. uuid, _resourcePageReferenceShortUuid = ""}
+      ResourcePageReference {_uuid = ref ^. uuid, _shortUuid = ""}
 
 convertToURLReference :: Reference -> URLReference
 convertToURLReference (URLReference' ref) = ref
@@ -58,7 +58,7 @@ convertToURLReference ref' =
     (ResourcePageReference' ref) -> createQuestion ref
     (CrossReference' ref) -> createQuestion ref
   where
-    createQuestion ref = URLReference {_uRLReferenceUuid = ref ^. uuid, _uRLReferenceUrl = "", _uRLReferenceLabel = ""}
+    createQuestion ref = URLReference {_uuid = ref ^. uuid, _url = "", _label = ""}
 
 convertToCrossReference :: Reference -> CrossReference
 convertToCrossReference (CrossReference' ref) = ref
@@ -69,4 +69,4 @@ convertToCrossReference ref' =
   where
     createQuestion ref =
       CrossReference
-        {_crossReferenceUuid = ref ^. uuid, _crossReferenceTargetUuid = U.nil, _crossReferenceDescription = ""}
+        {_uuid = ref ^. uuid, _targetUuid = U.nil, _description = ""}

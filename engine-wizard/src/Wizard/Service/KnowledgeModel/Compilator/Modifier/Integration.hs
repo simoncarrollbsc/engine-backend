@@ -10,19 +10,19 @@ import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 instance CreateEntity AddIntegrationEvent Integration where
   createEntity e =
     Integration
-      { _integrationUuid = e ^. entityUuid
-      , _integrationIId = e ^. iId
-      , _integrationName = e ^. name
-      , _integrationProps = e ^. props
-      , _integrationLogo = e ^. logo
-      , _integrationRequestMethod = e ^. requestMethod
-      , _integrationRequestUrl = e ^. requestUrl
-      , _integrationRequestHeaders = e ^. requestHeaders
-      , _integrationRequestBody = e ^. requestBody
-      , _integrationResponseListField = e ^. responseListField
-      , _integrationResponseIdField = e ^. responseIdField
-      , _integrationResponseNameField = e ^. responseNameField
-      , _integrationItemUrl = e ^. itemUrl
+      { _uuid = e ^. entityUuid
+      , _iId = e ^. iId
+      , _name = e ^. name
+      , _props = e ^. props
+      , _logo = e ^. logo
+      , _requestMethod = e ^. requestMethod
+      , _requestUrl = e ^. requestUrl
+      , _requestHeaders = e ^. requestHeaders
+      , _requestBody = e ^. requestBody
+      , _responseListField = e ^. responseListField
+      , _responseIdField = e ^. responseIdField
+      , _responseNameField = e ^. responseNameField
+      , _itemUrl = e ^. itemUrl
       }
 
 instance EditEntity EditIntegrationEvent Integration where

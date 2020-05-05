@@ -37,7 +37,7 @@ data DocumentContext =
     , _questionnaireName :: String
     , _questionnaireReplies :: [QuestionnaireReply.Reply]
     , _level :: Int
-    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
+    , _e :: KnowledgeModel.KnowledgeModel
     , _metrics :: [KnowledgeModel.Metric]
     , _levels :: [Level.Level]
     , _report :: Report.Report

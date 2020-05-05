@@ -7,14 +7,14 @@ data Report =
   Report
     { _uuid :: U.UUID
     , _totalReport :: TotalReport
-    , _chapterReports :: [ChapterReport]
+    , _reports :: [ChapterReport]
     , _createdAt :: UTCTime
     , _updatedAt :: UTCTime
     }
   deriving (Show)
 
 instance Eq Report where
-  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _chapterReports a == _chapterReports b
+  a == b = _uuid a == _uuid b && _totalReport a == _totalReport b && _reports a == _reports b
 
 data TotalReport =
   TotalReport
@@ -25,7 +25,7 @@ data TotalReport =
 
 data ChapterReport =
   ChapterReport
-    { _chapterUuid :: U.UUID
+    { _uuid :: U.UUID
     , _indications :: [Indication]
     , _metrics :: [MetricSummary]
     }
@@ -44,7 +44,7 @@ data Indication
 
 data MetricSummary =
   MetricSummary
-    { _metricUuid :: U.UUID
+    { _uuid :: U.UUID
     , _measure :: Maybe Double
     }
   deriving (Show, Eq)

@@ -120,9 +120,9 @@ a_km1_ch1_q1 =
     , _entityUuid = question1 ^. uuid
     , _title = DirectValue $ question1 ^. title
     , _text = DirectValue $ question1 ^. text
-    , _requiredLevel = DirectValue $ question1 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question1 ^. requiredLevel'
     , _tagUuids = DirectValue $ question1 ^. tagUuids
-    , _valueType = DirectValue $ question1 ^. valueType
+    , _valueType = DirectValue $ question1 ^. valueType'
     }
 
 a_km1_ch1_q2 :: Event
@@ -133,7 +133,7 @@ a_km1_ch1_q2 =
     , _entityUuid = question2 ^. uuid
     , _title = DirectValue $ question2 ^. title
     , _text = DirectValue $ question2 ^. text
-    , _requiredLevel = DirectValue $ question2 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question2 ^. requiredLevel'
     , _tagUuids = DirectValue $ question2 ^. tagUuids
     }
 
@@ -145,7 +145,7 @@ a_km1_ch1_q3 =
     , _entityUuid = question3 ^. uuid
     , _title = DirectValue $ question3 ^. title
     , _text = DirectValue $ question3 ^. text
-    , _requiredLevel = DirectValue $ question3 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question3 ^. requiredLevel'
     , _tagUuids = DirectValue $ question3 ^. tagUuids
     }
 
@@ -157,7 +157,7 @@ a_km1_ch2_q3 =
     , _entityUuid = question3 ^. uuid
     , _title = DirectValue $ question3 ^. title
     , _text = DirectValue $ question3 ^. text
-    , _requiredLevel = DirectValue $ question3 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question3 ^. requiredLevel'
     , _tagUuids = DirectValue $ question3 ^. tagUuids
     }
 
@@ -169,7 +169,7 @@ a_km1_ch2_q4 =
     , _entityUuid = question4 ^. uuid
     , _title = DirectValue $ question4 ^. title
     , _text = DirectValue $ question4 ^. text
-    , _requiredLevel = DirectValue $ question4 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question4 ^. requiredLevel'
     , _tagUuids = DirectValue $ question4 ^. tagUuids
     }
 
@@ -181,10 +181,10 @@ a_km1_ch3_q9 =
     , _entityUuid = question9 ^. uuid
     , _title = DirectValue $ question9 ^. title
     , _text = DirectValue $ question9 ^. text
-    , _requiredLevel = DirectValue $ question9 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question9 ^. requiredLevel'
     , _tagUuids = DirectValue $ question9 ^. tagUuids
-    , _integrationUuid = DirectValue $ question9 ^. integrationUuid
-    , _integrationProps = DirectValue $ question9 ^. props
+    , _integrationUuid = DirectValue $ question9 ^. integrationUuid'
+    , _integrationProps = DirectValue $ question9 ^. integrationProps'
     }
 
 a_km1_ch3_q10 :: Event
@@ -195,10 +195,10 @@ a_km1_ch3_q10 =
     , _entityUuid = question10 ^. uuid
     , _title = DirectValue $ question10 ^. title
     , _text = DirectValue $ question10 ^. text
-    , _requiredLevel = DirectValue $ question10 ^. requiredLevel
+    , _requiredLevel = DirectValue $ question10 ^. requiredLevel'
     , _tagUuids = DirectValue $ question10 ^. tagUuids
-    , _integrationUuid = DirectValue $ question10 ^. integrationUuid
-    , _integrationProps = DirectValue $ question10 ^. props
+    , _integrationUuid = DirectValue $ question10 ^. integrationUuid'
+    , _integrationProps = DirectValue $ question10 ^. integrationProps'
     }
 
 
@@ -229,7 +229,7 @@ e_km1_ch1_q1_type =
     , _tagUuids = NothingChanged
     , _expertUuids = NothingChanged
     , _referenceUuids = NothingChanged
-    , _answerUuids = ChangedValue $ question1WithNewType' ^. answerUuids'
+    , _answerUuids = ChangedValue $ question1WithNewType ^. answerUuids'
     }
 
 e_km1_ch1_q2 :: Event
@@ -240,11 +240,11 @@ e_km1_ch1_q2 =
     , _entityUuid = question2 ^. uuid
     , _title = ChangedValue $ question2Edited ^. title
     , _text = ChangedValue $ question2Edited ^. text
-    , _requiredLevel = ChangedValue $ question2Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ question2Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ question2Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ question2Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ question2Edited' ^. referenceUuids'
-    , _answerUuids = ChangedValue $ question2Edited' ^. answerUuids'
+    , _expertUuids = ChangedValue $ question2Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ question2Edited ^. referenceUuids'
+    , _answerUuids = ChangedValue $ question2Edited ^. answerUuids'
     }
 
 e_km1_ch1_q2_second_edit :: Event
@@ -255,11 +255,11 @@ e_km1_ch1_q2_second_edit =
     , _entityUuid = question2 ^. uuid
     , _title = ChangedValue "New title"
     , _text = ChangedValue $ question2Edited ^. text
-    , _requiredLevel = ChangedValue $ question2Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ question2Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ question2Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ question2Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ question2Edited' ^. referenceUuids'
-    , _answerUuids = ChangedValue $ question2Edited' ^. answerUuids'
+    , _expertUuids = ChangedValue $ question2Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ question2Edited ^. referenceUuids'
+    , _answerUuids = ChangedValue $ question2Edited ^. answerUuids'
     }
 
 e_km1_ch1_q2_type :: Event
@@ -285,10 +285,10 @@ e_km1_ch2_q4 =
     , _entityUuid = question4Edited ^. uuid
     , _title = ChangedValue $ question4Edited ^. title
     , _text = ChangedValue $ question4Edited ^. text
-    , _requiredLevel = ChangedValue $ question4Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ question4Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ question4Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ question4Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ question4Edited' ^. referenceUuids'
+    , _expertUuids = ChangedValue $ question4Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ question4Edited ^. referenceUuids'
     , _itemTemplateQuestionUuids = ChangedValue $ question4Edited ^. itemTemplateQuestionUuids
     }
 
@@ -304,8 +304,8 @@ e_km1_ch2_q4_type =
     , _tagUuids = NothingChanged
     , _expertUuids = NothingChanged
     , _referenceUuids = NothingChanged
-    , _integrationUuid = ChangedValue $ question4WithNewType ^. integrationUuid
-    , _integrationProps = ChangedValue $ question4WithNewType ^. props
+    , _integrationUuid = ChangedValue $ question4WithNewType ^. integrationUuid'
+    , _integrationProps = ChangedValue $ question4WithNewType ^. integrationProps'
     }
 
 e_km1_ch3_q9 :: Event
@@ -316,12 +316,12 @@ e_km1_ch3_q9 =
     , _entityUuid = question9Edited ^. uuid
     , _title = ChangedValue $ question9Edited ^. title
     , _text = ChangedValue $ question9Edited ^. text
-    , _requiredLevel = ChangedValue $ question9Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ question9Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ question9Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ question9Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ question9Edited' ^. referenceUuids'
-    , _integrationUuid = ChangedValue $ question9Edited ^. integrationUuid
-    , _integrationProps = ChangedValue $ question9Edited ^. props
+    , _expertUuids = ChangedValue $ question9Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ question9Edited ^. referenceUuids'
+    , _integrationUuid = ChangedValue $ question9Edited ^. integrationUuid'
+    , _integrationProps = ChangedValue $ question9Edited ^. integrationProps'
     }
 
 e_km1_ch3_q9_type :: Event
@@ -336,7 +336,7 @@ e_km1_ch3_q9_type =
     , _tagUuids = NothingChanged
     , _expertUuids = NothingChanged
     , _referenceUuids = NothingChanged
-    , _valueType = ChangedValue $ question9WithNewType ^. valueType
+    , _valueType = ChangedValue $ question9WithNewType ^. valueType'
     }
 
 d_km1_ch1_q1 :: Event
@@ -539,7 +539,7 @@ a_km1_ch2_q4_it1_q5 =
     , _entityUuid = q4_it1_question5 ^. uuid
     , _title = DirectValue $ q4_it1_question5 ^. title
     , _text = DirectValue $ q4_it1_question5 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_question5 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_question5 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_question5 ^. tagUuids
     }
 
@@ -551,7 +551,7 @@ a_km1_ch2_q4_it1_q6 =
     , _entityUuid = q4_it1_question6 ^. uuid
     , _title = DirectValue $ q4_it1_question6 ^. title
     , _text = DirectValue $ q4_it1_question6 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_question6 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_question6 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_question6 ^. tagUuids
     }
 
@@ -563,7 +563,7 @@ a_km1_ch2_q4_it1_q6_fuq4_q1 =
     , _entityUuid = q4_it1_q6_aYes_fuq4_it_question1 ^. uuid
     , _title = DirectValue $ q4_it1_q6_aYes_fuq4_it_question1 ^. title
     , _text = DirectValue $ q4_it1_q6_aYes_fuq4_it_question1 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_fuq4_it_question1 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_fuq4_it_question1 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q6_aYes_fuq4_it_question1 ^. tagUuids
     }
 
@@ -575,7 +575,7 @@ a_km1_ch2_q4_it1_q6_fuq4_q2 =
     , _entityUuid = q4_it1_q6_aYes_fuq4_it_question2 ^. uuid
     , _title = DirectValue $ q4_it1_q6_aYes_fuq4_it_question2 ^. title
     , _text = DirectValue $ q4_it1_q6_aYes_fuq4_it_question2 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_fuq4_it_question2 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_fuq4_it_question2 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q6_aYes_fuq4_it_question2 ^. tagUuids
     }
 
@@ -587,9 +587,9 @@ a_km1_ch2_q4_it1_q7 =
     , _entityUuid = q4_it1_q5_it2_question7 ^. uuid
     , _title = DirectValue $ q4_it1_q5_it2_question7 ^. title
     , _text = DirectValue $ q4_it1_q5_it2_question7 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q5_it2_question7 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q5_it2_question7 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q5_it2_question7 ^. tagUuids
-    , _valueType = DirectValue $ q4_it1_q5_it2_question7 ^. valueType
+    , _valueType = DirectValue $ q4_it1_q5_it2_question7 ^. valueType'
     }
 
 a_km1_ch2_q4_it1_q8 :: Event
@@ -600,9 +600,9 @@ a_km1_ch2_q4_it1_q8 =
     , _entityUuid = q4_it1_q5_it2_question8 ^. uuid
     , _title = DirectValue $ q4_it1_q5_it2_question8 ^. title
     , _text = DirectValue $ q4_it1_q5_it2_question8 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q5_it2_question8 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q5_it2_question8 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q5_it2_question8 ^. tagUuids
-    , _valueType = DirectValue $ q4_it1_q5_it2_question8 ^. valueType
+    , _valueType = DirectValue $ q4_it1_q5_it2_question8 ^. valueType'
     }
 
 e_km1_ch2_q4_it1_q5 :: Event
@@ -613,7 +613,7 @@ e_km1_ch2_q4_it1_q5 =
     , _entityUuid = q4_it1_question5Edited ^. uuid
     , _title = ChangedValue $ q4_it1_question5Edited ^. title
     , _text = ChangedValue $ q4_it1_question5Edited ^. text
-    , _requiredLevel = ChangedValue $ q4_it1_question5Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ q4_it1_question5Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ q4_it1_question5Edited ^. tagUuids
     , _expertUuids = NothingChanged
     , _referenceUuids = NothingChanged
@@ -629,11 +629,11 @@ e_km1_ch2_q4_it1_q6 =
     , _entityUuid = q4_it1_question6Edited ^. uuid
     , _title = ChangedValue $ q4_it1_question6Edited ^. title
     , _text = ChangedValue $ q4_it1_question6Edited ^. text
-    , _requiredLevel = ChangedValue $ q4_it1_question6Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ q4_it1_question6Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ q4_it1_question6Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ q4_it1_question6Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ q4_it1_question6Edited' ^. referenceUuids'
-    , _answerUuids = ChangedValue $ q4_it1_question6Edited' ^. answerUuids'
+    , _expertUuids = ChangedValue $ q4_it1_question6Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ q4_it1_question6Edited ^. referenceUuids'
+    , _answerUuids = ChangedValue $ q4_it1_question6Edited ^. answerUuids'
     }
 
 d_km1_ch2_q4_it1_q5 :: Event
@@ -657,7 +657,7 @@ a_km1_ch1_ansYes1_fuq1 =
     , _entityUuid = q2_aYes_fuQuestion1 ^. uuid
     , _title = DirectValue $ q2_aYes_fuQuestion1 ^. title
     , _text = DirectValue $ q2_aYes_fuQuestion1 ^. text
-    , _requiredLevel = DirectValue $ q2_aYes_fuQuestion1 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q2_aYes_fuQuestion1 ^. requiredLevel'
     , _tagUuids = DirectValue $ q2_aYes_fuQuestion1 ^. tagUuids
     }
 
@@ -669,7 +669,7 @@ a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2 =
     , _entityUuid = q2_aYes_fuq1_aYes_fuQuestion2 ^. uuid
     , _title = DirectValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. title
     , _text = DirectValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. text
-    , _requiredLevel = DirectValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. requiredLevel'
     , _tagUuids = DirectValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. tagUuids
     }
 
@@ -681,7 +681,7 @@ a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2_ansYes4_fuq3 =
     , _entityUuid = q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. uuid
     , _title = DirectValue $ q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. title
     , _text = DirectValue $ q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. text
-    , _requiredLevel = DirectValue $ q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. requiredLevel'
     , _tagUuids = DirectValue $ q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. tagUuids
     }
 
@@ -693,7 +693,7 @@ a_km1_ch2_ansYes6_fuq4 =
     , _entityUuid = q4_it1_q6_aYes_followUpQuestion4 ^. uuid
     , _title = DirectValue $ q4_it1_q6_aYes_followUpQuestion4 ^. title
     , _text = DirectValue $ q4_it1_q6_aYes_followUpQuestion4 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_followUpQuestion4 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_followUpQuestion4 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q6_aYes_followUpQuestion4 ^. tagUuids
     }
 
@@ -705,10 +705,10 @@ a_km1_ch2_ansYes6_fuq5 =
     , _entityUuid = q4_it1_q6_aYes_followUpQuestion5 ^. uuid
     , _title = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. title
     , _text = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. text
-    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. requiredLevel
+    , _requiredLevel = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. requiredLevel'
     , _tagUuids = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. tagUuids
-    , _integrationUuid = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. integrationUuid
-    , _integrationProps = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. props
+    , _integrationUuid = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. integrationUuid'
+    , _integrationProps = DirectValue $ q4_it1_q6_aYes_followUpQuestion5 ^. integrationProps'
     }
 
 e_km1_ch1_ansYes1_fuq1_ansYes3_fuq2 :: Event
@@ -719,11 +719,11 @@ e_km1_ch1_ansYes1_fuq1_ansYes3_fuq2 =
     , _entityUuid = q2_aYes_fuq1_aYes_fuQuestion2 ^. uuid
     , _title = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. title
     , _text = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. text
-    , _requiredLevel = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited' ^. referenceUuids'
-    , _answerUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited' ^. answerUuids'
+    , _expertUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. expertUuids'
+    , _referenceUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. referenceUuids'
+    , _answerUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. answerUuids'
     }
 
 e_km1_ch1_ansYes1_fuq1_ansYes3_fuq2_2 :: Event
@@ -734,10 +734,10 @@ e_km1_ch1_ansYes1_fuq1_ansYes3_fuq2_2 =
     , _entityUuid = q2_aYes_fuq1_aYes_fuQuestion2 ^. uuid
     , _title = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. title
     , _text = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. text
-    , _requiredLevel = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2Edited ^. tagUuids
-    , _expertUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2' ^. expertUuids'
-    , _referenceUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2' ^. referenceUuids'
+    , _expertUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. expertUuids'
+    , _referenceUuids = ChangedValue $ q2_aYes_fuq1_aYes_fuQuestion2 ^. referenceUuids'
     , _answerUuids =
         ChangedValue [q2_aYes_fuq1_aYes_fuq2_answerYes ^. uuid, q2_aYes_fuq1_aYes_fuq2_answerNo ^. uuid]
     }
@@ -750,7 +750,7 @@ e_km1_ch2_ansMaybe6_fuq4 =
     , _entityUuid = q4_it1_q6_aYes_followUpQuestion4Edited ^. uuid
     , _title = ChangedValue $ q4_it1_q6_aYes_followUpQuestion4Edited ^. title
     , _text = ChangedValue $ q4_it1_q6_aYes_followUpQuestion4Edited ^. text
-    , _requiredLevel = ChangedValue $ q4_it1_q6_aYes_followUpQuestion4Edited ^. requiredLevel
+    , _requiredLevel = ChangedValue $ q4_it1_q6_aYes_followUpQuestion4Edited ^. requiredLevel'
     , _tagUuids = ChangedValue $ q4_it1_q6_aYes_followUpQuestion4Edited ^. tagUuids
     , _expertUuids = NothingChanged
     , _referenceUuids = NothingChanged
@@ -882,7 +882,7 @@ a_km1_ch1_q2_rCh3 =
     { _uuid = fromJust $ U.fromString "45d8ec86-34bc-4e8f-b42a-48a567a77d8b"
     , _parentUuid = question2 ^. uuid
     , _entityUuid = km1_ch1_q2_r3 ^. uuid
-    , _targetUuid = DirectValue $ km1_ch1_q2_r3 ^. targetUuid
+    , _targetUuid = DirectValue $ km1_ch1_q2_r3 ^. targetUuid'
     , _label = DirectValue $ km1_ch1_q2_r3 ^. description
     }
 
@@ -921,7 +921,7 @@ e_km1_ch1_q2_rCh2_type =
     { _uuid = fromJust $ U.fromString "e0a19e9d-fb36-47b3-bc23-f752f7403937"
     , _parentUuid = question2 ^. uuid
     , _entityUuid = km1_ch1_q2_r2WithNewType ^. uuid
-    , _targetUuid = ChangedValue $ km1_ch1_q2_r2WithNewType ^. targetUuid
+    , _targetUuid = ChangedValue $ km1_ch1_q2_r2WithNewType ^. targetUuid'
     , _label = ChangedValue $ km1_ch1_q2_r2WithNewType ^. description
     }
 
@@ -931,7 +931,7 @@ e_km1_ch1_q2_rCh3 =
     { _uuid = fromJust $ U.fromString "d3a7b6a6-9e87-4308-a103-88245537c26e"
     , _parentUuid = question2 ^. uuid
     , _entityUuid = km1_ch1_q2_r3Edited ^. uuid
-    , _targetUuid = ChangedValue $ km1_ch1_q2_r3Edited ^. targetUuid
+    , _targetUuid = ChangedValue $ km1_ch1_q2_r3Edited ^. targetUuid'
     , _label = ChangedValue $ km1_ch1_q2_r3Edited ^. description
     }
 

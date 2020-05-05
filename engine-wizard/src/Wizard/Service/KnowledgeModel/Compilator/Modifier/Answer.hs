@@ -10,11 +10,11 @@ import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 instance CreateEntity AddAnswerEvent Answer where
   createEntity e =
     Answer
-      { _answerUuid = e ^. entityUuid
-      , _answerLabel = e ^. label
-      , _answerAdvice = e ^. advice
-      , _answerFollowUpUuids = []
-      , _answerMetricMeasures = e ^. metricMeasures
+      { _uuid = e ^. entityUuid
+      , _label = e ^. label
+      , _advice = e ^. advice
+      , _followUpUuids = []
+      , _metricMeasures = e ^. metricMeasures
       }
 
 instance EditEntity EditAnswerEvent Answer where

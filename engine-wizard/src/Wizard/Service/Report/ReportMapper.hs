@@ -17,13 +17,13 @@ toIndicationDTO ai@LevelsAnsweredIndication {} =
 toMetricSummaryDTO :: MetricSummary -> Maybe MetricSummaryDTO
 toMetricSummaryDTO ms =
   case ms ^. measure of
-    Just msMeasure -> Just MetricSummaryDTO {_metricUuid = ms ^. metricUuid, _measure = msMeasure}
+    Just msMeasure -> Just MetricSummaryDTO {_uuid = ms ^. metricUuid, _measure = msMeasure}
     Nothing -> Nothing
 
 toChapterReportDTO :: ChapterReport -> ChapterReportDTO
 toChapterReportDTO chr =
   ChapterReportDTO
-    { _chapterUuid = chr ^. chapterUuid
+    { _uuid = chr ^. chapterUuid
     , _indications = toIndicationDTO <$> chr ^. indications
     , _metrics = mapMaybe toMetricSummaryDTO $ chr ^. metrics
     }
@@ -38,7 +38,7 @@ toReportDTO r =
   ReportDTO
     { _uuid = r ^. uuid
     , _totalReport = toTotalReportDTO $ r ^. totalReport
-    , _chapterReports = toChapterReportDTO <$> r ^. chapterReports
+    , _reports = toChapterReportDTO <$> r ^. chapterReports
     , _createdAt = r ^. createdAt
     , _updatedAt = r ^. updatedAt
     }

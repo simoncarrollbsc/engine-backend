@@ -15,46 +15,32 @@ import Shared.Model.PackageBundle.PackageBundle
 -- Model
 -- -------------------------------------
 -- Model / Event
+makeFieldsNoPrefix ''Event
+
 makeFields ''EventField
 
-makeFields ''Event
-
 -- Model / KnowledgeModel
-makeFields ''KnowledgeModel
+makeFieldsNoPrefix ''KnowledgeModel
 
-makeFields ''KnowledgeModelEntities
+makeFieldsNoPrefix ''KnowledgeModelEntities
 
-makeFields ''Chapter
+makeFieldsNoPrefix ''Chapter
 
-makeFields ''Question
+makeFieldsNoPrefix ''Question
 
-makeFields ''OptionsQuestion
+makeFieldsNoPrefix ''Answer
 
-makeFields ''ListQuestion
+makeFieldsNoPrefix ''Expert
 
-makeFields ''ValueQuestion
+makeFieldsNoPrefix ''Reference
 
-makeFields ''IntegrationQuestion
+makeFieldsNoPrefix ''Metric
 
-makeFields ''Answer
+makeFieldsNoPrefix ''MetricMeasure
 
-makeFields ''Expert
+makeFieldsNoPrefix ''Tag
 
-makeFields ''Reference
-
-makeFields ''ResourcePageReference
-
-makeFields ''URLReference
-
-makeFields ''CrossReference
-
-makeFields ''Metric
-
-makeFields ''MetricMeasure
-
-makeFields ''Tag
-
-makeFields ''Integration
+makeFieldsNoPrefix ''Integration
 
 -- Model / Package
 makeFieldsNoPrefix ''Package

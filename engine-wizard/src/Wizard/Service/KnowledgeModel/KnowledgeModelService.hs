@@ -6,7 +6,7 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeDTO
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
+import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.Event.Event
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Model.Context.AppContext

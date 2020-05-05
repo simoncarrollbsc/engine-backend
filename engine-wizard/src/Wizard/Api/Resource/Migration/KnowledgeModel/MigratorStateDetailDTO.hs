@@ -4,7 +4,7 @@ import qualified Data.UUID as U
 import GHC.Generics
 
 import Shared.Model.Event.Event
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
+import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigrationStateDTO
 
 data MigratorStateDetailDTO =
@@ -17,6 +17,6 @@ data MigratorStateDetailDTO =
     , _branchEvents :: [Event]
     , _targetPackageEvents :: [Event]
     , _resultEvents :: [Event]
-    , _currentKnowledgeModel :: Maybe KnowledgeModelDTO
+    , _currentKnowledgeModel :: Maybe KnowledgeModel
     }
   deriving (Show, Eq, Generic)

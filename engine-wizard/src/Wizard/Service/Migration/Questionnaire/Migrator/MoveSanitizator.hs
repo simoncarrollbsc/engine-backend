@@ -11,7 +11,6 @@ import qualified Prelude
 
 import LensesConfig
 import Shared.Model.Event.Event
-import Shared.Model.Event.Move.MoveEvent
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.KnowledgeModel.KnowledgeModelLenses
 import Shared.Model.KnowledgeModel.KnowledgeModelUtil
@@ -44,7 +43,6 @@ generateQuestionMoveEvent oldParentMap newParentMap events entity =
     newParentUuid <- M.lookup (entity ^. uuid') newParentMap
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
-          MoveQuestionEvent'
             MoveQuestionEvent
               { _moveQuestionEventUuid = U.nil
               , _moveQuestionEventParentUuid = oldParentUuid
@@ -60,7 +58,6 @@ generateAnswerMoveEvents oldParentMap newParentMap events entity =
     newParentUuid <- M.lookup (entity ^. uuid') newParentMap
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
-          MoveAnswerEvent'
             MoveAnswerEvent
               { _moveAnswerEventUuid = U.nil
               , _moveAnswerEventParentUuid = oldParentUuid
@@ -72,14 +69,13 @@ generateAnswerMoveEvents oldParentMap newParentMap events entity =
 -- ----------------------------------------------------------------------
 -- ----------------------------------------------------------------------
 processReplies :: KnowledgeModel -> [Reply] -> Event -> [Reply]
-processReplies km replies (MoveQuestionEvent' event) = processRepliesForQuestionMove km event replies
-processReplies km replies (MoveAnswerEvent' event) = deleteUnwantedReplies (event ^. entityUuid) replies
+processReplies km replies event@MoveQuestionEvent{} = processRepliesForQuestionMove km event replies
+processReplies km replies event@MoveAnswerEvent {} = deleteUnwantedReplies (event ^. entityUuid) replies
 processReplies _ replies _ = replies
 
 processRepliesForQuestionMove ::
-     (HasParentUuid event U.UUID, HasTargetUuid event U.UUID, HasEntityUuid event U.UUID)
-  => KnowledgeModel
-  -> event
+  KnowledgeModel
+  -> Event
   -> [Reply]
   -> [Reply]
 processRepliesForQuestionMove km event replies =

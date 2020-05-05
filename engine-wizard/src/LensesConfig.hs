@@ -341,6 +341,9 @@ makeFieldsNoPrefix ''FeedbackCreateDTO
 -- Api / Resource / Info
 makeFieldsNoPrefix ''InfoDTO
 
+-- Api / Resource / KnowledgeModel
+makeFieldsNoPrefix ''KnowledgeModelChangeDTO
+
 -- Model / Level
 makeFieldsNoPrefix ''LevelDTO
 

@@ -4,7 +4,7 @@ import Data.Time
 import qualified Data.UUID as U
 import GHC.Generics
 
-import qualified Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO as KnowledgeModelDTO
+import qualified Shared.Model.KnowledgeModel.KnowledgeModel as KnowledgeModel
 import qualified Wizard.Api.Resource.Package.PackageSimpleDTO as PackageSimpleDTO
 import qualified Wizard.Api.Resource.Questionnaire.QuestionnaireLabelDTO as QuestionnaireLabelDTO
 import qualified Wizard.Api.Resource.Questionnaire.QuestionnaireReplyDTO as QuestionnaireReplyDTO
@@ -22,7 +22,7 @@ data QuestionnaireDetailDTO =
     , _selectedTagUuids :: [U.UUID]
     , _templateUuid :: Maybe U.UUID
     , _formatUuid :: Maybe U.UUID
-    , _knowledgeModel :: KnowledgeModelDTO.KnowledgeModelDTO
+    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
     , _replies :: [QuestionnaireReplyDTO.ReplyDTO]
     , _labels :: [QuestionnaireLabelDTO.LabelDTO]
     , _ownerUuid :: Maybe U.UUID

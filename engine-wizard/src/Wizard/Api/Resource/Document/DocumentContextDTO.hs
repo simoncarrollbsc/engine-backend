@@ -5,7 +5,7 @@ import Data.Time
 import qualified Data.UUID as U
 import GHC.Generics
 
-import qualified Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO as KnowledgeModelDTO
+import qualified Shared.Model.KnowledgeModel.KnowledgeModel as KnowledgeModel
 import qualified Wizard.Api.Resource.Level.LevelDTO as LevelDTO
 import qualified Wizard.Api.Resource.Package.PackageSimpleDTO as PackageSimpleDTO
 import qualified Wizard.Api.Resource.Questionnaire.QuestionnaireReplyDTO as QuestionnaireReplyDTO
@@ -22,8 +22,8 @@ data DocumentContextDTO =
     , _questionnaireReplies :: [QuestionnaireReplyDTO.ReplyDTO]
     , _questionnaireRepliesMap :: Map String QuestionnaireReplyDTO.ReplyDTO
     , _level :: Int
-    , _knowledgeModel :: KnowledgeModelDTO.KnowledgeModelDTO
-    , _metrics :: [KnowledgeModelDTO.MetricDTO]
+    , _knowledgeModel :: KnowledgeModel.KnowledgeModel
+    , _metrics :: [KnowledgeModel.Metric]
     , _levels :: [LevelDTO.LevelDTO]
     , _report :: ReportDTO.ReportDTO
     , _package :: PackageSimpleDTO.PackageSimpleDTO

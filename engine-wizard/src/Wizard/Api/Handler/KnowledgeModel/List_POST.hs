@@ -5,7 +5,7 @@ import Servant
 import Shared.Api.Handler.Common
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeDTO
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeJM ()
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
+import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelJM ()
 import Wizard.Api.Handler.Common
 import Wizard.Model.Context.BaseContext

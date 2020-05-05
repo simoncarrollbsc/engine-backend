@@ -3,7 +3,7 @@ module Wizard.Service.Metric.MetricMapper where
 import Control.Lens ((^.))
 
 import LensesConfig
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
+import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Service.KnowledgeModel.KnowledgeModelMapper
 

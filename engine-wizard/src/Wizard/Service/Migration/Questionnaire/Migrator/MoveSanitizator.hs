@@ -44,10 +44,10 @@ generateQuestionMoveEvent oldParentMap newParentMap events entity =
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
             MoveQuestionEvent
-              { _moveQuestionEventUuid = U.nil
-              , _moveQuestionEventParentUuid = oldParentUuid
-              , _moveQuestionEventEntityUuid = entity ^. uuid'
-              , _moveQuestionEventTargetUuid = newParentUuid
+              { _uuid = U.nil
+              , _parentUuid = oldParentUuid
+              , _entityUuid = entity ^. uuid'
+              , _targetUuid = newParentUuid
               }
     return $ events ++ [event]
 
@@ -59,10 +59,10 @@ generateAnswerMoveEvents oldParentMap newParentMap events entity =
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
             MoveAnswerEvent
-              { _moveAnswerEventUuid = U.nil
-              , _moveAnswerEventParentUuid = oldParentUuid
-              , _moveAnswerEventEntityUuid = entity ^. uuid'
-              , _moveAnswerEventTargetUuid = newParentUuid
+              { _uuid = U.nil
+              , _parentUuid = oldParentUuid
+              , _entityUuid = entity ^. uuid'
+              , _targetUuid = newParentUuid
               }
     return $ events ++ [event]
 

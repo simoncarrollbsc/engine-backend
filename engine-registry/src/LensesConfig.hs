@@ -1,6 +1,7 @@
 module LensesConfig where
 
-import Control.Lens (makeFields, makeFieldsNoPrefix)
+--import Control.Lens (makeFieldsNoPrefix)
+import LensesConfigUtil
 
 import Registry.Api.Resource.ActionKey.ActionKeyDTO
 import Registry.Api.Resource.Organization.OrganizationChangeDTO
@@ -26,6 +27,8 @@ import Shared.Model.Package.Package
 import Shared.Model.Package.PackageWithEvents
 import Shared.Model.PackageBundle.PackageBundle
 
+
+
 -- -------------------------------------
 -- Model
 -- -------------------------------------
@@ -42,7 +45,7 @@ makeFieldsNoPrefix ''ServerConfigDatabase
 makeFieldsNoPrefix ''ServerConfigMail
 
 makeFieldsNoPrefix ''ServerConfigAnalytics
-
+--
 makeFieldsNoPrefix ''BuildInfoConfig
 
 -- Model / Context
@@ -51,9 +54,9 @@ makeFieldsNoPrefix ''BaseContext
 makeFieldsNoPrefix ''AppContext
 
 -- Model / Event
-makeFieldsNoPrefix ''Event
+--makeFieldsNoPrefix ''Event
 
-makeFields ''EventField
+makeFieldsNoPrefix ''EventField
 
 -- Model / KnowledgeModel
 makeFieldsNoPrefix ''KnowledgeModel

@@ -1,6 +1,6 @@
 module LensesConfig where
 
-import Control.Lens (makeFields, makeFieldsNoPrefix)
+import Control.Lens (makeFieldsNoPrefix)
 
 import Shared.Api.Resource.Package.PackageDTO
 import Shared.Api.Resource.PackageBundle.PackageBundleDTO
@@ -15,9 +15,9 @@ import Shared.Model.PackageBundle.PackageBundle
 -- Model
 -- -------------------------------------
 -- Model / Event
-makeFieldsNoPrefix ''Event
+--makeFieldsNoPrefix ''Event
 
-makeFields ''EventField
+makeFieldsNoPrefix ''EventField
 
 -- Model / KnowledgeModel
 makeFieldsNoPrefix ''KnowledgeModel

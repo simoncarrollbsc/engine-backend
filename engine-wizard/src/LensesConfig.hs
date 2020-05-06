@@ -196,7 +196,7 @@ makeFieldsNoPrefix ''DocumentTemplateContext
 -- Model / Event
 makeFieldsNoPrefix ''Event
 
-makeFields ''EventField
+makeFieldsNoPrefix ''EventField
 
 -- Model / Feedback
 makeFieldsNoPrefix ''Feedback

@@ -3,8 +3,9 @@ module Shared.Database.BSON.Event.EventField where
 import qualified Data.Bson as BSON
 import Data.Bson.Generic
 
-import Shared.Database.BSON.KnowledgeModel.KnowledgeModel ()
 import Shared.Model.Event.EventField
+import Shared.Database.BSON.Common ()
+import Shared.Database.BSON.KnowledgeModel.KnowledgeModel ()
 
 instance BSON.Val a => ToBSON (EventField a) where
   toBSON (ChangedValue value) = ["changed" BSON.=: True, "value" BSON.=: value]
@@ -18,3 +19,4 @@ instance BSON.Val a => FromBSON (EventField a) where
         efValue <- BSON.lookup "value" doc
         return $ ChangedValue efValue
       else return NothingChanged
+

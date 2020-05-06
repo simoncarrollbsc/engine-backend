@@ -7,7 +7,7 @@ import Prelude hiding (lookup)
 
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Answer ()
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Chapter ()
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Expert ()

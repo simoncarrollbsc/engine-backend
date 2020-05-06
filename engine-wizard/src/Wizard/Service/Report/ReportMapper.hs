@@ -4,25 +4,20 @@ import Control.Lens ((^.))
 import Data.Maybe (mapMaybe)
 
 import LensesConfig
+import LensesExtension
 import Wizard.Api.Resource.Report.ReportDTO
 import Wizard.Model.Report.Report
 
 toIndicationDTO :: Indication -> IndicationDTO
-toIndicationDTO (AnsweredIndication' i) = AnsweredIndicationDTO' . toAnsweredIndicationDTO $ i
-toIndicationDTO (LevelsAnsweredIndication' i) = LevelsAnsweredIndicationDTO' . toLevelsAnsweredIndicationDTO $ i
-
-toAnsweredIndicationDTO :: AnsweredIndication -> AnsweredIndicationDTO
-toAnsweredIndicationDTO ai =
+toIndicationDTO ai@AnsweredIndication {} =
   AnsweredIndicationDTO
-    { _answeredIndicationDTOAnsweredQuestions = ai ^. answeredQuestions
-    , _answeredIndicationDTOUnansweredQuestions = ai ^. unansweredQuestions
-    }
-
-toLevelsAnsweredIndicationDTO :: LevelsAnsweredIndication -> LevelsAnsweredIndicationDTO
-toLevelsAnsweredIndicationDTO ai =
+      { _answeredIndicationDTOAnsweredQuestions = ai ^. answeredQuestions'
+      , _answeredIndicationDTOUnansweredQuestions = ai ^. unansweredQuestions'
+      }
+toIndicationDTO ai@LevelsAnsweredIndication {} =
   LevelsAnsweredIndicationDTO
-    { _levelsAnsweredIndicationDTOAnsweredQuestions = ai ^. answeredQuestions
-    , _levelsAnsweredIndicationDTOUnansweredQuestions = ai ^. unansweredQuestions
+    { _levelsAnsweredIndicationDTOAnsweredQuestions = ai ^. answeredQuestions'
+    , _levelsAnsweredIndicationDTOUnansweredQuestions = ai ^. unansweredQuestions'
     }
 
 toMetricSummaryDTO :: MetricSummary -> Maybe MetricSummaryDTO

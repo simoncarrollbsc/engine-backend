@@ -113,7 +113,7 @@ createPackage pkg = do
 deletePackagesByQueryParams :: [(String, String)] -> AppContextM ()
 deletePackagesByQueryParams queryParams = do
   packages <- findPackagesFiltered queryParams
-  validatePackagesDeletation (_packagePId <$> packages)
+  validatePackagesDeletation (packages ^.. traverse . pId)
   deletePackagesFiltered queryParams
 
 deletePackage :: String -> AppContextM ()
@@ -128,4 +128,4 @@ deletePackage pkgId = do
 getPackageVersions :: Package -> AppContextM [String]
 getPackageVersions pkg = do
   allPkgs <- findPackagesByOrganizationIdAndKmId (pkg ^. organizationId) (pkg ^. kmId)
-  return . fmap _packageVersion $ allPkgs
+  return $ allPkgs ^.. traverse . version

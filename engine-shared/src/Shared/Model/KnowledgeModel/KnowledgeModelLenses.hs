@@ -6,6 +6,7 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
+import Shared.LensesClasses
 
 -- -------------------------
 -- KNOWLEDGE MODEL ---------
@@ -62,7 +63,7 @@ tagsM = createEntityMFn (entities . tags)
 
 ------------------------------------------------------------------------------------------
 createEntityLFn ::
-     (HasUuid' a, Functor f)
+     (HasUuid' a U.UUID, Functor f)
   => (Lens' KnowledgeModel (M.Map U.UUID a))
   -> ([a] -> f [a])
   -> KnowledgeModel
@@ -81,15 +82,13 @@ createEntityMFn accessor convert km = fmap (update km) (convert $ km ^. accessor
   where
     update km newValue = km & accessor .~ newValue
 
-toMap :: HasUuid' a => [a] -> M.Map U.UUID a
+toMap :: HasUuid' a U.UUID => [a] -> M.Map U.UUID a
 toMap = M.fromList . fmap (\entity -> (entity ^. uuid', entity))
 
-------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------
-class HasUuid' entity where
-  uuid' :: Functor f => (U.UUID -> f U.UUID) -> entity -> f entity
-
-instance HasUuid' KnowledgeModel where
+-- -------------------------
+-- UUID --------------------
+-- -------------------------
+instance HasUuid' KnowledgeModel U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: KnowledgeModel -> U.UUID
@@ -97,7 +96,7 @@ instance HasUuid' KnowledgeModel where
       set :: KnowledgeModel -> U.UUID -> KnowledgeModel
       set entity newValue = entity & uuid .~ newValue
 
-instance HasUuid' Chapter where
+instance HasUuid' Chapter U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Chapter -> U.UUID
@@ -105,21 +104,21 @@ instance HasUuid' Chapter where
       set :: Chapter -> U.UUID -> Chapter
       set entity newValue = entity & uuid .~ newValue
 
-instance HasUuid' Question where
+instance HasUuid' Question U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Question -> U.UUID
-      get (ListQuestion' entity) = entity ^. uuid
-      get (OptionsQuestion' entity) = entity ^. uuid
-      get (ValueQuestion' entity) = entity ^. uuid
-      get (IntegrationQuestion' entity) = entity ^. uuid
+      get q@ListQuestion {} = _listQuestionUuid q
+      get q@OptionsQuestion {} = _optionsQuestionUuid q
+      get q@ValueQuestion {} = _valueQuestionUuid q
+      get q@IntegrationQuestion {} = _integrationQuestionUuid q
       set :: Question -> U.UUID -> Question
-      set (ListQuestion' entity) newValue = ListQuestion' $ entity & uuid .~ newValue
-      set (OptionsQuestion' entity) newValue = OptionsQuestion' $ entity & uuid .~ newValue
-      set (ValueQuestion' entity) newValue = ValueQuestion' $ entity & uuid .~ newValue
-      set (IntegrationQuestion' entity) newValue = IntegrationQuestion' $ entity & uuid .~ newValue
+      set q@ListQuestion {} newValue = q {_listQuestionUuid = newValue}
+      set q@OptionsQuestion {} newValue = q {_optionsQuestionUuid = newValue}
+      set q@ValueQuestion {} newValue = q {_valueQuestionUuid = newValue}
+      set q@IntegrationQuestion {} newValue = q {_integrationQuestionUuid = newValue}
 
-instance HasUuid' Expert where
+instance HasUuid' Expert U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Expert -> U.UUID
@@ -127,19 +126,19 @@ instance HasUuid' Expert where
       set :: Expert -> U.UUID -> Expert
       set entity newValue = entity & uuid .~ newValue
 
-instance HasUuid' Reference where
+instance HasUuid' Reference U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Reference -> U.UUID
-      get (ResourcePageReference' entity) = entity ^. uuid
-      get (URLReference' entity) = entity ^. uuid
-      get (CrossReference' entity) = entity ^. uuid
+      get entity@ResourcePageReference {} = _resourcePageReferenceUuid entity
+      get entity@URLReference {} = _uRLReferenceUuid entity
+      get entity@CrossReference {} = _crossReferenceUuid entity
       set :: Reference -> U.UUID -> Reference
-      set (ResourcePageReference' entity) newValue = ResourcePageReference' $ entity & uuid .~ newValue
-      set (URLReference' entity) newValue = URLReference' $ entity & uuid .~ newValue
-      set (CrossReference' entity) newValue = CrossReference' $ entity & uuid .~ newValue
+      set entity@ResourcePageReference {} newValue = entity {_resourcePageReferenceUuid = newValue}
+      set entity@URLReference {} newValue = entity {_uRLReferenceUuid = newValue}
+      set entity@CrossReference {} newValue = entity {_crossReferenceUuid = newValue}
 
-instance HasUuid' Answer where
+instance HasUuid' Answer U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Answer -> U.UUID
@@ -147,7 +146,7 @@ instance HasUuid' Answer where
       set :: Answer -> U.UUID -> Answer
       set entity newValue = entity & uuid .~ newValue
 
-instance HasUuid' Tag where
+instance HasUuid' Tag U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Tag -> U.UUID
@@ -155,7 +154,7 @@ instance HasUuid' Tag where
       set :: Tag -> U.UUID -> Tag
       set entity newValue = entity & uuid .~ newValue
 
-instance HasUuid' Integration where
+instance HasUuid' Integration U.UUID where
   uuid' convert entity = fmap (set entity) (convert . get $ entity)
     where
       get :: Integration -> U.UUID
@@ -163,127 +162,129 @@ instance HasUuid' Integration where
       set :: Integration -> U.UUID -> Integration
       set entity newValue = entity & uuid .~ newValue
 
-------------------------------------------------------------------------------------------
+-- -------------------------
+-- QUESTION ----------------
+-- -------------------------
 title' :: Functor f => (String -> f String) -> Question -> f Question
 title' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> String
-    get (ListQuestion' q) = q ^. title
-    get (OptionsQuestion' q) = q ^. title
-    get (ValueQuestion' q) = q ^. title
-    get (IntegrationQuestion' q) = q ^. title
+    get q@ListQuestion {} = _listQuestionTitle q
+    get q@OptionsQuestion {} = _optionsQuestionTitle q
+    get q@ValueQuestion {} = _valueQuestionTitle q
+    get q@IntegrationQuestion {} = _integrationQuestionTitle q
     set :: Question -> String -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & title .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & title .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & title .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & title .~ newValue
+    set q@ListQuestion {} newValue = q {_listQuestionTitle = newValue}
+    set q@OptionsQuestion {} newValue = q {_optionsQuestionTitle = newValue}
+    set q@ValueQuestion {} newValue = q {_valueQuestionTitle = newValue}
+    set q@IntegrationQuestion {} newValue = q {_integrationQuestionTitle = newValue}
 
 ------------------------------------------------------------------------------------------
 text' :: Functor f => (Maybe String -> f (Maybe String)) -> Question -> f Question
 text' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> Maybe String
-    get (ListQuestion' q) = q ^. text
-    get (OptionsQuestion' q) = q ^. text
-    get (ValueQuestion' q) = q ^. text
-    get (IntegrationQuestion' q) = q ^. text
+    get q@ListQuestion {} = _listQuestionText q
+    get q@OptionsQuestion {} = _optionsQuestionText q
+    get q@ValueQuestion {} = _valueQuestionText q
+    get q@IntegrationQuestion {} = _integrationQuestionText q
     set :: Question -> Maybe String -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & text .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & text .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & text .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & text .~ newValue
+    set q@ListQuestion {} newValue = q {_listQuestionText = newValue}
+    set q@OptionsQuestion {} newValue = q {_optionsQuestionText = newValue}
+    set q@ValueQuestion {} newValue = q {_valueQuestionText = newValue}
+    set q@IntegrationQuestion {} newValue = q {_integrationQuestionText = newValue}
 
 ------------------------------------------------------------------------------------------
 requiredLevel' :: Functor f => (Maybe Int -> f (Maybe Int)) -> Question -> f Question
 requiredLevel' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> Maybe Int
-    get (ListQuestion' q) = q ^. requiredLevel
-    get (OptionsQuestion' q) = q ^. requiredLevel
-    get (ValueQuestion' q) = q ^. requiredLevel
-    get (IntegrationQuestion' q) = q ^. requiredLevel
+    get q@ListQuestion {} = _listQuestionRequiredLevel q
+    get q@OptionsQuestion {} = _optionsQuestionRequiredLevel q
+    get q@ValueQuestion {} = _valueQuestionRequiredLevel q
+    get q@IntegrationQuestion {} = _integrationQuestionRequiredLevel q
     set :: Question -> Maybe Int -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & requiredLevel .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & requiredLevel .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & requiredLevel .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & requiredLevel .~ newValue
+    set q@ListQuestion {} newValue = q {_listQuestionRequiredLevel = newValue}
+    set q@OptionsQuestion {} newValue = q {_optionsQuestionRequiredLevel = newValue}
+    set q@ValueQuestion {} newValue = q {_valueQuestionRequiredLevel = newValue}
+    set q@IntegrationQuestion {} newValue = q {_integrationQuestionRequiredLevel = newValue}
 
 ------------------------------------------------------------------------------------------
-tagUuids' :: Functor f => ([U.UUID] -> f [U.UUID]) -> Question -> f Question
-tagUuids' convert entity = fmap (set entity) (convert . get $ entity)
-  where
-    get :: Question -> [U.UUID]
-    get (ListQuestion' q) = q ^. tagUuids
-    get (OptionsQuestion' q) = q ^. tagUuids
-    get (ValueQuestion' q) = q ^. tagUuids
-    get (IntegrationQuestion' q) = q ^. tagUuids
-    set :: Question -> [U.UUID] -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & tagUuids .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & tagUuids .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & tagUuids .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & tagUuids .~ newValue
+instance HasTagUuids' Question [U.UUID] where
+  tagUuids' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Question -> [U.UUID]
+      get q@ListQuestion {} = _listQuestionTagUuids q
+      get q@OptionsQuestion {} = _optionsQuestionTagUuids q
+      get q@ValueQuestion {} = _valueQuestionTagUuids q
+      get q@IntegrationQuestion {} = _integrationQuestionTagUuids q
+      set :: Question -> [U.UUID] -> Question
+      set q@ListQuestion {} newValue = q {_listQuestionTagUuids = newValue}
+      set q@OptionsQuestion {} newValue = q {_optionsQuestionTagUuids = newValue}
+      set q@ValueQuestion {} newValue = q {_valueQuestionTagUuids = newValue}
+      set q@IntegrationQuestion {} newValue = q {_integrationQuestionTagUuids = newValue}
 
 -- ------------------------------------------------------------------------------------------
-expertUuids' :: Functor f => ([U.UUID] -> f [U.UUID]) -> Question -> f Question
-expertUuids' convert entity = fmap (set entity) (convert . get $ entity)
-  where
-    get :: Question -> [U.UUID]
-    get (ListQuestion' q) = q ^. expertUuids
-    get (OptionsQuestion' q) = q ^. expertUuids
-    get (ValueQuestion' q) = q ^. expertUuids
-    get (IntegrationQuestion' q) = q ^. expertUuids
-    set :: Question -> [U.UUID] -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & expertUuids .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & expertUuids .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & expertUuids .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & expertUuids .~ newValue
+instance HasExpertUuids' Question [U.UUID] where
+  expertUuids' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+        get :: Question -> [U.UUID]
+        get q@ListQuestion {} = _listQuestionExpertUuids q
+        get q@OptionsQuestion {} = _optionsQuestionExpertUuids q
+        get q@ValueQuestion {} = _valueQuestionExpertUuids q
+        get q@IntegrationQuestion {} = _integrationQuestionExpertUuids q
+        set :: Question -> [U.UUID] -> Question
+        set q@ListQuestion {} newValue = q {_listQuestionExpertUuids = newValue}
+        set q@OptionsQuestion {} newValue = q {_optionsQuestionExpertUuids = newValue}
+        set q@ValueQuestion {} newValue = q {_valueQuestionExpertUuids = newValue}
+        set q@IntegrationQuestion {} newValue = q {_integrationQuestionExpertUuids = newValue}
 
 -- ------------------------------------------------------------------------------------------
-referenceUuids' :: Functor f => ([U.UUID] -> f [U.UUID]) -> Question -> f Question
-referenceUuids' convert entity = fmap (set entity) (convert . get $ entity)
-  where
-    get :: Question -> [U.UUID]
-    get (ListQuestion' q) = q ^. referenceUuids
-    get (OptionsQuestion' q) = q ^. referenceUuids
-    get (ValueQuestion' q) = q ^. referenceUuids
-    get (IntegrationQuestion' q) = q ^. referenceUuids
-    set :: Question -> [U.UUID] -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & referenceUuids .~ newValue
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & referenceUuids .~ newValue
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & referenceUuids .~ newValue
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & referenceUuids .~ newValue
+instance HasReferenceUuids' Question [U.UUID] where
+  referenceUuids' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Question -> [U.UUID]
+      get q@ListQuestion {} = _listQuestionReferenceUuids q
+      get q@OptionsQuestion {} = _optionsQuestionReferenceUuids q
+      get q@ValueQuestion {} = _valueQuestionReferenceUuids q
+      get q@IntegrationQuestion {} = _integrationQuestionReferenceUuids q
+      set :: Question -> [U.UUID] -> Question
+      set q@ListQuestion {} newValue = q {_listQuestionReferenceUuids = newValue}
+      set q@OptionsQuestion {} newValue = q {_optionsQuestionReferenceUuids = newValue}
+      set q@ValueQuestion {} newValue = q {_valueQuestionReferenceUuids = newValue}
+      set q@IntegrationQuestion {} newValue = q {_integrationQuestionReferenceUuids = newValue}
 
 -- ------------------------------------------------------------------------------------------
-answerUuids' :: Functor f => ([U.UUID] -> f [U.UUID]) -> Question -> f Question
-answerUuids' convert entity = fmap (set entity) (convert . get $ entity)
-  where
-    get :: Question -> [U.UUID]
-    get (OptionsQuestion' q) = q ^. answerUuids
-    get q = []
-    set :: Question -> [U.UUID] -> Question
-    set (OptionsQuestion' q) newValue = OptionsQuestion' $ q & answerUuids .~ newValue
-    set q newValue = q
+instance HasAnswerUuids' Question [U.UUID] where
+  answerUuids' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Question -> [U.UUID]
+      get q@OptionsQuestion {} = _optionsQuestionAnswerUuids q
+      get q = []
+      set :: Question -> [U.UUID] -> Question
+      set q@OptionsQuestion {} newValue = q {_optionsQuestionAnswerUuids = newValue}
+      set q newValue = q
 
 -- ------------------------------------------------------------------------------------------
-itemTemplateQuestionUuids' :: Functor f => ([U.UUID] -> f [U.UUID]) -> Question -> f Question
-itemTemplateQuestionUuids' convert entity = fmap (set entity) (convert . get $ entity)
-  where
-    get :: Question -> [U.UUID]
-    get (ListQuestion' q) = q ^. itemTemplateQuestionUuids
-    get q = []
-    set :: Question -> [U.UUID] -> Question
-    set (ListQuestion' q) newValue = ListQuestion' $ q & itemTemplateQuestionUuids .~ newValue
-    set q newValue = q
+instance HasItemTemplateQuestionUuids' Question [U.UUID] where
+  itemTemplateQuestionUuids' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Question -> [U.UUID]
+      get q@ListQuestion {} = _listQuestionItemTemplateQuestionUuids q
+      get q = []
+      set :: Question -> [U.UUID] -> Question
+      set q@ListQuestion {} newValue = q {_listQuestionItemTemplateQuestionUuids = newValue}
+      set q newValue = q
 
 -- ------------------------------------------------------------------------------------------
 valueType' :: Functor f => (QuestionValueType -> f QuestionValueType) -> Question -> f Question
 valueType' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> QuestionValueType
-    get (ValueQuestion' q) = q ^. valueType
+    get q@ValueQuestion {} = _valueQuestionValueType q
     get q = StringQuestionValueType
     set :: Question -> QuestionValueType -> Question
-    set (ValueQuestion' q) newValue = ValueQuestion' $ q & valueType .~ newValue
+    set q@ValueQuestion {} newValue = q {_valueQuestionValueType = newValue}
     set q newValue = q
 
 -- ------------------------------------------------------------------------------------------
@@ -291,10 +292,10 @@ integrationUuid' :: Functor f => (U.UUID -> f U.UUID) -> Question -> f Question
 integrationUuid' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> U.UUID
-    get (IntegrationQuestion' q) = q ^. integrationUuid
+    get q@IntegrationQuestion {} = _integrationQuestionIntegrationUuid q
     get q = U.nil
     set :: Question -> U.UUID -> Question
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & integrationUuid .~ newValue
+    set q@IntegrationQuestion {} newValue = q {_integrationQuestionIntegrationUuid = newValue}
     set q newValue = q
 
 -- ------------------------------------------------------------------------------------------
@@ -302,8 +303,65 @@ props' :: Functor f => (M.Map String String -> f (M.Map String String)) -> Quest
 props' convert entity = fmap (set entity) (convert . get $ entity)
   where
     get :: Question -> M.Map String String
-    get (IntegrationQuestion' q) = q ^. props
+    get q@IntegrationQuestion {} = _integrationQuestionProps q
     get q = M.empty
     set :: Question -> M.Map String String -> Question
-    set (IntegrationQuestion' q) newValue = IntegrationQuestion' $ q & props .~ newValue
+    set q@IntegrationQuestion {} newValue = q {_integrationQuestionProps = newValue}
     set q newValue = q
+
+-- -------------------------
+-- REFERENCE ---------------
+-- -------------------------
+instance HasShortUuid' Reference String where
+  shortUuid' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Reference -> String
+      get ref@ResourcePageReference {} = _resourcePageReferenceShortUuid ref
+      get ref = ""
+      set :: Reference -> String -> Reference
+      set ref@ResourcePageReference {} newValue = ref {_resourcePageReferenceShortUuid = newValue}
+      set ref newValue = ref
+
+-- ------------------------------------------------------------------------------------------
+instance HasUrl' Reference String where
+  url' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Reference -> String
+      get ref@URLReference {} = _uRLReferenceUrl ref
+      get ref = ""
+      set :: Reference -> String -> Reference
+      set ref@URLReference {} newValue = ref {_uRLReferenceUrl = newValue}
+      set ref newValue = ref
+
+-- ------------------------------------------------------------------------------------------
+instance HasLabel' Reference String where
+  label' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Reference -> String
+      get ref@URLReference {} = _uRLReferenceLabel ref
+      get ref = ""
+      set :: Reference -> String -> Reference
+      set ref@URLReference {} newValue = ref {_uRLReferenceLabel = newValue}
+      set ref newValue = ref
+
+-- ------------------------------------------------------------------------------------------
+instance HasTargetUuid' Reference U.UUID where
+  targetUuid' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Reference -> U.UUID
+      get ref@CrossReference {} = _crossReferenceTargetUuid ref
+      get ref = U.nil
+      set :: Reference -> U.UUID -> Reference
+      set ref@CrossReference {} newValue = ref {_crossReferenceTargetUuid = newValue}
+      set ref newValue = ref
+
+-- ------------------------------------------------------------------------------------------
+instance HasDescription' Reference String where
+  description' convert entity = fmap (set entity) (convert . get $ entity)
+    where
+      get :: Reference -> String
+      get ref@CrossReference {} = _crossReferenceDescription ref
+      get ref = ""
+      set :: Reference -> String -> Reference
+      set ref@CrossReference {} newValue = ref {_crossReferenceDescription = newValue}
+      set ref newValue = ref

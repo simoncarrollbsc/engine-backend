@@ -4,7 +4,7 @@ module Registry.Service.Package.PackageService
   , getSeriesOfPackages
   ) where
 
-import Control.Lens ((^.))
+import Control.Lens ((^.), (^..), traverse)
 import Data.List (maximumBy)
 
 import LensesConfig
@@ -58,4 +58,4 @@ getSeriesOfPackages pkgId = do
 getPackageVersions :: Package -> AppContextM [String]
 getPackageVersions pkg = do
   allPkgs <- findPackagesByOrganizationIdAndKmId (pkg ^. organizationId) (pkg ^. kmId)
-  return . fmap _packageVersion $ allPkgs
+  return $ allPkgs ^.. traverse . version

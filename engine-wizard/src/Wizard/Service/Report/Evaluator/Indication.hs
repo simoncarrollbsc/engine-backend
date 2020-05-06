@@ -10,7 +10,7 @@ import qualified Data.UUID as U
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.KnowledgeModel.KnowledgeModelAccessors
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Model.Questionnaire.QuestionnaireReply
 import Wizard.Model.Report.Report
 import Wizard.Util.List (generateList)
@@ -26,7 +26,6 @@ computeIndications levelsEnabled qtnLevel km replies ch =
 -- --------------------------------
 computeAnsweredIndication :: Int -> KnowledgeModel -> [Reply] -> Chapter -> Indication
 computeAnsweredIndication qtnLevel km replies ch =
-  AnsweredIndication' $
   AnsweredIndication
     { _answeredIndicationAnsweredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
     , _answeredIndicationUnansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
@@ -34,7 +33,6 @@ computeAnsweredIndication qtnLevel km replies ch =
 
 computeLevelsAnsweredIndication :: Int -> KnowledgeModel -> [Reply] -> Chapter -> Indication
 computeLevelsAnsweredIndication qtnLevel km replies ch =
-  LevelsAnsweredIndication' $
   LevelsAnsweredIndication
     { _levelsAnsweredIndicationAnsweredQuestions = evaluateChapter 1 0 qtnLevel km replies ch
     , _levelsAnsweredIndicationUnansweredQuestions = evaluateChapter 0 1 qtnLevel km replies ch
@@ -55,25 +53,25 @@ evaluateQuestion found notFound qtnLevel km replies path q' =
   where
     children currentPath =
       case q' of
-        ValueQuestion' q -> rFound
-        IntegrationQuestion' q -> rFound
-        OptionsQuestion' q -> rFound + (evaluateOptionsQuestion q found notFound qtnLevel km replies currentPath)
-        ListQuestion' q -> evaluateListQuestion found notFound qtnLevel km replies currentPath q
+        q@ValueQuestion {} -> rFound
+        q@IntegrationQuestion {} -> rFound
+        q@OptionsQuestion {} -> rFound + (evaluateOptionsQuestion q found notFound qtnLevel km replies currentPath)
+        q@ListQuestion {} -> evaluateListQuestion found notFound qtnLevel km replies currentPath q
       where
         rFound = isRequiredNow (q' ^. requiredLevel') qtnLevel found
 
-evaluateOptionsQuestion :: OptionsQuestion -> Int -> Int -> Int -> KnowledgeModel -> [Reply] -> String -> Int
+evaluateOptionsQuestion :: Question -> Int -> Int -> Int -> KnowledgeModel -> [Reply] -> String -> Int
 evaluateOptionsQuestion q found notFound qtnLevel km replies path =
   case getReply replies path of
     Just (Reply {_replyValue = AnswerReply {..}}) ->
       let currentPath = composePathUuid path _answerReplyValue
           qs = getQuestionsForAnswerUuid km _answerReplyValue
        in sum . fmap (evaluateQuestion found notFound qtnLevel km replies currentPath) $ qs
-    Nothing -> isRequiredNow (q ^. requiredLevel) qtnLevel notFound
+    Nothing -> isRequiredNow (q ^. requiredLevel') qtnLevel notFound
 
-evaluateListQuestion :: Int -> Int -> Int -> KnowledgeModel -> [Reply] -> String -> ListQuestion -> Int
+evaluateListQuestion :: Int -> Int -> Int -> KnowledgeModel -> [Reply] -> String -> Question -> Int
 evaluateListQuestion found notFound qtnLevel km replies currentPath q =
-  let itemQs = getItemTemplateQuestionsForQuestionUuid km $ q ^. uuid
+  let itemQs = getItemTemplateQuestionsForQuestionUuid km $ q ^. uuid'
       itemCount =
         case getReply replies currentPath of
           Just (Reply {_replyValue = ItemListReply {..}}) -> _itemListReplyValue
@@ -83,8 +81,8 @@ evaluateListQuestion found notFound qtnLevel km replies currentPath q =
         fmap (evaluateQuestion found notFound qtnLevel km replies (composePath currentPath $ show index)) $ itemQs
       current =
         if itemCount > 0
-          then isRequiredNow (q ^. requiredLevel) qtnLevel found
-          else isRequiredNow (q ^. requiredLevel) qtnLevel notFound
+          then isRequiredNow (q ^. requiredLevel') qtnLevel found
+          else isRequiredNow (q ^. requiredLevel') qtnLevel notFound
       childrens = sum . concat . fmap evaluateQuestion' $ indexes
    in current + childrens
 

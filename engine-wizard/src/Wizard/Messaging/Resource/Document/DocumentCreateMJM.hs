@@ -7,7 +7,7 @@ import Wizard.Api.Resource.Document.DocumentContextJM ()
 import Wizard.Messaging.Resource.Document.DocumentCreateMDTO
 
 instance FromJSON DocumentCreateMDTO where
-  parseJSON = simpleParseJSON "_documentCreateMDTO"
+  parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON DocumentCreateMDTO where
-  toJSON = simpleToJSON "_documentCreateMDTO"
+  toJSON = genericToJSON simpleOptions

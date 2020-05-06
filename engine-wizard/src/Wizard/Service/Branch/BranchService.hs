@@ -68,10 +68,10 @@ createBranchWithParams bUuid now currentUser reqDto = do
           kmUuid <- liftIO generateUuid
           let addKMEvent =
                 AddKnowledgeModelEvent
-                  { _addKnowledgeModelEventUuid = uuid
-                  , _addKnowledgeModelEventParentUuid = U.nil
-                  , _addKnowledgeModelEventEntityUuid = kmUuid
-                  , _addKnowledgeModelEventName = "New knowledge model"
+                  { _uuid = uuid
+                  , _parentUuid = U.nil
+                  , _entityUuid = kmUuid
+                  , _name = "New knowledge model"
                   }
           updateEventsInBranch branchUuid [AddKnowledgeModelEvent' addKMEvent]
 

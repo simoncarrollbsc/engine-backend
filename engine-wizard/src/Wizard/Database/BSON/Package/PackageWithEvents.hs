@@ -2,15 +2,8 @@ module Wizard.Database.BSON.Package.PackageWithEvents where
 
 import qualified Data.Bson as BSON
 import Data.Bson.Generic
-import Data.Maybe
 
-import Shared.Database.BSON.Event.Answer ()
-import Shared.Database.BSON.Event.Chapter ()
-import Shared.Database.BSON.Event.Common
-import Shared.Database.BSON.Event.Expert ()
-import Shared.Database.BSON.Event.KnowledgeModel ()
-import Shared.Database.BSON.Event.Question ()
-import Shared.Database.BSON.Event.Reference ()
+import Shared.Database.BSON.Event.Event ()
 import Shared.Model.Package.PackageWithEvents
 
 instance ToBSON PackageWithEvents where
@@ -27,8 +20,9 @@ instance ToBSON PackageWithEvents where
     , "previousPackageId" BSON.=: _packageWithEventsPreviousPackageId
     , "forkOfPackageId" BSON.=: _packageWithEventsForkOfPackageId
     , "mergeCheckpointPackageId" BSON.=: _packageWithEventsMergeCheckpointPackageId
-    , "events" BSON.=: convertEventToBSON <$> _packageWithEventsEvents
+    , "events" BSON.=: _packageWithEventsEvents
     , "createdAt" BSON.=: _packageWithEventsCreatedAt
+    , "_co" BSON.=: "Package"
     ]
 
 instance FromBSON PackageWithEvents where
@@ -45,7 +39,6 @@ instance FromBSON PackageWithEvents where
     _packageWithEventsPreviousPackageId <- BSON.lookup "previousPackageId" doc
     _packageWithEventsForkOfPackageId <- BSON.lookup "forkOfPackageId" doc
     _packageWithEventsMergeCheckpointPackageId <- BSON.lookup "mergeCheckpointPackageId" doc
-    pkgEventsSerialized <- BSON.lookup "events" doc
-    let _packageWithEventsEvents = (fromJust . chooseEventDeserializator) <$> pkgEventsSerialized
+    _packageWithEventsEvents <- BSON.lookup "events" doc
     _packageWithEventsCreatedAt <- BSON.lookup "createdAt" doc
     return PackageWithEvents {..}

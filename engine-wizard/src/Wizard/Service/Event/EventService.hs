@@ -1,17 +1,15 @@
 module Wizard.Service.Event.EventService where
 
-import Shared.Api.Resource.Event.EventDTO
-import Shared.Service.Event.EventMapper
+import Shared.Model.Event.Event
 import Wizard.Database.DAO.Event.EventDAO
 import Wizard.Model.Context.AppContext
 import Wizard.Service.Branch.BranchService
 
-updateEvents :: String -> [EventDTO] -> AppContextM [EventDTO]
-updateEvents branchUuid eventsCreateDto = do
+updateEvents :: String -> [Event] -> AppContextM [Event]
+updateEvents branchUuid events = do
   _ <- getBranchById branchUuid
-  let events = fromDTOs eventsCreateDto
   updateEventsInBranch branchUuid events
-  return . toDTOs $ events
+  return events
 
 deleteEvents :: String -> AppContextM ()
 deleteEvents branchUuid = do

@@ -34,7 +34,7 @@ getFeedbacksFiltered :: [(String, String)] -> AppContextM [FeedbackDTO]
 getFeedbacksFiltered queryParams = do
   checkIfFeedbackIsEnabled
   fbks <- findFeedbacksFiltered queryParams
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   return $ (\f -> toDTO f (createIssueUrl (serverConfig ^. feedback) (appConfig ^. questionnaire . feedback) f)) <$>
     fbks
@@ -52,7 +52,7 @@ createFeedbackWithGivenUuid fUuid reqDto = do
   now <- liftIO getCurrentTime
   let fbk = fromCreateDTO reqDto fUuid (issue ^. id) now
   insertFeedback fbk
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let iUrl = createIssueUrl (serverConfig ^. feedback) (appConfig ^. questionnaire . feedback) fbk
   return $ toDTO fbk iUrl
@@ -61,7 +61,7 @@ getFeedbackByUuid :: String -> AppContextM FeedbackDTO
 getFeedbackByUuid fUuid = do
   checkIfFeedbackIsEnabled
   fbk <- findFeedbackById fUuid
-  serverConfig <- asks _appContextServerConfig
+  serverConfig <- asks _serverConfig
   appConfig <- getAppConfig
   let iUrl = createIssueUrl (serverConfig ^. feedback) (appConfig ^. questionnaire . feedback) fbk
   return $ toDTO fbk iUrl

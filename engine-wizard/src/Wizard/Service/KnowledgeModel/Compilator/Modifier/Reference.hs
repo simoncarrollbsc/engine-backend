@@ -3,70 +3,88 @@ module Wizard.Service.KnowledgeModel.Compilator.Modifier.Reference where
 import Control.Lens ((^.))
 import qualified Data.UUID as U
 
-import LensesConfig
-import Shared.Model.Event.Reference.ReferenceEvent
+import LensesExtension
+import Shared.Model.Event.Event
+import Shared.Model.Event.EventField
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 
-instance CreateEntity AddReferenceEvent Reference where
-  createEntity (AddResourcePageReferenceEvent' e) =
-    ResourcePageReference' $
+instance CreateEntity Event Reference where
+  createEntity e@AddResourcePageReferenceEvent {..} =
     ResourcePageReference
-      {_resourcePageReferenceUuid = e ^. entityUuid, _resourcePageReferenceShortUuid = e ^. shortUuid}
-  createEntity (AddURLReferenceEvent' e) =
-    URLReference' $
-    URLReference {_uRLReferenceUuid = e ^. entityUuid, _uRLReferenceUrl = e ^. url, _uRLReferenceLabel = e ^. label}
-  createEntity (AddCrossReferenceEvent' e) =
-    CrossReference' $
+      { _resourcePageReferenceUuid = _addResourcePageReferenceEventEntityUuid
+      , _resourcePageReferenceShortUuid = _addResourcePageReferenceEventShortUuid
+      }
+  createEntity e@AddURLReferenceEvent {..} =
+    URLReference
+      { _uRLReferenceUuid = _addURLReferenceEventEntityUuid
+      , _uRLReferenceUrl = _addURLReferenceEventUrl
+      , _uRLReferenceLabel = _addURLReferenceEventLabel
+      }
+  createEntity e@AddCrossReferenceEvent {..} =
     CrossReference
-      { _crossReferenceUuid = e ^. entityUuid
-      , _crossReferenceTargetUuid = e ^. targetUuid
-      , _crossReferenceDescription = e ^. description
+      { _crossReferenceUuid = _addCrossReferenceEventEntityUuid
+      , _crossReferenceTargetUuid = _addCrossReferenceEventTargetUuid
+      , _crossReferenceDescription = _addCrossReferenceEventDescription
       }
 
-instance EditEntity EditReferenceEvent Reference where
+instance EditEntity Event Reference where
   editEntity e' ref =
     case e' of
-      (EditResourcePageReferenceEvent' e) ->
-        ResourcePageReference' . applyToResourcePageReference e . convertToResourcePageReference $ ref
-      (EditURLReferenceEvent' e) -> URLReference' . applyToURLReference e . convertToURLReference $ ref
-      (EditCrossReferenceEvent' e) -> CrossReference' . applyToCrossReference e . convertToCrossReference $ ref
+      e@EditResourcePageReferenceEvent {} -> applyToResourcePageReference e . convertToResourcePageReference $ ref
+      e@EditURLReferenceEvent {} -> applyToURLReference e . convertToURLReference $ ref
+      e@EditCrossReferenceEvent {} -> applyToCrossReference e . convertToCrossReference $ ref
     where
       applyToResourcePageReference e = applyShortUuid e
-      applyToURLReference e = applyAnchor e . applyUrl e
+      applyToURLReference e = applyLabel e . applyUrl e
       applyToCrossReference e = applyDescription e . applyTarget e
-      applyShortUuid e ref = applyValue (e ^. shortUuid) ref shortUuid
-      applyUrl e ref = applyValue (e ^. url) ref url
-      applyAnchor e ref = applyValue (e ^. label) ref label
-      applyTarget e ref = applyValue (e ^. targetUuid) ref targetUuid
-      applyDescription e ref = applyValue (e ^. description) ref description
+      applyShortUuid e ref =  
+        case _editResourcePageReferenceEventShortUuid e of
+          ChangedValue newValue -> ref {_resourcePageReferenceShortUuid = newValue}
+          NothingChanged -> ref
+      applyUrl e ref =  
+        case _editURLReferenceEventUrl e of
+          ChangedValue newValue -> ref {_uRLReferenceUrl = newValue}
+          NothingChanged -> ref
+      applyLabel e ref = 
+        case _editURLReferenceEventLabel e of
+          ChangedValue newValue -> ref {_uRLReferenceLabel = newValue}
+          NothingChanged -> ref
+      applyTarget e ref = 
+        case _editCrossReferenceEventTargetUuid e of
+          ChangedValue newValue -> ref {_crossReferenceTargetUuid = newValue}
+          NothingChanged -> ref
+      applyDescription e ref =
+        case _editCrossReferenceEventDescription e of
+          ChangedValue description -> ref {_crossReferenceDescription = description}
+          NothingChanged -> ref
 
-convertToResourcePageReference :: Reference -> ResourcePageReference
-convertToResourcePageReference (ResourcePageReference' ref) = ref
+convertToResourcePageReference :: Reference -> Reference
+convertToResourcePageReference ref@ResourcePageReference {} = ref
 convertToResourcePageReference ref' =
   case ref' of
-    (URLReference' ref) -> createQuestion ref
-    (CrossReference' ref) -> createQuestion ref
+    ref@URLReference {} -> createQuestion ref
+    ref@CrossReference {} -> createQuestion ref
   where
     createQuestion ref =
-      ResourcePageReference {_resourcePageReferenceUuid = ref ^. uuid, _resourcePageReferenceShortUuid = ""}
+      ResourcePageReference {_resourcePageReferenceUuid = ref ^. uuid', _resourcePageReferenceShortUuid = ""}
 
-convertToURLReference :: Reference -> URLReference
-convertToURLReference (URLReference' ref) = ref
+convertToURLReference :: Reference -> Reference
+convertToURLReference ref@URLReference {} = ref
 convertToURLReference ref' =
   case ref' of
-    (ResourcePageReference' ref) -> createQuestion ref
-    (CrossReference' ref) -> createQuestion ref
+    ref@ResourcePageReference {} -> createQuestion ref
+    ref@CrossReference {} -> createQuestion ref
   where
-    createQuestion ref = URLReference {_uRLReferenceUuid = ref ^. uuid, _uRLReferenceUrl = "", _uRLReferenceLabel = ""}
+    createQuestion ref = URLReference {_uRLReferenceUuid = ref ^. uuid', _uRLReferenceUrl = "", _uRLReferenceLabel = ""}
 
-convertToCrossReference :: Reference -> CrossReference
-convertToCrossReference (CrossReference' ref) = ref
+convertToCrossReference :: Reference -> Reference
+convertToCrossReference ref@CrossReference {} = ref
 convertToCrossReference ref' =
   case ref' of
-    (ResourcePageReference' ref) -> createQuestion ref
-    (URLReference' ref) -> createQuestion ref
+    ref@ResourcePageReference {} -> createQuestion ref
+    ref@URLReference {} -> createQuestion ref
   where
     createQuestion ref =
       CrossReference
-        {_crossReferenceUuid = ref ^. uuid, _crossReferenceTargetUuid = U.nil, _crossReferenceDescription = ""}
+        {_crossReferenceUuid = ref ^. uuid', _crossReferenceTargetUuid = U.nil, _crossReferenceDescription = ""}

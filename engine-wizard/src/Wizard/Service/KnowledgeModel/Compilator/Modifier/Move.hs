@@ -7,7 +7,7 @@ import LensesConfig
 import Shared.Model.Event.EventAccessors
 import Shared.Model.Event.Move.MoveEvent
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 
 instance EditEntity MoveQuestionEvent Chapter where

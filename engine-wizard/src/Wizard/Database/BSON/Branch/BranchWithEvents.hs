@@ -2,10 +2,9 @@ module Wizard.Database.BSON.Branch.BranchWithEvents where
 
 import qualified Data.Bson as BSON
 import Data.Bson.Generic
-import Data.Maybe
 
 import Shared.Database.BSON.Common ()
-import Shared.Database.BSON.Event.Common
+import Shared.Database.BSON.Event.Event ()
 import Wizard.Model.Branch.Branch
 
 instance ToBSON BranchWithEvents where
@@ -15,10 +14,11 @@ instance ToBSON BranchWithEvents where
     , "kmId" BSON.=: _branchWithEventsKmId
     , "metamodelVersion" BSON.=: _branchWithEventsMetamodelVersion
     , "previousPackageId" BSON.=: _branchWithEventsPreviousPackageId
-    , "events" BSON.=: convertEventToBSON <$> _branchWithEventsEvents
+    , "events" BSON.=: _branchWithEventsEvents
     , "ownerUuid" BSON.=: _branchWithEventsOwnerUuid
     , "createdAt" BSON.=: _branchWithEventsCreatedAt
     , "updatedAt" BSON.=: _branchWithEventsUpdatedAt
+    , "_co" BSON.=: "Branch"
     ]
 
 instance FromBSON BranchWithEvents where
@@ -28,8 +28,7 @@ instance FromBSON BranchWithEvents where
     _branchWithEventsKmId <- BSON.lookup "kmId" doc
     _branchWithEventsMetamodelVersion <- BSON.lookup "metamodelVersion" doc
     _branchWithEventsPreviousPackageId <- BSON.lookup "previousPackageId" doc
-    eventsSerialized <- BSON.lookup "events" doc
-    let _branchWithEventsEvents = fmap (fromJust . chooseEventDeserializator) eventsSerialized
+    _branchWithEventsEvents <- BSON.lookup "events" doc
     _branchWithEventsOwnerUuid <- BSON.lookup "ownerUuid" doc
     _branchWithEventsCreatedAt <- BSON.lookup "createdAt" doc
     _branchWithEventsUpdatedAt <- BSON.lookup "updatedAt" doc

@@ -9,69 +9,67 @@ import Wizard.Database.Migration.Development.Config.Data.AppConfigs
 import Wizard.Model.Config.AppConfig
 
 instance ToSchema AppConfig where
-  declareNamedSchema = simpleToSchema' "_appConfig" defaultAppConfig
+  declareNamedSchema = simpleToSchema defaultAppConfig
 
 instance ToSchema AppConfigOrganization where
-  declareNamedSchema = simpleToSchema' "_appConfigOrganization" defaultOrganization
+  declareNamedSchema = simpleToSchema defaultOrganization
 
 instance ToSchema AppConfigAuth where
-  declareNamedSchema = simpleToSchema' "_appConfigAuth" defaultAuth
+  declareNamedSchema = simpleToSchema defaultAuth
 
 instance ToSchema AppConfigAuthInternal where
-  declareNamedSchema = simpleToSchema' "_appConfigAuthInternal" defaultAuthInternal
+  declareNamedSchema = simpleToSchema defaultAuthInternal
 
 instance ToSchema AppConfigAuthExternal where
-  declareNamedSchema = simpleToSchema' "_appConfigAuthExternal" defaultAuthExternal
+  declareNamedSchema = simpleToSchema defaultAuthExternal
 
 instance ToSchema AppConfigAuthExternalService where
-  declareNamedSchema = simpleToSchema' "_appConfigAuthExternalService" defaultAuthExternalService
+  declareNamedSchema = simpleToSchema defaultAuthExternalService
 
 instance ToSchema AppConfigAuthExternalServiceParameter where
-  declareNamedSchema = simpleToSchema' "_appConfigAuthExternalServiceParameter" defaultAuthExternalServiceParameter
+  declareNamedSchema = simpleToSchema defaultAuthExternalServiceParameter
 
 instance ToSchema AppConfigAuthExternalServiceStyle where
-  declareNamedSchema = simpleToSchema' "_appConfigAuthExternalServiceStyle" defaultAuthExternalServiceStyle
+  declareNamedSchema = simpleToSchema defaultAuthExternalServiceStyle
 
 instance ToSchema AppConfigPrivacyAndSupport where
-  declareNamedSchema = simpleToSchema' "_appConfigPrivacyAndSupport" defaultPrivacyAndSupport
+  declareNamedSchema = simpleToSchema defaultPrivacyAndSupport
 
 instance ToSchema AppConfigDashboard where
-  declareNamedSchema = simpleToSchema' "_appConfigDashboard" defaultDashboard
+  declareNamedSchema = simpleToSchema defaultDashboard
 
 instance ToSchema AppConfigDashboardWidgets where
-  declareNamedSchema = simpleToSchema' "_appConfigDashboardWidgets" defaultDashboardWidgets
+  declareNamedSchema = simpleToSchema defaultDashboardWidgets
 
 instance ToSchema AppConfigLookAndFeel where
-  declareNamedSchema = simpleToSchema' "_appConfigLookAndFeel" defaultLookAndFeel
+  declareNamedSchema = simpleToSchema defaultLookAndFeel
 
 instance ToSchema AppConfigLookAndFeelCustomMenuLink where
-  declareNamedSchema = simpleToSchema' "_appConfigLookAndFeelCustomMenuLink" defaultLookAndFeelCustomLink
+  declareNamedSchema = simpleToSchema defaultLookAndFeelCustomLink
 
 instance ToSchema AppConfigRegistry where
-  declareNamedSchema = simpleToSchema' "_appConfigRegistry" defaultRegistry
+  declareNamedSchema = simpleToSchema defaultRegistry
 
 instance ToSchema AppConfigQuestionnaire where
-  declareNamedSchema = simpleToSchema' "_appConfigQuestionnaire" defaultQuestionnaire
+  declareNamedSchema = simpleToSchema defaultQuestionnaire
 
 instance ToSchema AppConfigQuestionnaireFeedback where
-  declareNamedSchema = simpleToSchema' "_appConfigQuestionnaireFeedback" defaultFeedback
+  declareNamedSchema = simpleToSchema defaultFeedback
 
 instance ToSchema AppConfigTemplate where
-  declareNamedSchema = simpleToSchema' "_appConfigTemplate" defaultTemplate
+  declareNamedSchema = simpleToSchema defaultTemplate
 
 instance ToSchema AppConfigSubmission where
-  declareNamedSchema = simpleToSchema' "_appConfigSubmission" defaultSubmission
+  declareNamedSchema = simpleToSchema defaultSubmission
 
 instance ToSchema AppConfigSubmissionService where
-  declareNamedSchema = simpleToSchema' "_appConfigSubmissionService" defaultSubmissionService
+  declareNamedSchema = simpleToSchema defaultSubmissionService
 
 instance ToSchema AppConfigSubmissionServiceSupportedFormat where
-  declareNamedSchema =
-    simpleToSchema' "_appConfigSubmissionServiceSupportedFormat" defaultSubmissionServiceSupportedFormat
+  declareNamedSchema = simpleToSchema defaultSubmissionServiceSupportedFormat
 
 instance ToSchema AppConfigSubmissionServiceRequest where
-  declareNamedSchema = simpleToSchema' "_appConfigSubmissionServiceRequest" defaultSubmissionServiceRequest
+  declareNamedSchema = simpleToSchema defaultSubmissionServiceRequest
 
 instance ToSchema AppConfigSubmissionServiceRequestMultipart where
-  declareNamedSchema =
-    simpleToSchema' "_appConfigSubmissionServiceRequestMultipart" defaultSubmissionServiceRequestMultipart
+  declareNamedSchema = simpleToSchema defaultSubmissionServiceRequestMultipart

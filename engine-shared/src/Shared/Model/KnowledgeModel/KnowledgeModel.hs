@@ -50,63 +50,47 @@ data QuestionValueType
   deriving (Show, Eq, Generic)
 
 data Question
-  = OptionsQuestion' OptionsQuestion
-  | ListQuestion' ListQuestion
-  | ValueQuestion' ValueQuestion
-  | IntegrationQuestion' IntegrationQuestion
-  deriving (Show, Eq, Generic)
-
-data OptionsQuestion =
-  OptionsQuestion
-    { _optionsQuestionUuid :: U.UUID
-    , _optionsQuestionTitle :: String
-    , _optionsQuestionText :: Maybe String
-    , _optionsQuestionRequiredLevel :: Maybe Int
-    , _optionsQuestionTagUuids :: [U.UUID]
-    , _optionsQuestionExpertUuids :: [U.UUID]
-    , _optionsQuestionReferenceUuids :: [U.UUID]
-    , _optionsQuestionAnswerUuids :: [U.UUID]
-    }
-  deriving (Show, Eq, Generic)
-
-data ListQuestion =
-  ListQuestion
-    { _listQuestionUuid :: U.UUID
-    , _listQuestionTitle :: String
-    , _listQuestionText :: Maybe String
-    , _listQuestionRequiredLevel :: Maybe Int
-    , _listQuestionTagUuids :: [U.UUID]
-    , _listQuestionExpertUuids :: [U.UUID]
-    , _listQuestionReferenceUuids :: [U.UUID]
-    , _listQuestionItemTemplateQuestionUuids :: [U.UUID]
-    }
-  deriving (Show, Eq, Generic)
-
-data ValueQuestion =
-  ValueQuestion
-    { _valueQuestionUuid :: U.UUID
-    , _valueQuestionTitle :: String
-    , _valueQuestionText :: Maybe String
-    , _valueQuestionRequiredLevel :: Maybe Int
-    , _valueQuestionTagUuids :: [U.UUID]
-    , _valueQuestionExpertUuids :: [U.UUID]
-    , _valueQuestionReferenceUuids :: [U.UUID]
-    , _valueQuestionValueType :: QuestionValueType
-    }
-  deriving (Show, Eq, Generic)
-
-data IntegrationQuestion =
-  IntegrationQuestion
-    { _integrationQuestionUuid :: U.UUID
-    , _integrationQuestionTitle :: String
-    , _integrationQuestionText :: Maybe String
-    , _integrationQuestionRequiredLevel :: Maybe Int
-    , _integrationQuestionTagUuids :: [U.UUID]
-    , _integrationQuestionExpertUuids :: [U.UUID]
-    , _integrationQuestionReferenceUuids :: [U.UUID]
-    , _integrationQuestionIntegrationUuid :: U.UUID
-    , _integrationQuestionProps :: Map String String
-    }
+  = OptionsQuestion
+      { _optionsQuestionUuid :: U.UUID
+      , _optionsQuestionTitle :: String
+      , _optionsQuestionText :: Maybe String
+      , _optionsQuestionRequiredLevel :: Maybe Int
+      , _optionsQuestionTagUuids :: [U.UUID]
+      , _optionsQuestionExpertUuids :: [U.UUID]
+      , _optionsQuestionReferenceUuids :: [U.UUID]
+      , _optionsQuestionAnswerUuids :: [U.UUID]
+      }
+  | ListQuestion
+      { _listQuestionUuid :: U.UUID
+      , _listQuestionTitle :: String
+      , _listQuestionText :: Maybe String
+      , _listQuestionRequiredLevel :: Maybe Int
+      , _listQuestionTagUuids :: [U.UUID]
+      , _listQuestionExpertUuids :: [U.UUID]
+      , _listQuestionReferenceUuids :: [U.UUID]
+      , _listQuestionItemTemplateQuestionUuids :: [U.UUID]
+      }
+  | ValueQuestion
+      { _valueQuestionUuid :: U.UUID
+      , _valueQuestionTitle :: String
+      , _valueQuestionText :: Maybe String
+      , _valueQuestionRequiredLevel :: Maybe Int
+      , _valueQuestionTagUuids :: [U.UUID]
+      , _valueQuestionExpertUuids :: [U.UUID]
+      , _valueQuestionReferenceUuids :: [U.UUID]
+      , _valueQuestionValueType :: QuestionValueType
+      }
+  | IntegrationQuestion
+      { _integrationQuestionUuid :: U.UUID
+      , _integrationQuestionTitle :: String
+      , _integrationQuestionText :: Maybe String
+      , _integrationQuestionRequiredLevel :: Maybe Int
+      , _integrationQuestionTagUuids :: [U.UUID]
+      , _integrationQuestionExpertUuids :: [U.UUID]
+      , _integrationQuestionReferenceUuids :: [U.UUID]
+      , _integrationQuestionIntegrationUuid :: U.UUID
+      , _integrationQuestionProps :: Map String String
+      }
   deriving (Show, Eq, Generic)
 
 -- ------------------------------------------------
@@ -131,32 +115,20 @@ data Expert =
 
 -- ------------------------------------------------
 data Reference
-  = ResourcePageReference' ResourcePageReference
-  | URLReference' URLReference
-  | CrossReference' CrossReference
-  deriving (Show, Eq, Generic)
-
-data ResourcePageReference =
-  ResourcePageReference
-    { _resourcePageReferenceUuid :: U.UUID
-    , _resourcePageReferenceShortUuid :: String
-    }
-  deriving (Show, Eq, Generic)
-
-data URLReference =
-  URLReference
-    { _uRLReferenceUuid :: U.UUID
-    , _uRLReferenceUrl :: String
-    , _uRLReferenceLabel :: String
-    }
-  deriving (Show, Eq, Generic)
-
-data CrossReference =
-  CrossReference
-    { _crossReferenceUuid :: U.UUID
-    , _crossReferenceTargetUuid :: U.UUID
-    , _crossReferenceDescription :: String
-    }
+  = ResourcePageReference
+      { _resourcePageReferenceUuid :: U.UUID
+      , _resourcePageReferenceShortUuid :: String
+      }
+  | URLReference
+      { _uRLReferenceUuid :: U.UUID
+      , _uRLReferenceUrl :: String
+      , _uRLReferenceLabel :: String
+      }
+  | CrossReference
+      { _crossReferenceUuid :: U.UUID
+      , _crossReferenceTargetUuid :: U.UUID
+      , _crossReferenceDescription :: String
+      }
   deriving (Show, Eq, Generic)
 
 -- ------------------------------------------------

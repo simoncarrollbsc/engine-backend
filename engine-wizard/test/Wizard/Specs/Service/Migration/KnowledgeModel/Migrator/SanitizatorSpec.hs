@@ -18,7 +18,6 @@ import Shared.Database.Migration.Development.KnowledgeModel.Data.References
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Tags
 import Shared.Model.Event.Event
 import Shared.Model.Event.EventField
-import Shared.Model.Event.Question.QuestionEvent
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Wizard.Model.Migration.KnowledgeModel.MigratorState
 import Wizard.Service.Migration.KnowledgeModel.Migrator.Migrator

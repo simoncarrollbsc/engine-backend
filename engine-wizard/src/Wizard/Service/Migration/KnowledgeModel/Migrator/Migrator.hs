@@ -6,7 +6,6 @@ import Data.Maybe
 
 import LensesConfig
 import Shared.Model.Event.Event
-import Shared.Service.Event.EventMapper
 import Wizard.Api.Resource.Migration.KnowledgeModel.MigratorConflictDTO
 import Wizard.Model.Migration.KnowledgeModel.MigratorState
 import Wizard.Service.KnowledgeModel.Compilator.Compilator
@@ -46,7 +45,7 @@ solveConflict state mcDto =
        in createNewKm targetEvent . toRunningState . updateEvents events . addToResultEvent targetEvent $ state
     MCAEdited ->
       let events = tail $ state ^. targetPackageEvents
-          targetEvent = fromDTOFn . fromJust $ mcDto ^. event
+          targetEvent = fromJust $ mcDto ^. event
        in createNewKm targetEvent . toRunningState . updateEvents events . addToResultEvent targetEvent $ state
     MCAReject ->
       let events = tail $ state ^. targetPackageEvents

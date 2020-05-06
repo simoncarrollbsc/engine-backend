@@ -21,25 +21,15 @@ instance ToSchema ChapterReportDTO where
   declareNamedSchema = simpleToSchema (toChapterReportDTO report1_ch1)
 
 instance ToSchema IndicationDTO where
-  declareNamedSchema = genericDeclareNamedSchemaUnrestricted defaultSchemaOptions
-
-instance ToSchema AnsweredIndicationDTO where
-  declareNamedSchema = simpleToSchema'' "_answeredIndicationDTO" "indicationType" answeredAnsweredIndication
-
-instance ToSchema LevelsAnsweredIndicationDTO where
-  declareNamedSchema = simpleToSchema'' "_levelsAnsweredIndicationDTO" "indicationType" levelsAnsweredIndication
+  declareNamedSchema = simpleToSchema levelsAnsweredIndication
 
 instance ToSchema MetricSummaryDTO where
   declareNamedSchema = simpleToSchema metricSummaryF
 
-levelsAnsweredIndication :: LevelsAnsweredIndicationDTO
+levelsAnsweredIndication :: IndicationDTO
 levelsAnsweredIndication =
   LevelsAnsweredIndicationDTO
     {_levelsAnsweredIndicationDTOAnsweredQuestions = 5, _levelsAnsweredIndicationDTOUnansweredQuestions = 1}
-
-answeredAnsweredIndication :: AnsweredIndicationDTO
-answeredAnsweredIndication =
-  AnsweredIndicationDTO {_answeredIndicationDTOAnsweredQuestions = 12, _answeredIndicationDTOUnansweredQuestions = 1}
 
 metricSummaryF :: MetricSummaryDTO
 metricSummaryF = MetricSummaryDTO {_metricSummaryDTOMetricUuid = metricF ^. uuid, _metricSummaryDTOMeasure = 1.0}

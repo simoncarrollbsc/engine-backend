@@ -9,7 +9,6 @@ import Control.Monad
 import qualified Data.Bson as BSON (lookup)
 import Data.Bson
 import Data.Char (toLower)
-import Data.Maybe (fromMaybe)
 import qualified Data.Text as TS (pack)
 import Data.Typeable
 import GHC.Generics
@@ -45,7 +44,7 @@ instance (GToBSON a) => GToBSON (D1 c a) where
 
 -- | Constructor tag
 instance (GToBSON a, Constructor c) => GToBSON (C1 c a) where
-  genericToBSON constructorName c@(M1 x) = genericToBSON (conName c) x
+  genericToBSON constructorName c@(M1 x) = genericToBSON (conName c) x ++ [constructorLabel =: conName c]
 
 -- | Selector tag
 instance (Val a, Selector s) => GToBSON (S1 s (K1 i a)) where
@@ -95,7 +94,12 @@ instance (GFromBSON a, GFromBSON b) => GFromBSON (a :+: b) where
 
 -- | Datatype information tag
 instance (GFromBSON a, Constructor c) => GFromBSON (C1 c a) where
-  genericFromBSON constructorName doc = M1 <$> genericFromBSON (conName (undefined :: M1 C c a r)) doc
+--  genericFromBSON constructorName doc = M1 <$> genericFromBSON (conName (undefined :: M1 C c a r)) doc
+  genericFromBSON constructorName doc = do
+    cname <- BSON.lookup constructorLabel doc
+    if cname == conName (undefined :: M1 C c a r)
+      then M1 <$> genericFromBSON cname doc
+      else Nothing
 
 -- | Constructor tag
 instance (GFromBSON a) => GFromBSON (M1 D c a) where
@@ -136,6 +140,9 @@ instance (FromBSON a, ToBSON a, Typeable a, Show a, Eq a) => Val a where
 ------------------------------------------------------------------------------
 keyLabel :: Label
 keyLabel = TS.pack "_id"
+
+constructorLabel :: Label
+constructorLabel = TS.pack "_co"
 
 ------------------------------------------------------------------------------  
 removePrefix :: String -> String -> String

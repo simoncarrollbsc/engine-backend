@@ -5,7 +5,7 @@ import Servant
 import Shared.Api.Handler.Common
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeDTO
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelChangeJM ()
-import Shared.Api.Resource.KnowledgeModel.KnowledgeModelDTO
+import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Api.Resource.KnowledgeModel.KnowledgeModelJM ()
 import Wizard.Api.Handler.Common
 import Wizard.Model.Context.BaseContext
@@ -16,12 +16,12 @@ type List_POST
      :> ReqBody '[ SafeJSON] KnowledgeModelChangeDTO
      :> "knowledge-models"
      :> "preview"
-     :> Post '[ SafeJSON] (Headers '[ Header "x-trace-uuid" String] KnowledgeModelDTO)
+     :> Post '[ SafeJSON] (Headers '[ Header "x-trace-uuid" String] KnowledgeModel)
 
 list_POST ::
      Maybe String
   -> KnowledgeModelChangeDTO
-  -> BaseContextM (Headers '[ Header "x-trace-uuid" String] KnowledgeModelDTO)
+  -> BaseContextM (Headers '[ Header "x-trace-uuid" String] KnowledgeModel)
 list_POST mTokenHeader reqDto =
   getAuthServiceExecutor mTokenHeader $ \runInAuthService ->
     runInAuthService $

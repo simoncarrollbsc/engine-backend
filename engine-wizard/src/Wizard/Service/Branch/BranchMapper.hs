@@ -38,7 +38,7 @@ toDetailDTO branch mForkOfPackageId state =
     , _branchDetailDTOState = state
     , _branchDetailDTOPreviousPackageId = branch ^. previousPackageId
     , _branchDetailDTOForkOfPackageId = mForkOfPackageId
-    , _branchDetailDTOEvents = toDTOs $ branch ^. events
+    , _branchDetailDTOEvents = branch ^. events
     , _branchDetailDTOOwnerUuid = branch ^. ownerUuid
     , _branchDetailDTOCreatedAt = branch ^. createdAt
     , _branchDetailDTOUpdatedAt = branch ^. updatedAt
@@ -52,7 +52,7 @@ fromWithEventsDTO dto =
     , _branchWithEventsKmId = dto ^. kmId
     , _branchWithEventsMetamodelVersion = dto ^. metamodelVersion
     , _branchWithEventsPreviousPackageId = dto ^. previousPackageId
-    , _branchWithEventsEvents = fromDTOs $ dto ^. events
+    , _branchWithEventsEvents = dto ^. events
     , _branchWithEventsOwnerUuid = dto ^. ownerUuid
     , _branchWithEventsCreatedAt = dto ^. createdAt
     , _branchWithEventsUpdatedAt = dto ^. updatedAt
@@ -68,7 +68,7 @@ fromChangeDTO dto bUuid bMetamodelVersion bPackageId mOwnerUuid bCreatedAt bUpda
     , _branchWithEventsMetamodelVersion = bMetamodelVersion
     , _branchWithEventsPreviousPackageId = bPackageId
     , _branchWithEventsOwnerUuid = mOwnerUuid
-    , _branchWithEventsEvents = fromDTOs $ dto ^. events
+    , _branchWithEventsEvents = dto ^. events
     , _branchWithEventsCreatedAt = bCreatedAt
     , _branchWithEventsUpdatedAt = bUpdatedAt
     }

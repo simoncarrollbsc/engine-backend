@@ -13,7 +13,7 @@ import Shared.Database.Migration.Development.KnowledgeModel.Data.Questions
 import Shared.Database.Migration.Development.KnowledgeModel.Data.References
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Tags
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 
 km1 :: KnowledgeModel
 km1 =
@@ -28,13 +28,13 @@ km1 =
           { _knowledgeModelEntitiesChapters = toMap [chapter1, chapter2, chapter3]
           , _knowledgeModelEntitiesQuestions =
               toMap
-                [ question1'
-                , question2'
-                , q2_aYes_fuQuestion1'
-                , q2_aYes_fuq1_aYes_fuQuestion2'
-                , question3'
-                , question9'
-                , question10'
+                [ question1
+                , question2
+                , q2_aYes_fuQuestion1
+                , q2_aYes_fuq1_aYes_fuQuestion2
+                , question3
+                , question9
+                , question10
                 ]
           , _knowledgeModelEntitiesAnswers =
               toMap
@@ -48,7 +48,7 @@ km1 =
                 , q3_answerYes
                 ]
           , _knowledgeModelEntitiesExperts = toMap [km1_ch1_q2_eAlbert, km1_ch1_q2_eNikola]
-          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1', km1_ch1_q2_r2']
+          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1, km1_ch1_q2_r2]
           , _knowledgeModelEntitiesIntegrations = toMap [ontologyPortal, bioPortal]
           , _knowledgeModelEntitiesTags = toMap [tagDataScience, tagBioInformatic]
           }
@@ -98,14 +98,14 @@ km1WithQ4Plain =
           { _knowledgeModelEntitiesChapters = toMap [chapter1, chapter2WithQ4Plain, chapter3]
           , _knowledgeModelEntitiesQuestions =
               toMap
-                [ question1'
-                , question2'
-                , q2_aYes_fuQuestion1'
-                , q2_aYes_fuq1_aYes_fuQuestion2'
-                , question3'
-                , question4Plain'
-                , question9'
-                , question10'
+                [ question1
+                , question2
+                , q2_aYes_fuQuestion1
+                , q2_aYes_fuq1_aYes_fuQuestion2
+                , question3
+                , question4Plain
+                , question9
+                , question10
                 ]
           , _knowledgeModelEntitiesAnswers =
               toMap
@@ -119,7 +119,7 @@ km1WithQ4Plain =
                 , q3_answerYes
                 ]
           , _knowledgeModelEntitiesExperts = toMap [km1_ch1_q2_eAlbert, km1_ch1_q2_eNikola]
-          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1', km1_ch1_q2_r2']
+          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1, km1_ch1_q2_r2]
           , _knowledgeModelEntitiesIntegrations = toMap [ontologyPortal, bioPortal]
           , _knowledgeModelEntitiesTags = toMap [tagDataScience, tagBioInformatic]
           }
@@ -138,22 +138,22 @@ km1WithQ4 =
           { _knowledgeModelEntitiesChapters = toMap [chapter1, chapter2WithQ4, chapter3]
           , _knowledgeModelEntitiesQuestions =
               toMap
-                [ question1'
-                , question2'
-                , q2_aYes_fuQuestion1'
-                , q2_aYes_fuq1_aYes_fuQuestion2'
-                , question3'
-                , question4'
-                , q4_it1_question5'
-                , q4_it1_q5_it2_question7'
-                , q4_it1_q5_it2_question8'
-                , q4_it1_question6'
-                , q4_it1_q6_aYes_followUpQuestion4'
-                , q4_it1_q6_aYes_fuq4_it_question1'
-                , q4_it1_q6_aYes_fuq4_it_question2'
-                , q4_it1_q6_aYes_followUpQuestion5'
-                , question9'
-                , question10'
+                [ question1
+                , question2
+                , q2_aYes_fuQuestion1
+                , q2_aYes_fuq1_aYes_fuQuestion2
+                , question3
+                , question4
+                , q4_it1_question5
+                , q4_it1_q5_it2_question7
+                , q4_it1_q5_it2_question8
+                , q4_it1_question6
+                , q4_it1_q6_aYes_followUpQuestion4
+                , q4_it1_q6_aYes_fuq4_it_question1
+                , q4_it1_q6_aYes_fuq4_it_question2
+                , q4_it1_q6_aYes_followUpQuestion5
+                , question9
+                , question10
                 ]
           , _knowledgeModelEntitiesAnswers =
               toMap
@@ -170,7 +170,7 @@ km1WithQ4 =
                 ]
           , _knowledgeModelEntitiesExperts =
               toMap [km1_ch1_q2_eAlbert, km1_ch1_q2_eNikola, km1_ch2_q6_eAlbert, km1_ch2_q6_eNikola]
-          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1', km1_ch1_q2_r2', km1_ch2_q6_r1', km1_ch2_q6_r2']
+          , _knowledgeModelEntitiesReferences = toMap [km1_ch1_q2_r1, km1_ch1_q2_r2, km1_ch2_q6_r1, km1_ch2_q6_r2]
           , _knowledgeModelEntitiesIntegrations = toMap [ontologyPortal, bioPortal]
           , _knowledgeModelEntitiesTags = toMap [tagDataScience, tagBioInformatic]
           }

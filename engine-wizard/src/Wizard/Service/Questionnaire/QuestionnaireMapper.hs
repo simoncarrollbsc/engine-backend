@@ -21,7 +21,7 @@ import Wizard.Model.Questionnaire.Questionnaire
 import Wizard.Model.Questionnaire.QuestionnaireLabel
 import Wizard.Model.Questionnaire.QuestionnaireReply
 import Wizard.Model.Questionnaire.QuestionnaireState
-import Wizard.Service.KnowledgeModel.KnowledgeModelMapper
+
 import qualified Wizard.Service.Package.PackageMapper as PM
 
 toDTO :: Questionnaire -> Package -> QuestionnaireState -> Maybe UserDTO -> QuestionnaireDTO
@@ -84,7 +84,7 @@ toDetailWithPackageWithEventsDTO questionnaire package knowledgeModel state =
     , _questionnaireDetailDTOSelectedTagUuids = questionnaire ^. selectedTagUuids
     , _questionnaireDetailDTOTemplateUuid = questionnaire ^. templateUuid
     , _questionnaireDetailDTOFormatUuid = questionnaire ^. formatUuid
-    , _questionnaireDetailDTOKnowledgeModel = toKnowledgeModelDTO knowledgeModel
+    , _questionnaireDetailDTOKnowledgeModel = knowledgeModel
     , _questionnaireDetailDTOReplies = toReplyDTO <$> questionnaire ^. replies
     , _questionnaireDetailDTOLabels = toLabelDTO <$> questionnaire ^. labels
     , _questionnaireDetailDTOOwnerUuid = questionnaire ^. ownerUuid
@@ -106,7 +106,7 @@ toDetailWithPackageDTO questionnaire package knowledgeModel state =
     , _questionnaireDetailDTOSelectedTagUuids = questionnaire ^. selectedTagUuids
     , _questionnaireDetailDTOTemplateUuid = questionnaire ^. templateUuid
     , _questionnaireDetailDTOFormatUuid = questionnaire ^. formatUuid
-    , _questionnaireDetailDTOKnowledgeModel = toKnowledgeModelDTO knowledgeModel
+    , _questionnaireDetailDTOKnowledgeModel = knowledgeModel
     , _questionnaireDetailDTOReplies = toReplyDTO <$> questionnaire ^. replies
     , _questionnaireDetailDTOLabels = toLabelDTO <$> questionnaire ^. labels
     , _questionnaireDetailDTOOwnerUuid = questionnaire ^. ownerUuid

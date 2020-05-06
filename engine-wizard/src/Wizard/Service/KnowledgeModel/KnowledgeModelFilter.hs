@@ -8,7 +8,7 @@ import qualified Data.UUID as U
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
 import Shared.Model.KnowledgeModel.KnowledgeModelAccessors
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Delete
 
 filterKnowledgeModel :: [U.UUID] -> KnowledgeModel -> KnowledgeModel

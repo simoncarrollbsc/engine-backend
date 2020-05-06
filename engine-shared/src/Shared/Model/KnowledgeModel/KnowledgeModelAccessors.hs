@@ -6,7 +6,7 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 
 -- -------------------
 -- CHAPTERS ----------
@@ -15,7 +15,7 @@ getChaptersForKmUuid :: KnowledgeModel -> [Chapter]
 getChaptersForKmUuid km = foldl go [] (km ^. chapterUuids)
   where
     go acc chUuid =
-      case M.lookup (chUuid) (km ^. chaptersM) of
+      case M.lookup chUuid (km ^. chaptersM) of
         Just ch -> acc ++ [ch]
         Nothing -> acc
 
@@ -35,7 +35,7 @@ getQuestionsForChapterUuid km chUuid =
     Nothing -> []
   where
     go acc qUuid =
-      case M.lookup (qUuid) (km ^. questionsM) of
+      case M.lookup qUuid (km ^. questionsM) of
         Just q -> acc ++ [q]
         Nothing -> acc
 
@@ -52,14 +52,14 @@ getQuestionsForAnswerUuid km ansUuid =
     Nothing -> []
   where
     go acc qUuid =
-      case M.lookup (qUuid) (km ^. questionsM) of
+      case M.lookup qUuid (km ^. questionsM) of
         Just q -> acc ++ [q]
         Nothing -> acc
 
 getItemTemplateQuestionUuidsForQuestionUuid :: KnowledgeModel -> U.UUID -> [U.UUID]
 getItemTemplateQuestionUuidsForQuestionUuid km questionUuid =
   case M.lookup questionUuid (km ^. questionsM) of
-    Just (ListQuestion' q) -> q ^. itemTemplateQuestionUuids
+    Just q@ListQuestion {} -> q ^. itemTemplateQuestionUuids'
     Nothing -> []
 
 getItemTemplateQuestionsForQuestionUuid :: KnowledgeModel -> U.UUID -> [Question]
@@ -69,7 +69,7 @@ getItemTemplateQuestionsForQuestionUuid km qUuid =
     Nothing -> []
   where
     go acc itqUuid =
-      case M.lookup (itqUuid) (km ^. questionsM) of
+      case M.lookup itqUuid (km ^. questionsM) of
         Just itq -> acc ++ [itq]
         Nothing -> acc
 
@@ -97,5 +97,5 @@ getReferenceUuidsForQuestionUuid km questionUuid =
 getAnswerUuidsForQuestionUuid :: KnowledgeModel -> U.UUID -> [U.UUID]
 getAnswerUuidsForQuestionUuid km questionUuid =
   case M.lookup questionUuid (km ^. questionsM) of
-    Just (OptionsQuestion' q) -> q ^. answerUuids
+    Just q@OptionsQuestion {} -> q ^. answerUuids'
     _ -> []

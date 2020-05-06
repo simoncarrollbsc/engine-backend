@@ -6,23 +6,22 @@ import GHC.Generics
 
 data FeedbackDTO =
   FeedbackDTO
-    { _feedbackDTOUuid :: U.UUID
-    , _feedbackDTOIssueId :: Int
-    , _feedbackDTOIssueUrl :: String
-    , _feedbackDTOQuestionUuid :: U.UUID
-    , _feedbackDTOPackageId :: String
-    , _feedbackDTOTitle :: String
-    , _feedbackDTOContent :: String
-    , _feedbackDTOCreatedAt :: UTCTime
-    , _feedbackDTOUpdatedAt :: UTCTime
+    { _uuid :: U.UUID
+    , _issueId :: Int
+    , _issueUrl :: String
+    , _questionUuid :: U.UUID
+    , _packageId :: String
+    , _title :: String
+    , _content :: String
+    , _createdAt :: UTCTime
+    , _updatedAt :: UTCTime
     }
   deriving (Show, Generic)
 
 instance Eq FeedbackDTO where
   a == b =
-    _feedbackDTOUuid a == _feedbackDTOUuid b &&
-    _feedbackDTOIssueId a == _feedbackDTOIssueId b &&
-    _feedbackDTOIssueUrl a == _feedbackDTOIssueUrl b &&
-    _feedbackDTOQuestionUuid a == _feedbackDTOQuestionUuid b &&
-    _feedbackDTOPackageId a == _feedbackDTOPackageId b &&
-    _feedbackDTOTitle a == _feedbackDTOTitle b && _feedbackDTOContent a == _feedbackDTOContent b
+    _uuid a == _uuid b &&
+    _issueId a == _issueId b &&
+    _issueUrl a == _issueUrl b &&
+    _questionUuid a == _questionUuid b &&
+    _packageId a == _packageId b && _title a == _title b && _content a == _content b

@@ -16,7 +16,7 @@ import Shared.Database.Migration.Development.KnowledgeModel.Data.Questions
 import Shared.Database.Migration.Development.KnowledgeModel.Data.References
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Tags
 import Shared.Model.Event.Event
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.Compilator
 
 compilatorSpec =
@@ -56,7 +56,7 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [DeleteChapterEvent' d_km1_ch1]
         let expected =
               (chaptersL .~ [chapter2, chapter3]) . (chapterUuids .~ [chapter2 ^. uuid, chapter3 ^. uuid]) .
-              (questionsL .~ [question3', question9', question10']) .
+              (questionsL .~ [question3, question9', question10']) .
               (answersL .~ [q3_answerNo, q3_answerYes]) .
               (expertsL .~ []) .
               (referencesL .~ []) $
@@ -68,10 +68,10 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [AddQuestionEvent' a_km1_ch1_q3']
         let expected =
               (questionsL .~
-               [ question1'
-               , question2'
-               , q2_aYes_fuQuestion1'
-               , q2_aYes_fuq1_aYes_fuQuestion2'
+               [ question1
+               , question2
+               , q2_aYes_fuQuestion1
+               , q2_aYes_fuq1_aYes_fuQuestion2
                , question3Plain'
                , question9'
                , question10'
@@ -84,11 +84,11 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [EditQuestionEvent' e_km1_ch1_q2']
         let expected =
               (questionsL .~
-               [ question1'
-               , question2Edited'
-               , q2_aYes_fuQuestion1'
-               , q2_aYes_fuq1_aYes_fuQuestion2'
-               , question3'
+               [ question1
+               , question2Edited
+               , q2_aYes_fuQuestion1
+               , q2_aYes_fuq1_aYes_fuQuestion2
+               , question3
                , question9'
                , question10'
                ]) $
@@ -97,19 +97,19 @@ compilatorSpec =
       it "Apply:  EditQuestionEvent 2" $ do
         let event = e_km1_ch2_q4'
         let (Right computed) = compile (Just km1WithQ4) [EditQuestionEvent' event]
-        let expected = (questionsM . at (question4Edited ^. uuid) ?~ question4Edited') $ km1WithQ4
+        let expected = (questionsM . at (question4Edited ^. uuid) ?~ question4Edited) $ km1WithQ4
         computed `shouldBe` expected
       it "Apply:  EditQuestionEvent 3" $ do
         let event = e_km1_ch2_q4'
         let (Right computed) = compile (Just km1WithQ4Plain) [EditQuestionEvent' event]
-        let expected = (questionsM . at (question4Edited ^. uuid) ?~ question4Edited') $ km1WithQ4Plain
+        let expected = (questionsM . at (question4Edited ^. uuid) ?~ question4Edited) $ km1WithQ4Plain
         computed `shouldBe` expected
       it "Apply:  DeleteQuestionEvent" $ do
         let initKM = km1 & chaptersL .~ [chapter1WithAddedQuestion3, chapter2, chapter3]
         let (Right computed) = compile (Just initKM) [DeleteQuestionEvent' d_km1_ch1_q3]
         let expected =
               (questionsL .~
-               [question1', question2', q2_aYes_fuQuestion1', q2_aYes_fuq1_aYes_fuQuestion2', question9', question10']) .
+               [question1, question2, q2_aYes_fuQuestion1, q2_aYes_fuq1_aYes_fuQuestion2, question9', question10']) .
               (answersL .~
                [ q2_answerNo
                , q2_answerYes
@@ -126,7 +126,7 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [AddAnswerEvent' a_km1_ch1_q2_aMaybe]
         let expected =
               (questionsM . at (question2 ^. uuid) ?~
-               (question2' & answerUuids' .~ [q2_answerNo ^. uuid, q2_answerYes ^. uuid, q2_answerMaybe ^. uuid])) .
+               (question2 & answerUuids' .~ [q2_answerNo ^. uuid, q2_answerYes ^. uuid, q2_answerMaybe ^. uuid])) .
               (answersL .~
                [ q2_answerNo
                , q2_answerYes
@@ -158,8 +158,8 @@ compilatorSpec =
       it "Apply:  DeleteAnswerEvent" $ do
         let (Right computed) = compile (Just km1) [DeleteAnswerEvent' d_km1_ch1_q2_aYes1]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & answerUuids' .~ [q2_answerNo ^. uuid])) .
-              (questionsL .~ [question1', question2', question3', question9', question10']) .
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & answerUuids' .~ [q2_answerNo ^. uuid])) .
+              (questionsL .~ [question1, question2, question3, question9', question10']) .
               (answersL .~ [q2_answerNo, q3_answerNo, q3_answerYes]) $
               km1
         computed `shouldBe` expected
@@ -170,7 +170,7 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [AddQuestionEvent' event]
         let expected =
               (questionsM . at (q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. uuid) ?~
-               q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3') .
+               q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3) .
               (answersM . at (q2_aYes_fuq1_aYes_fuq2_answerYes ^. uuid) ?~
                (q2_aYes_fuq1_aYes_fuq2_answerYes & followUpUuids .~ [q2_aYes1_fuq1_aYes3_fuq2_aYes4_fuQuestion3 ^. uuid])) $
               km1
@@ -179,14 +179,14 @@ compilatorSpec =
         let event = e_km1_ch1_ansYes1_fuq1_ansYes3_fuq2'
         let (Right computed) = compile (Just km1) [EditQuestionEvent' event]
         let expected =
-              (questionsM . at (q2_aYes_fuq1_aYes_fuQuestion2Edited ^. uuid) ?~ q2_aYes_fuq1_aYes_fuQuestion2Edited') $
+              (questionsM . at (q2_aYes_fuq1_aYes_fuQuestion2Edited ^. uuid) ?~ q2_aYes_fuq1_aYes_fuQuestion2Edited) $
               km1
         computed `shouldBe` expected
       it "Apply:  DeleteFollowUpQuestionEvent" $ do
         let event = d_km1_ch1_ansYes1_fuq1_ansYes3_fuq2
         let (Right computed) = compile (Just km1) [DeleteQuestionEvent' event]
         let expected =
-              (questionsL .~ (L.delete q2_aYes_fuq1_aYes_fuQuestion2' (km1 ^. questionsL))) .
+              (questionsL .~ (L.delete q2_aYes_fuq1_aYes_fuQuestion2 (km1 ^. questionsL))) .
               (answersL .~
                [ q2_answerNo
                , q2_answerYes
@@ -205,29 +205,29 @@ compilatorSpec =
         let expected =
               (questionsM . at (q4_it1_question5Plain ^. uuid) ?~ q4_it1_question5Plain') .
               (questionsM . at (question4 ^. uuid) ?~
-               (question4' & itemTemplateQuestionUuids' .~ [q4_it1_question5Plain ^. uuid])) $
+               (question4 & itemTemplateQuestionUuids' .~ [q4_it1_question5Plain ^. uuid])) $
               km1WithQ4Plain
         computed `shouldBe` expected
       it "Apply:  EditAnswerItemTemplateQuestionEvent" $ do
         let event = e_km1_ch2_q4_it1_q5'
         let (Right computed) = compile (Just km1WithQ4) [EditQuestionEvent' event]
-        let expected = (questionsM . at (q4_it1_question5Edited ^. uuid) ?~ q4_it1_question5Edited') $ km1WithQ4
+        let expected = (questionsM . at (q4_it1_question5Edited ^. uuid) ?~ q4_it1_question5Edited) $ km1WithQ4
         computed `shouldBe` expected
       it "Apply:  DeleteAnswerItemTemplateQuestionEvent" $ do
         let event = d_km1_ch2_q4_it1_q5
         let (Right computed) = compile (Just km1WithQ4) [DeleteQuestionEvent' event]
         let expected =
               (questionsL .~
-               [ question1'
-               , question2'
-               , q2_aYes_fuQuestion1'
-               , q2_aYes_fuq1_aYes_fuQuestion2'
-               , question3'
-               , question4' & itemTemplateQuestionUuids' .~ [q4_it1_question6 ^. uuid]
+               [ question1
+               , question2
+               , q2_aYes_fuQuestion1
+               , q2_aYes_fuq1_aYes_fuQuestion2
+               , question3
+               , question4 & itemTemplateQuestionUuids' .~ [q4_it1_question6 ^. uuid]
                , q4_it1_question6'
                , q4_it1_q6_aYes_followUpQuestion4'
-               , q4_it1_q6_aYes_fuq4_it_question1'
-               , q4_it1_q6_aYes_fuq4_it_question2'
+               , q4_it1_q6_aYes_fuq4_it_question1
+               , q4_it1_q6_aYes_fuq4_it_question2
                , q4_it1_q6_aYes_followUpQuestion5'
                , question9'
                , question10'
@@ -240,7 +240,7 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [AddExpertEvent' a_km1_ch1_q2_eIsaac]
         let expected =
               (questionsM . at (question2 ^. uuid) ?~
-               (question2' & expertUuids' .~
+               (question2 & expertUuids' .~
                 [km1_ch1_q2_eAlbert ^. uuid, km1_ch1_q2_eNikola ^. uuid, km1_ch1_q2_eIsaac ^. uuid])) .
               (expertsL .~ [km1_ch1_q2_eAlbert, km1_ch1_q2_eNikola, km1_ch1_q2_eIsaac]) $
               km1
@@ -252,7 +252,7 @@ compilatorSpec =
       it "Apply:  DeleteExpertEvent" $ do
         let (Right computed) = compile (Just km1) [DeleteExpertEvent' d_km1_ch1_q2_eNikola]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & expertUuids' .~ [km1_ch1_q2_eAlbert ^. uuid])) .
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & expertUuids' .~ [km1_ch1_q2_eAlbert ^. uuid])) .
               (expertsL .~ [km1_ch1_q2_eAlbert]) $
               km1
         computed `shouldBe` expected
@@ -262,18 +262,18 @@ compilatorSpec =
         let (Right computed) = compile (Just km1) [AddReferenceEvent' a_km1_ch1_q2_rCh3']
         let expected =
               (questionsM . at (question2 ^. uuid) ?~
-               (question2' & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid, km1_ch1_q2_r2 ^. uuid, km1_ch1_q2_r3 ^. uuid])) .
+               (question2 & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid, km1_ch1_q2_r2 ^. uuid, km1_ch1_q2_r3 ^. uuid])) .
               (referencesL .~ [km1_ch1_q2_r1', km1_ch1_q2_r2', km1_ch1_q2_r3']) $
               km1
         computed `shouldBe` expected
       it "Apply:  EditReferenceEvent" $ do
         let (Right computed) = compile (Just km1) [EditReferenceEvent' e_km1_ch1_q2_rCh1']
-        let expected = (referencesL .~ [km1_ch1_q2_r1Edited', km1_ch1_q2_r2']) $ km1
+        let expected = (referencesL .~ [km1_ch1_q2_r1Edited, km1_ch1_q2_r2']) $ km1
         computed `shouldBe` expected
       it "Apply:  DeleteReferenceEvent" $ do
         let (Right computed) = compile (Just km1) [DeleteReferenceEvent' d_km1_ch1_q2_rCh2]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid])) .
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid])) .
               (referencesL .~ [km1_ch1_q2_r1']) $
               km1
         computed `shouldBe` expected
@@ -292,8 +292,8 @@ compilatorSpec =
       it "Apply:  DeleteTagEvent" $ do
         let (Right computed) = compile (Just km1WithQ4) [DeleteTagEvent' d_km1_tds]
         let expected =
-              (questionsM . at (question1 ^. uuid) ?~ (question1' & tagUuids' .~ [])) .
-              (questionsM . at (q2_aYes_fuQuestion1 ^. uuid) ?~ (q2_aYes_fuQuestion1' & tagUuids' .~ [])) .
+              (questionsM . at (question1 ^. uuid) ?~ (question1 & tagUuids' .~ [])) .
+              (questionsM . at (q2_aYes_fuQuestion1 ^. uuid) ?~ (q2_aYes_fuQuestion1 & tagUuids' .~ [])) .
               (questionsM . at (q4_it1_question6 ^. uuid) ?~ (q4_it1_question6' & tagUuids' .~ [])) .
               (tagUuids .~ [tagBioInformatic ^. uuid]) .
               (tagsL .~ [tagBioInformatic]) $
@@ -310,8 +310,8 @@ compilatorSpec =
       it "Apply:  EditIntegrationEvent" $ do
         let (Right computed) = compile (Just km1WithQ4) [EditIntegrationEvent' e_km1_iop]
         let expected =
-              (questionsM . at (q4_it1_q6_aYes_fuq5PropsEdited ^. uuid) ?~ q4_it1_q6_aYes_fuq5PropsEdited') .
-              (questionsM . at (question9PropsEdited ^. uuid) ?~ question9PropsEdited') .
+              (questionsM . at (q4_it1_q6_aYes_fuq5PropsEdited ^. uuid) ?~ q4_it1_q6_aYes_fuq5PropsEdited) .
+              (questionsM . at (question9PropsEdited ^. uuid) ?~ question9PropsEdited) .
               (integrationsL .~ [ontologyPortalEdited, bioPortal]) $
               km1WithQ4
         computed `shouldBe` expected
@@ -336,23 +336,23 @@ compilatorSpec =
       it "Apply:  MoveAnswerEvent" $ do
         let (Right computed) = compile (Just km1) [MoveAnswerEvent' m_km1_ch1_q2_aYes__to_ch2_q3]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & answerUuids' .~ [q2_answerNo ^. uuid])) .
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & answerUuids' .~ [q2_answerNo ^. uuid])) .
               (questionsM . at (question3 ^. uuid) ?~
-               (question3' & answerUuids' .~ [q3_answerNo ^. uuid, q3_answerYes ^. uuid, q2_answerYes ^. uuid])) $
+               (question3 & answerUuids' .~ [q3_answerNo ^. uuid, q3_answerYes ^. uuid, q2_answerYes ^. uuid])) $
               km1
         computed `shouldBe` expected
       it "Apply:  MoveExpertEvent" $ do
         let (Right computed) = compile (Just km1) [MoveExpertEvent' m_km1_ch1_q2_eAlbert__to_ch2_q3]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & expertUuids' .~ [km1_ch1_q2_eNikola ^. uuid])) .
-              (questionsM . at (question3 ^. uuid) ?~ (question3' & expertUuids' .~ [km1_ch1_q2_eAlbert ^. uuid])) $
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & expertUuids' .~ [km1_ch1_q2_eNikola ^. uuid])) .
+              (questionsM . at (question3 ^. uuid) ?~ (question3 & expertUuids' .~ [km1_ch1_q2_eAlbert ^. uuid])) $
               km1
         computed `shouldBe` expected
       it "Apply:  MoveReferenceEvent" $ do
         let (Right computed) = compile (Just km1) [MoveReferenceEvent' m_km1_ch1_q2_r1__to_ch2_q3]
         let expected =
-              (questionsM . at (question2 ^. uuid) ?~ (question2' & referenceUuids' .~ [km1_ch1_q2_r2 ^. uuid])) .
-              (questionsM . at (question3 ^. uuid) ?~ (question3' & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid])) $
+              (questionsM . at (question2 ^. uuid) ?~ (question2 & referenceUuids' .~ [km1_ch1_q2_r2 ^. uuid])) .
+              (questionsM . at (question3 ^. uuid) ?~ (question3 & referenceUuids' .~ [km1_ch1_q2_r1 ^. uuid])) $
               km1
         computed `shouldBe` expected
    -- ---------------

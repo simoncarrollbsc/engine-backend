@@ -34,22 +34,14 @@ data ChapterReport =
   deriving (Show, Eq)
 
 data Indication
-  = AnsweredIndication' AnsweredIndication
-  | LevelsAnsweredIndication' LevelsAnsweredIndication
-  deriving (Show, Eq)
-
-data AnsweredIndication =
-  AnsweredIndication
-    { _answeredIndicationAnsweredQuestions :: Int
-    , _answeredIndicationUnansweredQuestions :: Int
-    }
-  deriving (Show, Eq)
-
-data LevelsAnsweredIndication =
-  LevelsAnsweredIndication
-    { _levelsAnsweredIndicationAnsweredQuestions :: Int
-    , _levelsAnsweredIndicationUnansweredQuestions :: Int
-    }
+  = AnsweredIndication
+      { _answeredIndicationAnsweredQuestions :: Int
+      , _answeredIndicationUnansweredQuestions :: Int
+      }
+  | LevelsAnsweredIndication
+      { _levelsAnsweredIndicationAnsweredQuestions :: Int
+      , _levelsAnsweredIndicationUnansweredQuestions :: Int
+      }
   deriving (Show, Eq)
 
 data MetricSummary =

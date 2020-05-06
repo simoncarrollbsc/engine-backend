@@ -8,16 +8,13 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Model.Event.EventField
-import Shared.Model.Event.Integration.IntegrationEvent
-import Shared.Model.Event.Question.QuestionEvent
-import Shared.Model.Event.Tag.TagEvent
+import Shared.Model.Event.Event
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Modifier
 
-instance CreateEntity AddQuestionEvent Question where
-  createEntity (AddOptionsQuestionEvent' e) =
-    OptionsQuestion' $
+instance CreateEntity Event Question where
+  createEntity e@AddOptionsQuestionEvent {} =
     OptionsQuestion
       { _optionsQuestionUuid = e ^. entityUuid
       , _optionsQuestionTitle = e ^. title
@@ -28,8 +25,7 @@ instance CreateEntity AddQuestionEvent Question where
       , _optionsQuestionExpertUuids = []
       , _optionsQuestionAnswerUuids = []
       }
-  createEntity (AddListQuestionEvent' e) =
-    ListQuestion' $
+  createEntity e@AddListQuestionEvent {} =
     ListQuestion
       { _listQuestionUuid = e ^. entityUuid
       , _listQuestionTitle = e ^. title
@@ -40,8 +36,7 @@ instance CreateEntity AddQuestionEvent Question where
       , _listQuestionExpertUuids = []
       , _listQuestionItemTemplateQuestionUuids = []
       }
-  createEntity (AddValueQuestionEvent' e) =
-    ValueQuestion' $
+  createEntity e@AddValueQuestionEvent {} =
     ValueQuestion
       { _valueQuestionUuid = e ^. entityUuid
       , _valueQuestionTitle = e ^. title
@@ -52,8 +47,7 @@ instance CreateEntity AddQuestionEvent Question where
       , _valueQuestionExpertUuids = []
       , _valueQuestionValueType = e ^. valueType
       }
-  createEntity (AddIntegrationQuestionEvent' e) =
-    IntegrationQuestion' $
+  createEntity e@AddIntegrationQuestionEvent {} =
     IntegrationQuestion
       { _integrationQuestionUuid = e ^. entityUuid
       , _integrationQuestionTitle = e ^. title
@@ -66,13 +60,13 @@ instance CreateEntity AddQuestionEvent Question where
       , _integrationQuestionProps = e ^. props
       }
 
-instance EditEntity EditQuestionEvent Question where
+instance EditEntity Event Question where
   editEntity e' q =
     case e' of
-      (EditOptionsQuestionEvent' e) -> applyToOptionsQuestion e . convertToOptionsQuestion $ q
-      (EditListQuestionEvent' e) -> applyToListQuestion e . convertToListQuestion $ q
-      (EditValueQuestionEvent' e) -> applyToValueQuestion e . convertToValueQuestion $ q
-      (EditIntegrationQuestionEvent' e) -> applyToIntegrationQuestion e . convertToIntegrationQuestion $ q
+      e@EditOptionsQuestionEvent {} -> applyToOptionsQuestion e . convertToOptionsQuestion $ q
+      e@EditListQuestionEvent {} -> applyToListQuestion e . convertToListQuestion $ q
+      e@EditValueQuestionEvent {} -> applyToValueQuestion e . convertToValueQuestion $ q
+      e@EditIntegrationQuestionEvent {} -> applyToIntegrationQuestion e . convertToIntegrationQuestion $ q
     where
       applyToOptionsQuestion e =
         applyAnwerUuids e .
@@ -100,12 +94,12 @@ instance EditEntity EditQuestionEvent Question where
       applyProps e q = applyValue (e ^. props) q props'
 
 convertToOptionsQuestion :: Question -> Question
-convertToOptionsQuestion (OptionsQuestion' q) = OptionsQuestion' q
+convertToOptionsQuestion q@OptionsQuestion {} = OptionsQuestion' q
 convertToOptionsQuestion q' =
   case q' of
-    (ListQuestion' q) -> createQuestion q
-    (ValueQuestion' q) -> createQuestion q
-    (IntegrationQuestion' q) -> createQuestion q
+    q@ListQuestion {} -> createQuestion q
+    q@ValueQuestion {} -> createQuestion q
+    q@IntegrationQuestion {} -> createQuestion q
   where
     createQuestion q =
       OptionsQuestion' $
@@ -121,12 +115,12 @@ convertToOptionsQuestion q' =
         }
 
 convertToListQuestion :: Question -> Question
-convertToListQuestion (ListQuestion' q) = ListQuestion' q
+convertToListQuestion q@ListQuestion {} = ListQuestion' q
 convertToListQuestion q' =
   case q' of
-    (OptionsQuestion' q) -> createQuestion q
-    (ValueQuestion' q) -> createQuestion q
-    (IntegrationQuestion' q) -> createQuestion q
+    q@OptionsQuestion {} -> createQuestion q
+    q@ValueQuestion {} -> createQuestion q
+    q@IntegrationQuestion {} -> createQuestion q
   where
     createQuestion q =
       ListQuestion' $
@@ -142,12 +136,12 @@ convertToListQuestion q' =
         }
 
 convertToValueQuestion :: Question -> Question
-convertToValueQuestion (ValueQuestion' q) = ValueQuestion' q
+convertToValueQuestion q@ValueQuestion {} = ValueQuestion' q
 convertToValueQuestion q' =
   case q' of
-    (OptionsQuestion' q) -> createQuestion q
-    (ListQuestion' q) -> createQuestion q
-    (IntegrationQuestion' q) -> createQuestion q
+    q@OptionsQuestion {} -> createQuestion q
+    q@ListQuestion {} -> createQuestion q
+    q@IntegrationQuestion {} -> createQuestion q
   where
     createQuestion q =
       ValueQuestion' $
@@ -163,12 +157,12 @@ convertToValueQuestion q' =
         }
 
 convertToIntegrationQuestion :: Question -> Question
-convertToIntegrationQuestion (IntegrationQuestion' q) = IntegrationQuestion' q
+convertToIntegrationQuestion q@IntegrationQuestion {} = IntegrationQuestion' q
 convertToIntegrationQuestion q' =
   case q' of
-    (OptionsQuestion' q) -> createQuestion q
-    (ListQuestion' q) -> createQuestion q
-    (ValueQuestion' q) -> createQuestion q
+    q@OptionsQuestion {} -> createQuestion q
+    q@ListQuestion {} -> createQuestion q
+    q@ValueQuestion {} -> createQuestion q
   where
     createQuestion q =
       IntegrationQuestion' $
@@ -185,7 +179,7 @@ convertToIntegrationQuestion q' =
         }
 
 updateIntegrationProps :: EditIntegrationEvent -> Question -> Question
-updateIntegrationProps e (IntegrationQuestion' q) = IntegrationQuestion' $ q & props .~ updatedProps
+updateIntegrationProps e q@IntegrationQuestion {} = IntegrationQuestion' $ q & props .~ updatedProps
   where
     updatedProps =
       if q ^. integrationUuid == e ^. entityUuid
@@ -196,7 +190,7 @@ updateIntegrationProps e (IntegrationQuestion' q) = IntegrationQuestion' $ q & p
 updateIntegrationProps _ q' = q'
 
 deleteIntegrationReference :: DeleteIntegrationEvent -> Question -> Question
-deleteIntegrationReference e (IntegrationQuestion' q) =
+deleteIntegrationReference e q@IntegrationQuestion {} =
   if q ^. integrationUuid == e ^. entityUuid
     then convertToValueQuestion . IntegrationQuestion' $ q
     else IntegrationQuestion' q

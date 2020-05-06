@@ -12,7 +12,7 @@ import Shared.Database.Migration.Development.KnowledgeModel.Data.KnowledgeModels
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Questions
 import Shared.Database.Migration.Development.KnowledgeModel.Data.References
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Tags
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Service.KnowledgeModel.KnowledgeModelFilter
 
 knowledgeModelFilterSpec =
@@ -41,7 +41,7 @@ knowledgeModelFilterSpec =
              , chapter2 & questionUuids .~ []
              , chapter3 & questionUuids .~ []
              ]) .
-            (questionsL .~ [question1']) .
+            (questionsL .~ [question1]) .
             (answersL .~ []) . (referencesL .~ []) . (expertsL .~ []) . (tagsL .~ [tagDataScience]) $
             km1WithQ4
         -- WHEN:
@@ -57,10 +57,10 @@ knowledgeModelFilterSpec =
       let expectedKm =
             (chaptersL .~ [chapter1, chapter2 & questionUuids .~ [question4 ^. uuid], chapter3]) .
             (questionsL .~
-             [ question1'
-             , question2'
-             , q2_aYes_fuQuestion1'
-             , question4' & itemTemplateQuestionUuids' .~ [q4_it1_question5Plain ^. uuid]
+             [ question1
+             , question2
+             , q2_aYes_fuQuestion1
+             , question4 & itemTemplateQuestionUuids' .~ [q4_it1_question5Plain ^. uuid]
              , q4_it1_question5Plain'
              , question9'
              , question10'

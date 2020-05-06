@@ -8,13 +8,13 @@ import qualified Prelude
 
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Shared.Util.Map (insertFlipped)
 
 isItListQuestion :: KnowledgeModel -> U.UUID -> Bool
 isItListQuestion km itemUuid =
   case M.lookup itemUuid (km ^. questionsM) of
-    Just (ListQuestion' _) -> True
+    Just q@ListQuestion {} -> True
     _ -> False
 
 makeParentMap :: KnowledgeModel -> M.Map U.UUID U.UUID
@@ -28,8 +28,8 @@ makeParentMap km = M.union chMap . M.union qMap $ ansMap
     qMap :: M.Map U.UUID U.UUID
     qMap = foldr qMapGo M.empty (km ^. questionsL)
     qMapGo :: Question -> M.Map U.UUID U.UUID -> M.Map U.UUID U.UUID
-    qMapGo (OptionsQuestion' q) = M.union (foldr (insertFlipped (q ^. uuid)) M.empty (q ^. answerUuids))
-    qMapGo (ListQuestion' q) = M.union (foldr (insertFlipped (q ^. uuid)) M.empty (q ^. itemTemplateQuestionUuids))
+    qMapGo q@OptionsQuestion {} = M.union (foldr (insertFlipped (q ^. uuid')) M.empty (q ^. answerUuids'))
+    qMapGo q@ListQuestion {} = M.union (foldr (insertFlipped (q ^. uuid')) M.empty (q ^. itemTemplateQuestionUuids'))
     qMapGo _ = Prelude.id
     -- -------
     ansMap :: M.Map U.UUID U.UUID

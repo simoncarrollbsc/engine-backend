@@ -9,8 +9,6 @@ import LensesConfig
 import Shared.Constant.KnowledgeModel
 import Shared.Database.Migration.Development.Event.Data.Events
 import Shared.Database.Migration.Development.Package.Data.Packages
-import Shared.Model.Event.Event
-import Shared.Service.Event.EventMapper
 import Wizard.Api.Resource.Branch.BranchChangeDTO
 import Wizard.Api.Resource.Branch.BranchCreateDTO
 import Wizard.Api.Resource.Branch.BranchDTO
@@ -43,24 +41,24 @@ amsterdamBranchWithEvents =
     , _branchWithEventsPreviousPackageId = amsterdamBranch ^. previousPackageId
     , _branchWithEventsOwnerUuid = amsterdamBranch ^. ownerUuid
     , _branchWithEventsEvents =
-        [ AddQuestionEvent' a_km1_ch1_q1'
-        , AddQuestionEvent' a_km1_ch1_q2'
-        , AddAnswerEvent' a_km1_ch1_q2_aNo1
-        , AddAnswerEvent' a_km1_ch1_q2_aYes1
-        , AddQuestionEvent' a_km1_ch1_ansYes1_fuq1'
-        , AddAnswerEvent' a_km1_ch1_q2_aYes1_fuq1_aNo
-        , AddAnswerEvent' a_km1_ch1_q2_aYesFu1
-        , AddQuestionEvent' a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2'
-        , AddAnswerEvent' a_km1_ch1_q2_aNoFu2
-        , AddAnswerEvent' a_km1_ch1_q2_aYesFu2
-        , AddExpertEvent' a_km1_ch1_q2_eAlbert
-        , AddExpertEvent' a_km1_ch1_q2_eNikola
-        , AddReferenceEvent' a_km1_ch1_q2_rCh1'
-        , AddReferenceEvent' a_km1_ch1_q2_rCh2'
-        , AddChapterEvent' a_km1_ch2
-        , AddQuestionEvent' a_km1_ch2_q3'
-        , AddAnswerEvent' a_km1_ch2_q3_aNo2
-        , AddAnswerEvent' a_km1_ch2_q3_aYes2
+        [ a_km1_ch1_q1
+        , a_km1_ch1_q2
+        , a_km1_ch1_q2_aNo1
+        , a_km1_ch1_q2_aYes1
+        , a_km1_ch1_ansYes1_fuq1
+        , a_km1_ch1_q2_aYes1_fuq1_aNo
+        , a_km1_ch1_q2_aYesFu1
+        , a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2
+        , a_km1_ch1_q2_aNoFu2
+        , a_km1_ch1_q2_aYesFu2
+        , a_km1_ch1_q2_eAlbert
+        , a_km1_ch1_q2_eNikola
+        , a_km1_ch1_q2_rCh1
+        , a_km1_ch1_q2_rCh2
+        , a_km1_ch2
+        , a_km1_ch2_q3
+        , a_km1_ch2_q3_aNo2
+        , a_km1_ch2_q3_aYes2
         ]
     , _branchWithEventsCreatedAt = amsterdamBranch ^. createdAt
     , _branchWithEventsUpdatedAt = amsterdamBranch ^. updatedAt
@@ -92,7 +90,7 @@ amsterdamBranchDetail =
     , _branchDetailDTOPreviousPackageId = amsterdamBranch ^. previousPackageId
     , _branchDetailDTOForkOfPackageId = amsterdamBranch ^. forkOfPackageId
     , _branchDetailDTOOwnerUuid = amsterdamBranch ^. ownerUuid
-    , _branchDetailDTOEvents = toDTOs $ amsterdamBranchWithEvents ^. events
+    , _branchDetailDTOEvents = amsterdamBranchWithEvents ^. events
     , _branchDetailDTOCreatedAt = amsterdamBranch ^. createdAt
     , _branchDetailDTOUpdatedAt = amsterdamBranch ^. updatedAt
     }

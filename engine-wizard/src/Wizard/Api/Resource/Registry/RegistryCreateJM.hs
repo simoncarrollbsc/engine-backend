@@ -6,7 +6,7 @@ import Shared.Util.JSON
 import Wizard.Api.Resource.Registry.RegistryCreateDTO
 
 instance FromJSON RegistryCreateDTO where
-  parseJSON = simpleParseJSON "_registryCreateDTO"
+  parseJSON = genericParseJSON simpleOptions
 
 instance ToJSON RegistryCreateDTO where
-  toJSON = simpleToJSON "_registryCreateDTO"
+  toJSON = genericToJSON simpleOptions

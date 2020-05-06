@@ -11,9 +11,8 @@ import qualified Prelude
 
 import LensesConfig
 import Shared.Model.Event.Event
-import Shared.Model.Event.Move.MoveEvent
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Shared.Model.KnowledgeModel.KnowledgeModelUtil
 import Shared.Model.Questionnaire.QuestionnaireUtil
 import Shared.Util.String (replace)
@@ -44,7 +43,6 @@ generateQuestionMoveEvent oldParentMap newParentMap events entity =
     newParentUuid <- M.lookup (entity ^. uuid') newParentMap
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
-          MoveQuestionEvent'
             MoveQuestionEvent
               { _moveQuestionEventUuid = U.nil
               , _moveQuestionEventParentUuid = oldParentUuid
@@ -60,7 +58,6 @@ generateAnswerMoveEvents oldParentMap newParentMap events entity =
     newParentUuid <- M.lookup (entity ^. uuid') newParentMap
     _ <- guard $ newParentUuid /= oldParentUuid
     let event =
-          MoveAnswerEvent'
             MoveAnswerEvent
               { _moveAnswerEventUuid = U.nil
               , _moveAnswerEventParentUuid = oldParentUuid
@@ -72,25 +69,24 @@ generateAnswerMoveEvents oldParentMap newParentMap events entity =
 -- ----------------------------------------------------------------------
 -- ----------------------------------------------------------------------
 processReplies :: KnowledgeModel -> [Reply] -> Event -> [Reply]
-processReplies km replies (MoveQuestionEvent' event) = processRepliesForQuestionMove km event replies
-processReplies km replies (MoveAnswerEvent' event) = deleteUnwantedReplies (event ^. entityUuid) replies
+processReplies km replies (event@MoveQuestionEvent {}) = processRepliesForQuestionMove km event replies
+processReplies km replies (event@MoveAnswerEvent {}) = deleteUnwantedReplies (event ^. entityUuid') replies
 processReplies _ replies _ = replies
 
 processRepliesForQuestionMove ::
-     (HasParentUuid event U.UUID, HasTargetUuid event U.UUID, HasEntityUuid event U.UUID)
-  => KnowledgeModel
-  -> event
+  KnowledgeModel
+  -> Event
   -> [Reply]
   -> [Reply]
 processRepliesForQuestionMove km event replies =
   let parentMap = makeParentMap km
-      pPath = computeParentPath parentMap (event ^. parentUuid)
-      tPath = computeParentPath parentMap (event ^. targetUuid)
+      pPath = computeParentPath parentMap (event ^. parentUuid')
+      tPath = computeParentPath parentMap (event ^. targetUuid')
       sharedNode = computeSharedNode pPath tPath
       sharedPath = takeSharedPrefix sharedNode tPath
       pPathDiff = takeDiffSuffix sharedNode pPath
       tPathDiff = takeDiffSuffix sharedNode tPath
-   in doMigration km (event ^. entityUuid) pPathDiff tPathDiff replies
+   in doMigration km (event ^. entityUuid') pPathDiff tPathDiff replies
 
 computeParentPath :: KMParentMap -> U.UUID -> [U.UUID]
 computeParentPath parentMap eUuid =

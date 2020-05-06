@@ -8,7 +8,6 @@ import LensesConfig
 import Shared.Api.Resource.Package.PackageDTO
 import Shared.Constant.KnowledgeModel
 import Shared.Database.Migration.Development.Event.Data.Events
-import Shared.Model.Event.Event
 import Shared.Model.Package.PackageWithEvents
 import Shared.Service.Package.PackageMapper
 
@@ -27,7 +26,7 @@ globalPackageEmpty =
     , _packageWithEventsPreviousPackageId = Nothing
     , _packageWithEventsForkOfPackageId = Nothing
     , _packageWithEventsMergeCheckpointPackageId = Nothing
-    , _packageWithEventsEvents = [AddQuestionEvent' a_km1_ch1_q1']
+    , _packageWithEventsEvents = [a_km1_ch1_q1]
     , _packageWithEventsCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
@@ -46,13 +45,7 @@ globalPackage =
     , _packageWithEventsPreviousPackageId = Nothing
     , _packageWithEventsForkOfPackageId = Nothing
     , _packageWithEventsMergeCheckpointPackageId = Nothing
-    , _packageWithEventsEvents =
-        [ AddKnowledgeModelEvent' a_km1
-        , AddTagEvent' a_km1_tds
-        , AddTagEvent' a_km1_tbi
-        , AddIntegrationEvent' a_km1_iop
-        , AddIntegrationEvent' a_km1_ibp
-        ]
+    , _packageWithEventsEvents = [a_km1, a_km1_tds, a_km1_tbi, a_km1_iop, a_km1_ibp]
     , _packageWithEventsCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
@@ -74,7 +67,7 @@ netherlandsPackage =
     , _packageWithEventsPreviousPackageId = Just $ globalPackage ^. pId
     , _packageWithEventsForkOfPackageId = Just $ globalPackage ^. pId
     , _packageWithEventsMergeCheckpointPackageId = Just $ globalPackage ^. pId
-    , _packageWithEventsEvents = [AddChapterEvent' a_km1_ch1]
+    , _packageWithEventsEvents = [a_km1_ch1]
     , _packageWithEventsCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
@@ -93,7 +86,7 @@ netherlandsPackageV2 =
     , _packageWithEventsPreviousPackageId = Just $ netherlandsPackage ^. pId
     , _packageWithEventsForkOfPackageId = Just $ globalPackage ^. pId
     , _packageWithEventsMergeCheckpointPackageId = Just $ globalPackage ^. pId
-    , _packageWithEventsEvents = [AddChapterEvent' a_km1_ch4]
+    , _packageWithEventsEvents = [a_km1_ch4]
     , _packageWithEventsCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }
 
@@ -132,48 +125,48 @@ germanyPackage =
     , _packageWithEventsForkOfPackageId = Just $ globalPackageEmpty ^. pId
     , _packageWithEventsMergeCheckpointPackageId = Just $ globalPackageEmpty ^. pId
     , _packageWithEventsEvents =
-        [ AddKnowledgeModelEvent' a_km1
-        , AddTagEvent' a_km1_tds
-        , AddTagEvent' a_km1_tbi
-        , AddIntegrationEvent' a_km1_iop
-        , AddIntegrationEvent' a_km1_ibp
-        , AddChapterEvent' a_km1_ch1
-        , AddQuestionEvent' a_km1_ch1_q1'
-        , AddQuestionEvent' a_km1_ch1_q2'
-        , AddAnswerEvent' a_km1_ch1_q2_aNo1
-        , AddAnswerEvent' a_km1_ch1_q2_aYes1
-        , AddQuestionEvent' a_km1_ch1_ansYes1_fuq1'
-        , AddAnswerEvent' a_km1_ch1_q2_aYes1_fuq1_aNo
-        , AddAnswerEvent' a_km1_ch1_q2_aYesFu1
-        , AddQuestionEvent' a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2'
-        , AddAnswerEvent' a_km1_ch1_q2_aNoFu2
-        , AddAnswerEvent' a_km1_ch1_q2_aYesFu2
-        , AddExpertEvent' a_km1_ch1_q2_eAlbert
-        , AddExpertEvent' a_km1_ch1_q2_eNikola
-        , AddReferenceEvent' a_km1_ch1_q2_rCh1'
-        , AddReferenceEvent' a_km1_ch1_q2_rCh2'
-        , AddChapterEvent' a_km1_ch2
-        , AddQuestionEvent' a_km1_ch2_q3'
-        , AddAnswerEvent' a_km1_ch2_q3_aNo2
-        , AddAnswerEvent' a_km1_ch2_q3_aYes2
-        , AddQuestionEvent' a_km1_ch2_q4'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q5'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q7'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q8'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q6'
-        , AddAnswerEvent' a_km1_ch2_q4_it_q6_aNo
-        , AddAnswerEvent' a_km1_ch2_q4_it_q6_aYes
-        , AddQuestionEvent' a_km1_ch2_ansYes6_fuq4'
-        , AddQuestionEvent' a_km1_ch2_ansYes6_fuq5'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q6_fuq4_q1'
-        , AddQuestionEvent' a_km1_ch2_q4_it1_q6_fuq4_q2'
-        , AddExpertEvent' a_km1_ch2_q6_eAlbert
-        , AddExpertEvent' a_km1_ch2_q6_eNikola
-        , AddReferenceEvent' a_km1_ch2_q6_rCh1'
-        , AddReferenceEvent' a_km1_ch2_q6_rCh2'
-        , AddChapterEvent' a_km1_ch3
-        , AddQuestionEvent' a_km1_ch3_q9'
-        , AddQuestionEvent' a_km1_ch3_q10'
+        [ a_km1
+        , a_km1_tds
+        , a_km1_tbi
+        , a_km1_iop
+        , a_km1_ibp
+        , a_km1_ch1
+        , a_km1_ch1_q1
+        , a_km1_ch1_q2
+        , a_km1_ch1_q2_aNo1
+        , a_km1_ch1_q2_aYes1
+        , a_km1_ch1_ansYes1_fuq1
+        , a_km1_ch1_q2_aYes1_fuq1_aNo
+        , a_km1_ch1_q2_aYesFu1
+        , a_km1_ch1_q2_ansYes_fuq1_ansYes_fuq2
+        , a_km1_ch1_q2_aNoFu2
+        , a_km1_ch1_q2_aYesFu2
+        , a_km1_ch1_q2_eAlbert
+        , a_km1_ch1_q2_eNikola
+        , a_km1_ch1_q2_rCh1
+        , a_km1_ch1_q2_rCh2
+        , a_km1_ch2
+        , a_km1_ch2_q3
+        , a_km1_ch2_q3_aNo2
+        , a_km1_ch2_q3_aYes2
+        , a_km1_ch2_q4
+        , a_km1_ch2_q4_it1_q5
+        , a_km1_ch2_q4_it1_q7
+        , a_km1_ch2_q4_it1_q8
+        , a_km1_ch2_q4_it1_q6
+        , a_km1_ch2_q4_it_q6_aNo
+        , a_km1_ch2_q4_it_q6_aYes
+        , a_km1_ch2_ansYes6_fuq4
+        , a_km1_ch2_ansYes6_fuq5
+        , a_km1_ch2_q4_it1_q6_fuq4_q1
+        , a_km1_ch2_q4_it1_q6_fuq4_q2
+        , a_km1_ch2_q6_eAlbert
+        , a_km1_ch2_q6_eNikola
+        , a_km1_ch2_q6_rCh1
+        , a_km1_ch2_q6_rCh2
+        , a_km1_ch3
+        , a_km1_ch3_q9
+        , a_km1_ch3_q10
         ]
     , _packageWithEventsCreatedAt = UTCTime (fromJust $ fromGregorianValid 2018 1 21) 0
     }

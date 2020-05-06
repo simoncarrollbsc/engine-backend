@@ -6,8 +6,8 @@ import Prelude hiding (lookup)
 
 import LensesConfig
 import Shared.Model.Event.EventAccessors
-import Shared.Model.Event.Tag.TagEvent
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import Shared.Model.Event.Event
+import LensesExtension
 import Wizard.Service.KnowledgeModel.Compilator.EventApplicator.EventApplicator
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Answer ()
 import Wizard.Service.KnowledgeModel.Compilator.Modifier.Chapter ()

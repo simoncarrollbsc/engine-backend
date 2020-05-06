@@ -85,3 +85,9 @@ simpleOptions = defaultOptions {fieldLabelModifier = fieldLabelModifierFn}
 
 fieldLabelModifierFn :: String -> String
 fieldLabelModifierFn value = jsonSpecialFields . lowerFirst $ splitOn "DTO" value !! 1
+
+simpleOptions' :: String -> Options
+simpleOptions' splitWord = defaultOptions {fieldLabelModifier = fieldLabelModifierFn' splitWord}
+
+fieldLabelModifierFn' :: String -> String -> String
+fieldLabelModifierFn' splitWord value = jsonSpecialFields . lowerFirst $ splitOn splitWord value !! 1

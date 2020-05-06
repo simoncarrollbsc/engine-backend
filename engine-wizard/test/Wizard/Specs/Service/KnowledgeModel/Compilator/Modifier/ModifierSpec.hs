@@ -100,7 +100,7 @@ modifierSpec =
            do
             let event = a_km1_ch1_q1'
             -- AND: Expectations
-            let expected = question1'
+            let expected = question1
             -- WHEN:
             let computed = createEntity event
             -- THEN:
@@ -113,9 +113,9 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2'
               -- AND: Expectations
-              let expected = question2Edited'
+              let expected = question2Edited
               -- WHEN:
-              let computed = editEntity event question2'
+              let computed = editEntity event question2
               -- THEN:
               computed `shouldBe` expected
           describe "With changing question type" $
@@ -124,9 +124,9 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_type'
               -- AND: Expectations
-              let expected = question2WithNewType'
+              let expected = question2WithNewType
               -- WHEN:
-              let computed = editEntity event question2'
+              let computed = editEntity event question2
               -- THEN:
               computed `shouldBe` expected
         describe "ListQuestion" $ do
@@ -136,9 +136,9 @@ modifierSpec =
              do
               let event = e_km1_ch2_q4'
               -- AND: Expectations
-              let expected = question4Edited'
+              let expected = question4Edited
               -- WHEN:
-              let computed = editEntity event question4'
+              let computed = editEntity event question4
               -- THEN:
               computed `shouldBe` expected
           describe "With changing question type" $
@@ -147,9 +147,9 @@ modifierSpec =
              do
               let event = e_km1_ch2_q4_type'
               -- AND: Expectations
-              let expected = question4WithNewType'
+              let expected = question4WithNewType
               -- WHEN:
-              let computed = editEntity event question4'
+              let computed = editEntity event question4
               -- THEN:
               computed `shouldBe` expected
         describe "ValueQuestion" $ do
@@ -159,9 +159,9 @@ modifierSpec =
              do
               let event = e_km1_ch1_q1'
               -- AND: Expectations
-              let expected = question1Edited'
+              let expected = question1Edited
               -- WHEN:
-              let computed = editEntity event question1'
+              let computed = editEntity event question1
               -- THEN:
               computed `shouldBe` expected
           describe "With changing question type" $
@@ -170,9 +170,9 @@ modifierSpec =
              do
               let event = e_km1_ch1_q1_type'
               -- AND: Expectations
-              let expected = question1WithNewType'
+              let expected = question1WithNewType
               -- WHEN:
-              let computed = editEntity event question1'
+              let computed = editEntity event question1
               -- THEN:
               computed `shouldBe` expected
         describe "IntegrationQuestion" $ do
@@ -182,7 +182,7 @@ modifierSpec =
              do
               let event = e_km1_ch3_q9'
               -- AND: Expectations
-              let expected = question9Edited'
+              let expected = question9Edited
               -- WHEN:
               let computed = editEntity event question9'
               -- THEN:
@@ -193,7 +193,7 @@ modifierSpec =
              do
               let event = e_km1_ch3_q9_type'
               -- AND: Expectations
-              let expected = question9WithNewType'
+              let expected = question9WithNewType
               -- WHEN:
               let computed = editEntity event question9'
               -- THEN:
@@ -205,9 +205,9 @@ modifierSpec =
            do
             let event = e_km1_iop
             -- AND: Expectations
-            let expected = question2'
+            let expected = question2
             -- WHEN:
-            let computed = updateIntegrationProps event question2'
+            let computed = updateIntegrationProps event question2
             -- THEN:
             computed `shouldBe` expected
         describe "ListQuestion" $ do
@@ -216,9 +216,9 @@ modifierSpec =
            do
             let event = e_km1_iop
             -- AND: Expectations
-            let expected = question4'
+            let expected = question4
             -- WHEN:
-            let computed = updateIntegrationProps event question4'
+            let computed = updateIntegrationProps event question4
             -- THEN:
             computed `shouldBe` expected
         describe "ValueQuestion" $ do
@@ -227,9 +227,9 @@ modifierSpec =
            do
             let event = e_km1_iop
             -- AND: Expectations
-            let expected = question1'
+            let expected = question1
             -- WHEN:
-            let computed = updateIntegrationProps event question1'
+            let computed = updateIntegrationProps event question1
             -- THEN:
             computed `shouldBe` expected
         describe "IntegrationQuestion" $ do
@@ -238,7 +238,7 @@ modifierSpec =
            do
             let event = e_km1_iop
             -- AND: Expectations
-            let expected = question9PropsEdited'
+            let expected = question9PropsEdited
             -- WHEN:
             let computed = updateIntegrationProps event question9'
             -- THEN:
@@ -332,7 +332,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh1'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r1Edited'
+              let expected = km1_ch1_q2_r1Edited
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r1'
               -- THEN:
@@ -343,7 +343,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh1_type'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r1WithNewType'
+              let expected = km1_ch1_q2_r1WithNewType
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r1'
               -- THEN:
@@ -355,7 +355,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh2'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r2Edited'
+              let expected = km1_ch1_q2_r2Edited
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r2'
               -- THEN:
@@ -366,7 +366,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh2_type'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r2WithNewType'
+              let expected = km1_ch1_q2_r2WithNewType
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r2'
               -- THEN:
@@ -378,7 +378,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh3'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r3Edited'
+              let expected = km1_ch1_q2_r3Edited
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r3'
               -- THEN:
@@ -389,7 +389,7 @@ modifierSpec =
              do
               let event = e_km1_ch1_q2_rCh3_type'
               -- AND: Expectations
-              let expected = km1_ch1_q2_r3WithNewType'
+              let expected = km1_ch1_q2_r3WithNewType
               -- WHEN:
               let computed = editEntity event km1_ch1_q2_r3'
               -- THEN:

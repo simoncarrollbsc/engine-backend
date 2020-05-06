@@ -6,9 +6,8 @@ import Data.Maybe (isNothing)
 
 import LensesConfig
 import Shared.Model.Event.Event
-import Shared.Model.Event.EventAccessors
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Wizard.Model.Migration.KnowledgeModel.MigratorState
 
 isCleanerMethod :: MigratorState -> Event -> Bool
@@ -20,47 +19,66 @@ isCleanerMethod state event = getKM $ \km -> doIsCleanerMethod km event
         Nothing -> False
 
 doIsCleanerMethod :: KnowledgeModel -> Event -> Bool
-doIsCleanerMethod km (AddKnowledgeModelEvent' event) = False
-doIsCleanerMethod km (EditKnowledgeModelEvent' event) = False
-doIsCleanerMethod km (AddChapterEvent' event) = False
-doIsCleanerMethod km (EditChapterEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. chaptersM)
-doIsCleanerMethod km (DeleteChapterEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. chaptersM)
-doIsCleanerMethod km (AddQuestionEvent' event) =
-  isNothing (M.lookup (getEventParentUuid event) (km ^. chaptersM)) &&
-  isNothing (M.lookup (getEventParentUuid event) (km ^. questionsM)) &&
-  isNothing (M.lookup (getEventParentUuid event) (km ^. answersM))
-doIsCleanerMethod km (EditQuestionEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. questionsM)
-doIsCleanerMethod km (DeleteQuestionEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. questionsM)
-doIsCleanerMethod km (AddAnswerEvent' event) = isNothing $ M.lookup (getEventParentUuid event) (km ^. questionsM)
-doIsCleanerMethod km (EditAnswerEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. answersM)
-doIsCleanerMethod km (DeleteAnswerEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. answersM)
-doIsCleanerMethod km (AddExpertEvent' event) = isNothing $ M.lookup (getEventParentUuid event) (km ^. questionsM)
-doIsCleanerMethod km (EditExpertEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. expertsM)
-doIsCleanerMethod km (DeleteExpertEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. expertsM)
-doIsCleanerMethod km (AddReferenceEvent' event) = isNothing $ M.lookup (getEventParentUuid event) (km ^. questionsM)
-doIsCleanerMethod km (EditReferenceEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. referencesM)
-doIsCleanerMethod km (DeleteReferenceEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. referencesM)
-doIsCleanerMethod km (AddTagEvent' event) = False
-doIsCleanerMethod km (EditTagEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. tagsM)
-doIsCleanerMethod km (DeleteTagEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. tagsM)
-doIsCleanerMethod km (AddIntegrationEvent' event) = False
-doIsCleanerMethod km (EditIntegrationEvent' event) = isNothing $ M.lookup (getEventNodeUuid event) (km ^. integrationsM)
-doIsCleanerMethod km (DeleteIntegrationEvent' event) =
-  isNothing $ M.lookup (getEventNodeUuid event) (km ^. integrationsM)
-doIsCleanerMethod km (MoveQuestionEvent' event) =
-  isNothing (M.lookup (getEventNodeUuid event) (km ^. questionsM)) ||
-  (isNothing (M.lookup (event ^. targetUuid) (km ^. chaptersM)) &&
-   isNothing (M.lookup (event ^. targetUuid) (km ^. questionsM)) &&
-   isNothing (M.lookup (event ^. targetUuid) (km ^. answersM)))
-doIsCleanerMethod km (MoveAnswerEvent' event) =
-  isNothing (M.lookup (getEventNodeUuid event) (km ^. answersM)) ||
-  isNothing (M.lookup (event ^. targetUuid) (km ^. questionsM))
-doIsCleanerMethod km (MoveExpertEvent' event) =
-  isNothing (M.lookup (getEventNodeUuid event) (km ^. expertsM)) ||
-  isNothing (M.lookup (event ^. targetUuid) (km ^. questionsM))
-doIsCleanerMethod km (MoveReferenceEvent' event) =
-  isNothing (M.lookup (getEventNodeUuid event) (km ^. referencesM)) ||
-  isNothing (M.lookup (event ^. targetUuid) (km ^. questionsM))
+doIsCleanerMethod km event@AddKnowledgeModelEvent {} = False
+doIsCleanerMethod km event@EditKnowledgeModelEvent {} = False
+doIsCleanerMethod km event@AddChapterEvent {} = False
+doIsCleanerMethod km event@EditChapterEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. chaptersM)
+doIsCleanerMethod km event@DeleteChapterEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. chaptersM)
+doIsCleanerMethod km event@AddOptionsQuestionEvent {} =
+  isNothing (M.lookup (event ^. parentUuid') (km ^. chaptersM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. questionsM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. answersM))
+doIsCleanerMethod km event@AddListQuestionEvent {} =
+  isNothing (M.lookup (event ^. parentUuid') (km ^. chaptersM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. questionsM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. answersM))
+doIsCleanerMethod km event@AddValueQuestionEvent {} =
+  isNothing (M.lookup (event ^. parentUuid') (km ^. chaptersM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. questionsM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. answersM))
+doIsCleanerMethod km event@AddIntegrationQuestionEvent {} =
+  isNothing (M.lookup (event ^. parentUuid') (km ^. chaptersM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. questionsM)) &&
+  isNothing (M.lookup (event ^. parentUuid') (km ^. answersM))
+doIsCleanerMethod km event@EditOptionsQuestionEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditListQuestionEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditValueQuestionEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditIntegrationQuestionEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. questionsM)
+doIsCleanerMethod km event@DeleteQuestionEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. questionsM)
+doIsCleanerMethod km event@AddAnswerEvent {} = isNothing $ M.lookup (event ^. parentUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditAnswerEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. answersM)
+doIsCleanerMethod km event@DeleteAnswerEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. answersM)
+doIsCleanerMethod km event@AddExpertEvent {} = isNothing $ M.lookup (event ^. parentUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditExpertEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. expertsM)
+doIsCleanerMethod km event@DeleteExpertEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. expertsM)
+doIsCleanerMethod km event@AddResourcePageReferenceEvent {} = isNothing $ M.lookup (event ^. parentUuid') (km ^. questionsM)
+doIsCleanerMethod km event@AddURLReferenceEvent {} = isNothing $ M.lookup (event ^. parentUuid') (km ^. questionsM)
+doIsCleanerMethod km event@AddCrossReferenceEvent {} = isNothing $ M.lookup (event ^. parentUuid') (km ^. questionsM)
+doIsCleanerMethod km event@EditResourcePageReferenceEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. referencesM)
+doIsCleanerMethod km event@EditURLReferenceEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. referencesM)
+doIsCleanerMethod km event@EditCrossReferenceEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. referencesM)
+doIsCleanerMethod km event@DeleteReferenceEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. referencesM)
+doIsCleanerMethod km event@AddTagEvent {} = False
+doIsCleanerMethod km event@EditTagEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. tagsM)
+doIsCleanerMethod km event@DeleteTagEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. tagsM)
+doIsCleanerMethod km event@AddIntegrationEvent {} = False
+doIsCleanerMethod km event@EditIntegrationEvent {} = isNothing $ M.lookup (event ^. entityUuid') (km ^. integrationsM)
+doIsCleanerMethod km event@DeleteIntegrationEvent {} =
+  isNothing $ M.lookup (event ^. entityUuid') (km ^. integrationsM)
+doIsCleanerMethod km event@MoveQuestionEvent {} =
+  isNothing (M.lookup (event ^. entityUuid') (km ^. questionsM)) ||
+  (isNothing (M.lookup (event ^. targetUuid') (km ^. chaptersM)) &&
+   isNothing (M.lookup (event ^. targetUuid') (km ^. questionsM)) &&
+   isNothing (M.lookup (event ^. targetUuid') (km ^. answersM)))
+doIsCleanerMethod km event@MoveAnswerEvent {} =
+  isNothing (M.lookup (event ^. entityUuid') (km ^. answersM)) ||
+  isNothing (M.lookup (event ^. targetUuid') (km ^. questionsM))
+doIsCleanerMethod km event@MoveExpertEvent {} =
+  isNothing (M.lookup (event ^. entityUuid') (km ^. expertsM)) ||
+  isNothing (M.lookup (event ^. targetUuid') (km ^. questionsM))
+doIsCleanerMethod km event@MoveReferenceEvent {} =
+  isNothing (M.lookup (event ^. entityUuid') (km ^. referencesM)) ||
+  isNothing (M.lookup (event ^. targetUuid') (km ^. questionsM))
 
 runCleanerMethod :: MigratorState -> Event -> IO MigratorState
 runCleanerMethod state event =

@@ -24,11 +24,9 @@ report1_total :: TotalReport
 report1_total =
   TotalReport
     { _totalReportIndications =
-        [ LevelsAnsweredIndication' $
-          LevelsAnsweredIndication
+        [ LevelsAnsweredIndication
             {_levelsAnsweredIndicationAnsweredQuestions = 5, _levelsAnsweredIndicationUnansweredQuestions = 1}
-        , AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}
+        , AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}
         ]
     , _totalReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Just 1.0}
@@ -42,11 +40,9 @@ report1_total_full :: TotalReport
 report1_total_full =
   TotalReport
     { _totalReportIndications =
-        [ LevelsAnsweredIndication' $
-          LevelsAnsweredIndication
+        [ LevelsAnsweredIndication
             {_levelsAnsweredIndicationAnsweredQuestions = 5, _levelsAnsweredIndicationUnansweredQuestions = 1}
-        , AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}
+        , AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}
         ]
     , _totalReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Just 1.0}
@@ -62,9 +58,7 @@ report1_total_full_disabled_levels :: TotalReport
 report1_total_full_disabled_levels =
   TotalReport
     { _totalReportIndications =
-        [ AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}
-        ]
+        [AnsweredIndication {_answeredIndicationAnsweredQuestions = 12, _answeredIndicationUnansweredQuestions = 1}]
     , _totalReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Just 1.0}
         , MetricSummary {_metricSummaryMetricUuid = metricA ^. uuid, _metricSummaryMeasure = Just 1.0}
@@ -80,11 +74,9 @@ report1_ch1 =
   ChapterReport
     { _chapterReportChapterUuid = chapter1 ^. uuid
     , _chapterReportIndications =
-        [ LevelsAnsweredIndication' $
-          LevelsAnsweredIndication
+        [ LevelsAnsweredIndication
             {_levelsAnsweredIndicationAnsweredQuestions = 1, _levelsAnsweredIndicationUnansweredQuestions = 0}
-        , AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 3, _answeredIndicationUnansweredQuestions = 0}
+        , AnsweredIndication {_answeredIndicationAnsweredQuestions = 3, _answeredIndicationUnansweredQuestions = 0}
         ]
     , _chapterReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricI ^. uuid, _metricSummaryMeasure = Just 1.0}
@@ -112,9 +104,7 @@ report1_ch1_full_disabled_levels =
   ChapterReport
     { _chapterReportChapterUuid = report1_ch1 ^. chapterUuid
     , _chapterReportIndications =
-        [ AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 3, _answeredIndicationUnansweredQuestions = 0}
-        ]
+        [AnsweredIndication {_answeredIndicationAnsweredQuestions = 3, _answeredIndicationUnansweredQuestions = 0}]
     , _chapterReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Nothing}
         , MetricSummary {_metricSummaryMetricUuid = metricA ^. uuid, _metricSummaryMeasure = Nothing}
@@ -130,11 +120,9 @@ report1_ch2 =
   ChapterReport
     { _chapterReportChapterUuid = chapter2 ^. uuid
     , _chapterReportIndications =
-        [ LevelsAnsweredIndication' $
-          LevelsAnsweredIndication
+        [ LevelsAnsweredIndication
             {_levelsAnsweredIndicationAnsweredQuestions = 2, _levelsAnsweredIndicationUnansweredQuestions = 1}
-        , AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 7, _answeredIndicationUnansweredQuestions = 1}
+        , AnsweredIndication {_answeredIndicationAnsweredQuestions = 7, _answeredIndicationUnansweredQuestions = 1}
         ]
     , _chapterReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Just 1.0}
@@ -161,9 +149,7 @@ report1_ch2_full_disabled_levels =
   ChapterReport
     { _chapterReportChapterUuid = report1_ch2 ^. chapterUuid
     , _chapterReportIndications =
-        [ AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 7, _answeredIndicationUnansweredQuestions = 1}
-        ]
+        [AnsweredIndication {_answeredIndicationAnsweredQuestions = 7, _answeredIndicationUnansweredQuestions = 1}]
     , _chapterReportMetrics =
         (report1_ch2 ^. metrics) ++
         [ MetricSummary {_metricSummaryMetricUuid = metricI ^. uuid, _metricSummaryMeasure = Nothing}
@@ -178,11 +164,9 @@ report1_ch3 =
   ChapterReport
     { _chapterReportChapterUuid = chapter3 ^. uuid
     , _chapterReportIndications =
-        [ LevelsAnsweredIndication' $
-          LevelsAnsweredIndication
+        [ LevelsAnsweredIndication
             {_levelsAnsweredIndicationAnsweredQuestions = 2, _levelsAnsweredIndicationUnansweredQuestions = 0}
-        , AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 2, _answeredIndicationUnansweredQuestions = 0}
+        , AnsweredIndication {_answeredIndicationAnsweredQuestions = 2, _answeredIndicationUnansweredQuestions = 0}
         ]
     , _chapterReportMetrics = []
     }
@@ -207,9 +191,7 @@ report1_ch3_full_disabled_levels =
   ChapterReport
     { _chapterReportChapterUuid = report1_ch3 ^. chapterUuid
     , _chapterReportIndications =
-        [ AnsweredIndication' $
-          AnsweredIndication {_answeredIndicationAnsweredQuestions = 2, _answeredIndicationUnansweredQuestions = 0}
-        ]
+        [AnsweredIndication {_answeredIndicationAnsweredQuestions = 2, _answeredIndicationUnansweredQuestions = 0}]
     , _chapterReportMetrics =
         [ MetricSummary {_metricSummaryMetricUuid = metricF ^. uuid, _metricSummaryMeasure = Nothing}
         , MetricSummary {_metricSummaryMetricUuid = metricA ^. uuid, _metricSummaryMeasure = Nothing}

@@ -34,20 +34,12 @@ data ChapterReportDTO =
     }
   deriving (Show, Eq, Generic)
 
-data IndicationDTO
-  = AnsweredIndicationDTO' AnsweredIndicationDTO
-  | LevelsAnsweredIndicationDTO' LevelsAnsweredIndicationDTO
-  deriving (Show, Eq, Generic)
-
-data AnsweredIndicationDTO =
+data IndicationDTO =
   AnsweredIndicationDTO
     { _answeredIndicationDTOAnsweredQuestions :: Int
     , _answeredIndicationDTOUnansweredQuestions :: Int
     }
-  deriving (Show, Eq, Generic)
-
-data LevelsAnsweredIndicationDTO =
-  LevelsAnsweredIndicationDTO
+  | LevelsAnsweredIndicationDTO
     { _levelsAnsweredIndicationDTOAnsweredQuestions :: Int
     , _levelsAnsweredIndicationDTOUnansweredQuestions :: Int
     }

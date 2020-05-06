@@ -8,7 +8,7 @@ import qualified Data.UUID as U
 
 import LensesConfig
 import Shared.Model.KnowledgeModel.KnowledgeModel
-import Shared.Model.KnowledgeModel.KnowledgeModelLenses
+import LensesExtension
 import Shared.Util.Math
 import Shared.Util.String
 import Wizard.Model.Questionnaire.QuestionnaireReply

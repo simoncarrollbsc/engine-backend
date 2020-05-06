@@ -5,9 +5,9 @@ import GHC.Generics
 
 data FeedbackCreateDTO =
   FeedbackCreateDTO
-    { _feedbackCreateDTOQuestionUuid :: U.UUID
-    , _feedbackCreateDTOPackageId :: String
-    , _feedbackCreateDTOTitle :: String
-    , _feedbackCreateDTOContent :: String
+    { _questionUuid :: U.UUID
+    , _packageId :: String
+    , _title :: String
+    , _content :: String
     }
   deriving (Show, Eq, Generic)

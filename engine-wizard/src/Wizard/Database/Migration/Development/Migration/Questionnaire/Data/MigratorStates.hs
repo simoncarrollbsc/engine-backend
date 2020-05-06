@@ -3,6 +3,7 @@ module Wizard.Database.Migration.Development.Migration.Questionnaire.Data.Migrat
 import Control.Lens ((^.))
 
 import LensesConfig
+import LensesExtension
 import Shared.Database.Migration.Development.KnowledgeModel.Data.KnowledgeModels
 import Shared.Database.Migration.Development.KnowledgeModel.Data.Questions
 import Shared.Database.Migration.Development.Package.Data.Packages
@@ -19,7 +20,7 @@ nlQtnMigrationState =
   MigratorState
     { _migratorStateOldQuestionnaireUuid = nlQtnMigrationStateDto ^. oldQuestionnaire . uuid
     , _migratorStateNewQuestionnaireUuid = nlQtnMigrationStateDto ^. newQuestionnaire . uuid
-    , _migratorStateResolvedQuestionUuids = [question2 ^. uuid]
+    , _migratorStateResolvedQuestionUuids = [question2 ^. uuid']
     }
 
 nlQtnMigrationStateDto :: MigratorStateDTO
@@ -29,7 +30,7 @@ nlQtnMigrationStateDto =
         toDetailWithPackageWithEventsDTO questionnaire4 netherlandsPackage km1Netherlands QSOutdated
     , _migratorStateDTONewQuestionnaire =
         toDetailWithPackageWithEventsDTO questionnaire4Upgraded netherlandsPackageV2 km1NetherlandsV2 QSMigrating
-    , _migratorStateDTOResolvedQuestionUuids = [question2 ^. uuid]
+    , _migratorStateDTOResolvedQuestionUuids = [question2 ^. uuid']
     }
 
 nlQtnMigrationStatePublicReadOnlyDto :: MigratorStateDTO
@@ -61,7 +62,7 @@ nlQtnMigrationStateDtoEdited =
   MigratorStateDTO
     { _migratorStateDTOOldQuestionnaire = nlQtnMigrationStateDto ^. oldQuestionnaire
     , _migratorStateDTONewQuestionnaire = nlQtnMigrationStateDto ^. newQuestionnaire
-    , _migratorStateDTOResolvedQuestionUuids = [question2 ^. uuid, question3 ^. uuid]
+    , _migratorStateDTOResolvedQuestionUuids = [question2 ^. uuid', question3 ^. uuid']
     }
 
 migratorStateCreate :: MigratorStateCreateDTO

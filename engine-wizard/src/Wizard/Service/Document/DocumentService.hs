@@ -12,12 +12,12 @@ import qualified Data.UUID as U
 
 import LensesConfig hiding (hash)
 import Shared.Constant.Component
+import Shared.Model.Common.Lens
 import Shared.Model.Common.Page
 import Shared.Model.Common.Pageable
 import Shared.Model.Common.Sort
 import Shared.Model.Error.Error
 import Shared.Util.Uuid
-import Wizard.Api.Resource.Document.DocumentContextJM ()
 import Wizard.Api.Resource.Document.DocumentCreateDTO
 import Wizard.Api.Resource.Document.DocumentDTO
 import Wizard.Database.DAO.Document.DocumentDAO
@@ -31,6 +31,7 @@ import Wizard.Service.Acl.AclService
 import Wizard.Service.Document.DocumentAcl
 import Wizard.Service.Document.DocumentMapper
 import Wizard.Service.Document.DocumentUtils
+import Wizard.Service.Questionnaire.Compiler.CompilerService
 import Wizard.Service.Questionnaire.QuestionnaireAcl
 import Wizard.Service.Questionnaire.QuestionnaireService
 import Wizard.Service.Template.TemplateService
@@ -63,7 +64,8 @@ createDocumentWithDurability dto durability = do
   mCurrentUser <- asks _appContextCurrentUser
   dUuid <- liftIO generateUuid
   now <- liftIO getCurrentTime
-  let repliesHash = hash . M.toList $ qtn ^. replies
+  qtnCtn <- compileQuestionnaire qtn
+  let repliesHash = hash . M.toList $ qtnCtn ^. replies
   let doc = fromCreateDTO dto dUuid durability repliesHash mCurrentUser now
   insertDocument doc
   publishToDocumentQueue doc
@@ -97,7 +99,8 @@ createDocumentPreview qtnUuid = do
   qtn <- findQuestionnaireById qtnUuid
   checkViewPermissionToQtn (qtn ^. visibility) (qtn ^. sharing) (qtn ^. permissions)
   docs <- findDocumentsFiltered [("questionnaireUuid", qtnUuid), ("durability", "TemporallyDocumentDurability")]
-  let repliesHash = hash . M.toList $ qtn ^. replies
+  qtnCtn <- compileQuestionnaire qtn
+  let repliesHash = hash . M.toList $ qtnCtn ^. replies
   logDebugU _CMP_SERVICE ("Replies hash: " ++ show repliesHash)
   let matchingDocs = filter (\d -> d ^. questionnaireRepliesHash == repliesHash) docs
   case filter (filterAlreadyDone qtn) matchingDocs of
@@ -128,6 +131,7 @@ createDocumentPreview qtnUuid = do
                 DocumentCreateDTO
                   { _documentCreateDTOName = qtn ^. name
                   , _documentCreateDTOQuestionnaireUuid = qtn ^. uuid
+                  , _documentCreateDTOQuestionnaireEventUuid = Just $ last (qtn ^. events) ^. uuid'
                   , _documentCreateDTOTemplateId = tUuid
                   , _documentCreateDTOFormatUuid = fUuid
                   }

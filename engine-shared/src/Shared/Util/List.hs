@@ -25,6 +25,14 @@ tailSafe :: [a] -> [a]
 tailSafe [] = []
 tailSafe (x:xs) = xs
 
+takeWhileInclusive :: (a -> Bool) -> [a] -> [a]
+takeWhileInclusive _ [] = []
+takeWhileInclusive p (x:xs) =
+  x :
+  if p x
+    then takeWhileInclusive p xs
+    else []
+
 generateList :: Int -> [Int]
 generateList size = [0 .. (size - 1)]
 
